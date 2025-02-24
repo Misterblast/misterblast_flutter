@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400802317803",
+    "project_id": "misterblast-app-dev",
+    "storage_bucket": "misterblast-app-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400802317803:android:383d9dcccbdeacc0ce45ae",
+        "android_client_info": {
+          "package_name": "com.example.misterblast_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNYIvAHx-QF1_HunFV5BidEv-J0xp500U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
