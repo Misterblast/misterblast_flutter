@@ -1,0 +1,1 @@
+enum SharedPreferencesKey { accesToken, userLocal }

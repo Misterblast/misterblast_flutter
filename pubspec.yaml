@@ -49,6 +49,7 @@ dependencies:
   freezed_annotation: ^2.4.4
   firebase_remote_config: ^5.4.1
   riverpod_generator: ^2.6.4
+  flutter_local_notifications: ^18.0.1
 
 dev_dependencies:
   flutter_test:

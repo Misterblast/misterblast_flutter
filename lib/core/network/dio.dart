@@ -16,7 +16,8 @@ Future<Dio> dio(Ref ref) async {
   dioInstance.options.sendTimeout = const Duration(minutes: 10);
   dioInstance.options.receiveTimeout = const Duration(minutes: 10);
   dioInstance.options.connectTimeout = const Duration(minutes: 10);
-  dioInstance.interceptors
-      .addAll([BaseUrlInterceptor(instance: remoteConfigInstance)]);
+  dioInstance.interceptors.addAll([
+    BaseUrlInterceptor(instance: remoteConfigInstance),
+  ]);
   return dioInstance;
 }
