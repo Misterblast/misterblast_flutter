@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:misterblast_flutter/core/network/interceptors/base_url.interceptor.dart';
-import 'package:misterblast_flutter/core/remote-config/remote_config.dart';
+import 'package:misterblast_flutter/src/core/network/interceptors/base_url.interceptor.dart';
+import 'package:misterblast_flutter/src/core/remote-config/remote_config.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio.g.dart';

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:misterblast_flutter/constants/remote_config.key.dart';
+import 'package:misterblast_flutter/src/constants/remote_config.key.dart';
 
 class BaseUrlInterceptor extends Interceptor {
   final FirebaseRemoteConfig remoteConfigInstance;
