@@ -1,0 +1,128 @@
+{
+  "common": {
+    "taxonomy": "Bloom Taxonomy",
+    "remember": "Remember",
+    "analyze": "Analyze",
+    "create": "Create",
+    "next": "Carry on",
+    "back": "Return",
+    "tap-to-change": "Tap to change",
+    "photo": "Photo",
+    "success": "Succeed",
+    "update-success": "Successfully changed",
+    "start-learn": "Start learning",
+    "continue-to-apps": "Continue to the application",
+    "greeting": "Welcomes",
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good afternoon",
+    "good-night": "Good night",
+    "see-all-works": "See all works",
+    "see-all-Submissions": "See all submissions"
+  },
+  "exceptions": {
+    "unknown-error": "An error occurs, please try a few more moments ...",
+    "operation-not-allowed": "Operation is not permitted",
+    "too-many-requests": "Too much request, try again later"
+  },
+  "settings": {
+    "language": {
+      "select-language": "Choose language",
+      "id": "Indonesia",
+      "en": "English"
+    }
+  },
+  "onboarding": {
+    "title": "Make quality questions with",
+    "description": "Arrange the questions easily based on the cognitive level of students, from {remember} to {analyze} and {create}. Make learning more effective and structured!"
+  },
+  "auth": {
+    "login": "Enter",
+    "register": "Create a new account",
+    "header": "Entered into",
+    "description": "Please enter your account data.",
+    "email": "E-mail",
+    "password": "Password",
+    "forgot-password": "Forgot password?",
+    "email-placeholder": "Enter your email",
+    "password-description": "Enter your password",
+    "full-name": "Full name",
+    "full-name-placeholder": "Enter your full name",
+    "password-hint-placeholder-min-char": "(At least 8 characters)",
+    "repeat-password-hint-placeholder": "Repeat passwords",
+    "register-header": "Account list",
+    "setup-profile-image": "Set your profile photo",
+    "register-account": "Account list",
+    "account-register": "Account registration",
+    "account-register-success-desc-1": "Have a good study! It's time to explore",
+    "account-register-success-desc-2": "and improve critical thinking.",
+    "back-to-first-page": "Return to the initial page",
+    "exceptions": {
+      "user-not-found": "Users are not found",
+      "wrong-password": "Password is wrong",
+      "invalid-email": "Invalid email",
+      "email-already-in-use": "Email is registered"
+    }
+  },
+  "forgot-password": {
+    "reset-password-header": "Reset passwords",
+    "reset-password-description": "Enter the email that you have registered so that we can help reset your password.",
+    "send-verification-email": "Send verification links",
+    "send-verification-email-description": "We will send a verification link to your email to reset the password.",
+    "check-email": "Please check your email and open the verification link to continue.",
+    "resend-verification-email": "Re -send email",
+    "not-received-email": "Not receiving email? Try again in {time}",
+    "input-new-password-desc": "Please enter your new password.",
+    "new-password": "New Password",
+    "new-password-placeholder": "Enter your new password",
+    "confirm-new-password": "Confirm the New Password",
+    "confirm-new-password-placeholder": "Confirmation Password",
+    "reset-password-button": "Change the password",
+    "new-password-tips": "Be sure to use a password that is easy to remember",
+    "continue-to-apps": "You can proceed to the application or return to the initial page, according to your needs."
+  },
+  "stats": {
+    "quiz-done": "The quiz is complete",
+    "quiz-average-score": "Average quiz value",
+    "task-done": "Task is done",
+    "task-average-score": "Average task score"
+  },
+  "menu": {
+    "self-learn": "Independent learning",
+    "evaluation-scoring": "Evaluation & Assessment",
+    "learning-progress": "Your learning progress",
+    "new-exploration": "The latest exploration",
+    "bottom-navbar": {
+      "home": "Home page",
+      "activity": "Activity",
+      "exploration": "Exploration",
+      "profile": "Profile"
+    },
+    "card": {
+      "app-guide": "Application Guide",
+      "app-guide-description": "Guide to using the {applicationName} application",
+      "material": "Material",
+      "material-description": "Learn material based on cognitive levels",
+      "examples": "Questions Example",
+      "examples-description": "Explore Examples of questions for mathematics, Pancasila, Indonesian, and MIPA subjects at the elementary school level"
+    }
+  },
+  "task": {
+    "title": "Task",
+    "task-description": "The task is designed to measure your understanding deeper. Admin will judge your work and provide feedback as a learning guide.",
+    "task-start": "Do the task",
+    "at-last-ten-task": "In the last 10 submissions",
+    "task-no-works": "Looks like you haven't collected assignments. Come on, start working on your first task and get an assessment and feedback from the instructor!"
+  },
+  "quiz": {
+    "title": "Quiz",
+    "quiz-description": "Do an interactive quiz for each subject in each class. Consists of 10 questions per subject with a time limit of 30 seconds per question. Challenge yourself and increase understanding quickly and fun.",
+    "quiz-start": "Do the quiz",
+    "at-last-ten-quiz": "In the last 10 assessments",
+    "quiz-no-works": "Haven't had time to work on a quiz? Come on, from now on and prove how far you have learned in the menu"
+  },
+  "exploration": {
+    "search-exploration-placeholder": "Find Exploration by Title",
+    "read-exploration": "Read more"
+  }
+}

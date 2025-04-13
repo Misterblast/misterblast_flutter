@@ -1,0 +1,128 @@
+{
+    "common": {
+        "taxonomy": "Taksonomi Bloom",
+        "remember": "Mengingat",
+        "analyze": "Menganalisis",
+        "create": "Menciptakan",
+        "next": "Lanjut",
+        "back": "Kembali",
+        "tap-to-change": "Ketuk untuk mengubah",
+        "photo": "Foto",
+        "success": "Berhasil",
+        "update-success": "Berhasil Diubah",
+        "start-learn": "Mulai Belajar",
+        "continue-to-apps": "Lanjutkan ke Aplikasi",
+        "greeting": "Selamat Datang",
+        "good-morning": "Selamat Pagi",
+        "good-afternoon": "Selamat Siang",
+        "good-evening": "Selamat Sore",
+        "good-night": "Selamat Malam",
+        "see-all-works": "Lihat Semua Pengerjaan",
+        "see-all-Submissions": "Lihat Semua Pengumpulan"
+    },
+    "exceptions": {
+        "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
+        "operation-not-allowed": "Operasi tidak diizinkan",
+        "too-many-requests": "Terlalu banyak permintaan, coba lagi nanti"
+    },
+    "settings": {
+        "language": {
+            "select-language": "Pilih Bahasa",
+            "id": "Indonesia",
+            "en": "Inggris"
+        }
+    },
+    "onboarding": {
+        "title": "Buat Soal Berkualitas Dengan",
+        "description": "Susun soal dengan mudah berdasarkan tingkat kognitif siswa, dari {remember} hingga {analyze} dan {create}. Buat pembelajaran lebih efektif dan terstruktur!"
+    },
+    "auth": {
+        "login": "Masuk",
+        "register": "Buat Akun Baru",
+        "header": "Masuk ke",
+        "description": "Silahkan Memasukan Data Akun anda.",
+        "email": "Email",
+        "password": "Kata Sandi",
+        "forgot-password": "Lupa Kata Sandi?",
+        "email-placeholder": "Masukkan email anda",
+        "password-description": "Masukkan kata sandi anda",
+        "full-name": "Nama Lengkap",
+        "full-name-placeholder": "Masukkan nama lengkap anda",
+        "password-hint-placeholder-min-char": "(Minimal 8 karakter)",
+        "repeat-password-hint-placeholder": "Ulangi kata sandi",
+        "register-header": "Daftar Akun",
+        "setup-profile-image": "Atur Foto Profil Anda",
+        "register-account": "Daftar Akun",
+        "account-register": "Pendaftaran Akun",
+        "account-register-success-desc-1": "Selamat belajar! Saatnya mengeksplorasi",
+        "account-register-success-desc-2": "dan meningkatkan cara berpikir kritis.",
+        "back-to-first-page": "Kembali ke Halaman Awal",
+        "exceptions": {
+            "user-not-found": "Pengguna tidak ditemukan",
+            "wrong-password": "Kata sandi salah",
+            "invalid-email": "Email tidak valid",
+            "email-already-in-use": "Email sudah terdaftar"
+        }
+    },
+    "forgot-password": {
+        "reset-password-header": "Atur Ulang Kata Sandi",
+        "reset-password-description": "Masukkan email yang pernah Anda daftarkan agar kami dapat membantu mengatur ulang kata sandi Anda.",
+        "send-verification-email": "Kirim Tautan Verifikasi",
+        "send-verification-email-description": "Kami akan mengirimkan tautan verifikasi ke email Anda untuk mengatur ulang kata sandi.",
+        "check-email": "Silakan periksa email Anda dan buka tautan verifikasi untuk melanjutkan.",
+        "resend-verification-email": "Kirim Ulang Email",
+        "not-received-email": "Tidak menerima email? Coba lagi dalam {time}",
+        "input-new-password-desc": "Silakan masukkan kata sandi baru Anda.",
+        "new-password": "Kata Sandi Baru",
+        "new-password-placeholder": "Masukkan kata sandi baru Anda",
+        "confirm-new-password": "Konfirmasi Kata Sandi Baru",
+        "confirm-new-password-placeholder": "Konfirmasi Kata Sandi",
+        "reset-password-button": "Ubah Kata Sandi",
+        "new-password-tips": "Pastikan untuk menggunakan kata sandi yang mudah diingat",
+        "continue-to-apps": "Anda dapat melanjutkan ke aplikasi atau kembali ke halaman awal, sesuai kebutuhan Anda."
+    },
+    "stats": {
+        "quiz-done": "Kuis Selesai",
+        "quiz-average-score": "Rata-rata Nilai Kuis",
+        "task-done": "Tugas Dikerjakan",
+        "task-average-score": "Rata-rata Skor Tugas"
+    },
+    "menu": {
+        "self-learn": "Pembelajaran Mandiri",
+        "evaluation-scoring": "Evaluasi & Penilaian",
+        "learning-progress": "Progress Belajar Kamu",
+        "new-exploration": "Eksplorasi Terbaru",
+        "bottom-navbar": {
+            "home": "Beranda",
+            "activity": "Aktivitas",
+            "exploration": "Eksplorasi",
+            "profile": "Profil"
+        },
+        "card": {
+            "app-guide": "Panduan Aplikasi",
+            "app-guide-description": "Panduan untuk penggunaan aplikasi {applicationName}",
+            "material": "Materi",
+            "material-description": "Pelajari materi berdasarkan level kognitif",
+            "examples": "Contoh Soal",
+            "examples-description": "Jelajahi Contoh Soal Untuk Mata Pelajaran Matematika, Pancasila, Bahasa Indonesia, dan MIPA Pada Jenjang Sekolah Dasar"
+        }
+    },
+    "task": {
+        "title": "Tugas",
+        "task-description": "Tugas dirancang untuk mengukur pemahamanmu lebih dalam. Admin akan menilai hasil kerjamu dan memberikan feedback sebagai panduan belajar.",
+        "task-start": "Kerjakan Tugas",
+        "at-last-ten-task": "Pada 10 Penilaian Terakhir",
+        "task-no-works": "Sepertinya kamu belum mengumpulkan tugas. Yuk, mulai kerjakan tugas pertamamu dan dapatkan penilaian serta feedback dari pengajar!"
+    },
+    "quiz": {
+        "title": "Kuis",
+        "quiz-description": "Kerjakan kuis interaktif untuk setiap mata pelajaran di tiap kelas. Terdiri dari 10 soal per mapel dengan batas waktu 30 detik per soal. Tantang dirimu dan tingkatkan pemahaman secara cepat dan menyenangkan.",
+        "quiz-start": "Kerjakan Kuis",
+        "at-last-ten-quiz": "Pada 10 Pengerjaan Terakhir",
+        "quiz-no-works": "Belum sempat kerjain kuis? Yuk, mulai sekarang dan buktikan seberapa jauh kamu sudah belajar di menu"
+    },
+    "exploration": {
+        "search-exploration-placeholder": "Cari Eksplorasi Berdasarkan Judul",
+        "read-exploration": "Baca lebih lanjut"
+    }
+}
