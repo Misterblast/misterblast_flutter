@@ -1,16 +1,81 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 String? fontFamily = GoogleFonts.poppins().fontFamily;
-
 final ThemeData appTheme = ThemeData(
-  primaryColor: const Color(0xFF006FFD),
+  primaryColor: AppColors.primary,
   scaffoldBackgroundColor: Colors.white,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.primary,
+      foregroundColor: Colors.white,
+      minimumSize: const Size.fromHeight(50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40),
+      ),
+      textStyle: TextStyle(
+        fontSize: AppFontSizes.md,
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      side: const BorderSide(color: AppColors.primary),
+      foregroundColor: Colors.blue,
+      backgroundColor: Colors.white,
+      minimumSize: const Size.fromHeight(50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      textStyle: TextStyle(
+        fontSize: AppFontSizes.md,
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w600,
+        color: AppColors.primary,
+      ),
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    filled: true,
+    fillColor: Colors.white,
+    // contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(
+        width: 1,
+        color: Colors.grey.withOpacity(0.5),
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(
+        width: 2,
+        color: AppColors.primary,
+      ),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(
+        width: 1,
+        color: Colors.grey.withOpacity(0.5),
+      ),
+    ),
+    hintStyle: TextStyle(
+      color: Colors.grey,
+      fontFamily: fontFamily,
+    ),
+    suffixIconColor: Colors.grey.withOpacity(0.5),
+  ),
   colorScheme: ColorScheme(
-    primary: const Color(0xFF006FFD),
-    secondary: const Color(0xFF5DA4FF),
-    surface: const Color(0xFFFFFFFF),
-    error: const Color(0xFFE74C3C),
+    primary: AppColors.primary,
+    secondary: AppColors.lightBlue,
+    surface: Colors.white,
+    error: AppColors.danger,
     onPrimary: Colors.white,
     onSecondary: Colors.black,
     onSurface: Colors.black,
@@ -18,6 +83,12 @@ final ThemeData appTheme = ThemeData(
     brightness: Brightness.light,
   ),
   textTheme: TextTheme(
+    headlineLarge: TextStyle(
+      fontSize: AppFontSizes.xl,
+      color: Colors.black,
+      fontFamily: fontFamily,
+      fontWeight: FontWeight.bold,
+    ),
     bodyLarge: TextStyle(
       color: Colors.black,
       fontFamily: fontFamily,
@@ -32,6 +103,7 @@ final ThemeData appTheme = ThemeData(
       fontFamily: fontFamily,
     ),
   ),
+  dialogBackgroundColor: Colors.white,
 );
 
 class AppColors {

@@ -23,7 +23,8 @@
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
     "operation-not-allowed": "Operation is not permitted",
-    "too-many-requests": "Too much request, try again later"
+    "too-many-requests": "Too much request, try again later",
+    "resource-not-found": "Data not available"
   },
   "settings": {
     "language": {
@@ -37,11 +38,11 @@
     "description": "Arrange the questions easily based on the cognitive level of students, from {remember} to {analyze} and {create}. Make learning more effective and structured!"
   },
   "auth": {
-    "login": "Enter",
+    "login": "Login",
     "register": "Create a new account",
     "header": "Entered into",
     "description": "Please enter your account data.",
-    "email": "E-mail",
+    "email": "Email",
     "password": "Password",
     "forgot-password": "Forgot password?",
     "email-placeholder": "Enter your email",
@@ -49,8 +50,8 @@
     "full-name": "Full name",
     "full-name-placeholder": "Enter your full name",
     "password-hint-placeholder-min-char": "(At least 8 characters)",
-    "repeat-password-hint-placeholder": "Repeat passwords",
-    "register-header": "Account list",
+    "repeat-password-hint-placeholder": "Repeat password",
+    "register-header": "Register to",
     "setup-profile-image": "Set your profile photo",
     "register-account": "Account list",
     "account-register": "Account registration",
@@ -58,19 +59,20 @@
     "account-register-success-desc-2": "and improve critical thinking.",
     "back-to-first-page": "Return to the initial page",
     "exceptions": {
-      "user-not-found": "Users are not found",
-      "wrong-password": "Password is wrong",
+      "user-not-found": "User not found",
+      "wrong-password": "Wrong Password, Please try again",
       "invalid-email": "Invalid email",
-      "email-already-in-use": "Email is registered"
+      "email-already-in-use": "Email is already registered",
+      "field-required": "{fieldName} is required."
     }
   },
   "forgot-password": {
-    "reset-password-header": "Reset passwords",
+    "reset-password-header": "Reset password",
     "reset-password-description": "Enter the email that you have registered so that we can help reset your password.",
     "send-verification-email": "Send verification links",
     "send-verification-email-description": "We will send a verification link to your email to reset the password.",
     "check-email": "Please check your email and open the verification link to continue.",
-    "resend-verification-email": "Re -send email",
+    "resend-verification-email": "Resend email",
     "not-received-email": "Not receiving email? Try again in {time}",
     "input-new-password-desc": "Please enter your new password.",
     "new-password": "New Password",
@@ -82,18 +84,18 @@
     "continue-to-apps": "You can proceed to the application or return to the initial page, according to your needs."
   },
   "stats": {
-    "quiz-done": "The quiz is complete",
-    "quiz-average-score": "Average quiz value",
-    "task-done": "Task is done",
-    "task-average-score": "Average task score"
+    "quiz-done": "Completed Quiz",
+    "quiz-average-score": "Average Quiz Score",
+    "task-done": "Submitted Tasks",
+    "task-average-score": "Average Task Score"
   },
   "menu": {
-    "self-learn": "Independent learning",
+    "self-learn": "Learn",
     "evaluation-scoring": "Evaluation & Assessment",
     "learning-progress": "Your learning progress",
-    "new-exploration": "The latest exploration",
+    "new-exploration": "Latest Exploration",
     "bottom-navbar": {
-      "home": "Home page",
+      "home": "Home",
       "activity": "Activity",
       "exploration": "Exploration",
       "profile": "Profile"
@@ -101,28 +103,28 @@
     "card": {
       "app-guide": "Application Guide",
       "app-guide-description": "Guide to using the {applicationName} application",
-      "material": "Material",
+      "material": "Learn Material",
       "material-description": "Learn material based on cognitive levels",
-      "examples": "Questions Example",
+      "examples": "Question Examples",
       "examples-description": "Explore Examples of questions for mathematics, Pancasila, Indonesian, and MIPA subjects at the elementary school level"
     }
   },
   "task": {
     "title": "Task",
     "task-description": "The task is designed to measure your understanding deeper. Admin will judge your work and provide feedback as a learning guide.",
-    "task-start": "Do the task",
+    "task-start": "Start Task",
     "at-last-ten-task": "In the last 10 submissions",
     "task-no-works": "Looks like you haven't collected assignments. Come on, start working on your first task and get an assessment and feedback from the instructor!"
   },
   "quiz": {
     "title": "Quiz",
     "quiz-description": "Do an interactive quiz for each subject in each class. Consists of 10 questions per subject with a time limit of 30 seconds per question. Challenge yourself and increase understanding quickly and fun.",
-    "quiz-start": "Do the quiz",
+    "quiz-start": "Start Quiz",
     "at-last-ten-quiz": "In the last 10 assessments",
     "quiz-no-works": "Haven't had time to work on a quiz? Come on, from now on and prove how far you have learned in the menu"
   },
   "exploration": {
     "search-exploration-placeholder": "Find Exploration by Title",
-    "read-exploration": "Read more"
+    "read-exploration": "Read More"
   }
 }

@@ -23,13 +23,18 @@ void main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-  runApp(ProviderScope(
+  runApp(
+    ProviderScope(
       child: EasyLocalization(
-    supportedLocales: const [
-      Locale('en'),
-      Locale('id'),
-    ],
-    path: 'assets/translations',
-    child: const App(),
-  )));
+        supportedLocales: const [
+          Locale('en'),
+          Locale('id'),
+        ],
+        useOnlyLangCode: true,
+        fallbackLocale: const Locale('en'),
+        path: 'assets/locales',
+        child: const App(),
+      ),
+    ),
+  );
 }

@@ -23,7 +23,8 @@
     "exceptions": {
         "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
         "operation-not-allowed": "Operasi tidak diizinkan",
-        "too-many-requests": "Terlalu banyak permintaan, coba lagi nanti"
+        "too-many-requests": "Terlalu banyak permintaan, coba lagi nanti",
+        "resource-not-found": "Data tidak tersedia"
     },
     "settings": {
         "language": {
@@ -61,7 +62,8 @@
             "user-not-found": "Pengguna tidak ditemukan",
             "wrong-password": "Kata sandi salah",
             "invalid-email": "Email tidak valid",
-            "email-already-in-use": "Email sudah terdaftar"
+            "email-already-in-use": "Email sudah terdaftar",
+            "field-required": "{fieldName} tidak boleh kosong."
         }
     },
     "forgot-password": {
