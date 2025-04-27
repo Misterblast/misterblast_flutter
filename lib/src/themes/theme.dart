@@ -35,7 +35,7 @@ final ThemeData appTheme = ThemeData(
       textStyle: TextStyle(
         fontSize: AppFontSizes.md,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
         color: AppColors.primary,
       ),
     ),
@@ -43,7 +43,6 @@ final ThemeData appTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Colors.white,
-    // contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(20),
       borderSide: BorderSide(
@@ -68,6 +67,7 @@ final ThemeData appTheme = ThemeData(
     hintStyle: TextStyle(
       color: Colors.grey,
       fontFamily: fontFamily,
+      fontSize: AppFontSizes.md,
     ),
     suffixIconColor: Colors.grey.withOpacity(0.5),
   ),
@@ -98,7 +98,7 @@ final ThemeData appTheme = ThemeData(
       fontFamily: fontFamily,
     ),
     bodySmall: TextStyle(
-      fontSize: AppFontSizes.xs,
+      fontSize: AppFontSizes.md,
       color: Colors.black,
       fontFamily: fontFamily,
     ),

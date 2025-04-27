@@ -38,12 +38,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         widget.label != null
             ? Text(
                 widget.label!,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
                     ),
               )
             : const SizedBox.shrink(),
         TextFormField(
+          keyboardType: widget.obsecure
+              ? TextInputType.visiblePassword
+              : TextInputType.emailAddress,
           controller: widget.controller,
           obscureText: widget.obsecure ? _isObscured : false,
           validator: (value) {
@@ -55,6 +58,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           style: Theme.of(context).textTheme.bodyMedium,
           decoration: InputDecoration(
             hintText: widget.hintText,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
             suffixIcon: widget.obsecure
                 ? IconButton(
                     icon: Icon(
