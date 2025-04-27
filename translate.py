@@ -6,9 +6,12 @@ from tqdm import tqdm
 version = input("Enter translation version for en (e.g. v1.0, v2-beta): ").strip()
 output_file = f"assets/locales/en_{version}.json"
 
-# Load file JSON Bahasa Indonesia
-with open("assets/locales/id.json", "r", encoding="utf-8") as file:
-    id_data = json.load(file)
+# Load JSON files for Bahasa Indonesia and English
+with open("assets/locales/id.json", "r", encoding="utf-8") as id_file:
+    id_data = json.load(id_file)
+
+with open("assets/locales/en.json", "r", encoding="utf-8") as en_file:
+    en_data = json.load(en_file)
 
 translator = GoogleTranslator(source='id', target='en')
 
@@ -44,18 +47,22 @@ def translate_text(text):
         translated = translated.replace(ph_text, ph)
     return translated
 
-# Flatten the nested JSON to a dict with key paths
-flat_data = flatten_json(id_data)
-translated_data = {}
+# Flatten both JSON files
+flat_id_data = flatten_json(id_data)
+flat_en_data = flatten_json(en_data)
 
-print("Translating...")
+# Prepare the translated data
+translated_data = flat_en_data.copy()  # Start with existing English data
 
-for key in tqdm(flat_data, desc="Translating keys", unit="key"):
-    value = flat_data[key]
-    if isinstance(value, str):
-        translated_data[key] = translate_text(value)
-    else:
-        translated_data[key] = value
+print("Translating missing keys...")
+
+for key in tqdm(flat_id_data, desc="Translating keys", unit="key"):
+    if key not in flat_en_data:  # Only translate keys that are missing in en.json
+        value = flat_id_data[key]
+        if isinstance(value, str):
+            translated_data[key] = translate_text(value)
+        else:
+            translated_data[key] = value
 
 # Rebuild the nested structure
 final_translated = unflatten_json(translated_data)
