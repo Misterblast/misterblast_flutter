@@ -40,7 +40,7 @@
   "auth": {
     "login": "Login",
     "register": "Create a new account",
-    "header": "Entered into",
+    "header": "Sign in to",
     "description": "Please enter your account data.",
     "email": "Email",
     "password": "Password",
