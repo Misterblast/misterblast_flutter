@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.misterblast_flutter"
+    namespace = "com.unesa.goassessment"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.misterblast_flutter"
+        applicationId = "com.unesa.goassessment"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
     super.key,
-    required this.controller,
+    this.controller,
     this.obsecure = false,
     this.label,
     this.hintText,
     this.validator,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool obsecure;
   final String? label;
   final String? hintText;

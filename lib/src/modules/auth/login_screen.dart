@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
@@ -138,19 +139,29 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           controller: _emailController,
                         ),
-                        AppTextFormField(
-                          obsecure: true,
-                          label: "auth.password".tr(),
-                          hintText:
-                              "auth.password-hint-placeholder-min-char".tr(),
-                          validator: (value) {
-                            return null;
-                          },
-                          controller: _passwordController,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            AppTextFormField(
+                              obsecure: true,
+                              label: "auth.password".tr(),
+                              hintText:
+                                  "auth.password-hint-placeholder-min-char"
+                                      .tr(),
+                              validator: (value) {
+                                return null;
+                              },
+                              controller: _passwordController,
+                            ),
+                            TextButton(
+                              child: Text("auth.forgot-password".tr()),
+                              onPressed: () => context.push("/reset-password"),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 8),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => context.push('/home'),
                           child: Text(
                             "auth.login".tr(),
                           ),

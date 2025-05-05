@@ -87,6 +87,18 @@ final ThemeData appTheme = ThemeData(
       fontSize: AppFontSizes.xl,
       color: Colors.black,
       fontFamily: fontFamily,
+      fontWeight: FontWeight.w900,
+    ),
+    headlineMedium: TextStyle(
+      fontSize: AppFontSizes.lg,
+      color: Colors.black,
+      fontFamily: fontFamily,
+      fontWeight: FontWeight.bold,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: AppFontSizes.lg,
+      color: Colors.black,
+      fontFamily: fontFamily,
       fontWeight: FontWeight.bold,
     ),
     bodyLarge: TextStyle(

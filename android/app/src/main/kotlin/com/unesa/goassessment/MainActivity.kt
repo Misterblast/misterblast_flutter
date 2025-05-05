@@ -1,4 +1,4 @@
-package com.example.misterblast_flutter
+package com.unesa.goassessment
 
 import io.flutter.embedding.android.FlutterActivity
 

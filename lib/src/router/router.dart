@@ -4,6 +4,9 @@ import 'package:misterblast_flutter/src/modules/auth/complete_register_screen.da
 
 import 'package:misterblast_flutter/src/modules/auth/login_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/register_screen.dart';
+import 'package:misterblast_flutter/src/modules/auth/reset_password.dart';
+import 'package:misterblast_flutter/src/modules/auth/update_password.dart';
+import 'package:misterblast_flutter/src/modules/home/home_screen.dart';
 import 'package:misterblast_flutter/src/modules/onboarding/onboarding_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,6 +33,25 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: "/register-completed",
         builder: (context, state) => const RegisterCompleted(),
+      ),
+      GoRoute(
+        path: "/reset-password",
+        builder: (context, state) => const ResetPassword(),
+      ),
+      GoRoute(
+        path: "/reset-password-verification",
+        builder: (context, state) {
+          final email = state.uri.queryParameters["email"] ?? '';
+          final code = state.uri.queryParameters["code"] ?? '';
+          return UpdatePassword(
+            email: email,
+            code: code,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/home',
+        builder: (_, state) => const HomeScreen(),
       ),
     ],
   );

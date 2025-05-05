@@ -12,7 +12,7 @@
     "update-success": "Successfully changed",
     "start-learn": "Start learning",
     "continue-to-apps": "Continue to the application",
-    "greeting": "Welcomes",
+    "greeting": "Welcome",
     "good-morning": "Good morning",
     "good-afternoon": "Good afternoon",
     "good-evening": "Good afternoon",
@@ -103,7 +103,7 @@
     "card": {
       "app-guide": "Application Guide",
       "app-guide-description": "Guide to using the {applicationName} application",
-      "material": "Learn Material",
+      "material": "Learning Material",
       "material-description": "Learn material based on cognitive levels",
       "examples": "Question Examples",
       "examples-description": "Explore Examples of questions for mathematics, Pancasila, Indonesian, and MIPA subjects at the elementary school level"
