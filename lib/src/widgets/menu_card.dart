@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:misterblast_flutter/src/themes/theme.dart';
 
 class MenuCard extends StatelessWidget {
   const MenuCard({
@@ -54,7 +55,9 @@ class MenuCard extends StatelessWidget {
                       },
                     ),
                     maxLines: 2,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: AppFontSizes.md,
+                        ),
                   ),
                 ],
               ),
