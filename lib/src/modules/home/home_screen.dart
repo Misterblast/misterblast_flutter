@@ -168,8 +168,55 @@ class HomeScreen extends StatelessWidget {
                               "menu.learning-progress".tr(),
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
-                            QuizChart(),
-                            TaskChart()
+                            QuizChart(quizData: []),
+                            TaskChart(taskData: []),
+                            Text(
+                              "menu.new-exploration".tr(),
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            ListView.separated(
+                              itemCount: 5,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 8),
+                              itemBuilder: (context, index) => ListTile(
+                                contentPadding: const EdgeInsets.all(8),
+                                leading: CircleAvatar(
+                                  maxRadius: 30,
+                                  backgroundColor: AppColors.lightBlue,
+                                  onBackgroundImageError:
+                                      (exception, stackTrace) =>
+                                          const Icon(Icons.error),
+                                  backgroundImage: NetworkImage(
+                                    "https://picsum.photos/id/237/200/300",
+                                  ),
+                                ),
+                                title: Text(
+                                  "exploration $index",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                                subtitle: Text(
+                                  "menu.card.material-description $index",
+                                  maxLines: 2,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: Colors.grey),
+                                ),
+                                titleAlignment: ListTileTitleAlignment.top,
+                                trailing: Text("12-12-2023",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(color: Colors.grey)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                tileColor: Colors.white,
+                              ),
+                            )
                           ],
                         ),
                       )

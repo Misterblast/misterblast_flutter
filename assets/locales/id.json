@@ -121,7 +121,7 @@
         "quiz-description": "Kerjakan kuis interaktif untuk setiap mata pelajaran di tiap kelas. Terdiri dari 10 soal per mapel dengan batas waktu 30 detik per soal. Tantang dirimu dan tingkatkan pemahaman secara cepat dan menyenangkan.",
         "quiz-start": "Tekan untuk Mengerjakan Kuis",
         "at-last-ten-quiz": "Pada 10 Pengerjaan Terakhir",
-        "quiz-no-works": "Belum sempat kerjain kuis? Yuk, mulai sekarang dan buktikan seberapa jauh kamu sudah belajar di menu"
+        "quiz-no-works": "Belum sempat kerjain kuis? Yuk, mulai sekarang dan buktikan seberapa jauh kamu sudah belajar di menu Kuis!"
     },
     "exploration": {
         "search-exploration-placeholder": "Cari Eksplorasi Berdasarkan Judul",

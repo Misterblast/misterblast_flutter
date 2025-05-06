@@ -7,7 +7,10 @@ import 'package:misterblast_flutter/src/widgets/app_chart.dart';
 class TaskChart extends StatelessWidget {
   const TaskChart({
     super.key,
+    required this.taskData,
   });
+
+  final List<Map<String, dynamic>> taskData;
 
   @override
   Widget build(BuildContext context) {
@@ -69,21 +72,42 @@ class TaskChart extends StatelessWidget {
               ),
             ],
           ),
-          AppChart(
-            lineColor: AppColors.primary,
-            spots: [
-              FlSpot(1, 20),
-              FlSpot(2, 40),
-              FlSpot(3, 60),
-              FlSpot(4, 80),
-              FlSpot(5, 100),
-              FlSpot(6, 90),
-              FlSpot(7, 70),
-              FlSpot(8, 50),
-              FlSpot(9, 30),
-              FlSpot(10, 20), // Example data points
-            ],
-          )
+          if (taskData.isEmpty)
+            Column(
+              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(),
+                Image.asset(
+                  "assets/images/empty-task.png",
+                  height: 200,
+                ),
+                Text(
+                  "task.task-no-works".tr(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: AppFontSizes.sm,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            )
+          else
+            AppChart(
+              lineColor: AppColors.primary,
+              spots: [
+                FlSpot(1, 20),
+                FlSpot(2, 40),
+                FlSpot(3, 60),
+                FlSpot(4, 80),
+                FlSpot(5, 100),
+                FlSpot(6, 90),
+                FlSpot(7, 70),
+                FlSpot(8, 50),
+                FlSpot(9, 30),
+                FlSpot(10, 20), // Example data points
+              ],
+            )
         ],
       ),
     );

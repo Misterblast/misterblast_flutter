@@ -8,7 +8,10 @@ import '../themes/theme.dart';
 class QuizChart extends StatelessWidget {
   const QuizChart({
     super.key,
+    required this.quizData,
   });
+
+  final List<Map<String, dynamic>> quizData;
 
   @override
   Widget build(BuildContext context) {
@@ -70,21 +73,42 @@ class QuizChart extends StatelessWidget {
               ),
             ],
           ),
-          AppChart(
-            lineColor: AppColors.coolTeal,
-            spots: [
-              FlSpot(1, 20),
-              FlSpot(2, 40),
-              FlSpot(3, 60),
-              FlSpot(4, 80),
-              FlSpot(5, 100),
-              FlSpot(6, 90),
-              FlSpot(7, 70),
-              FlSpot(8, 50),
-              FlSpot(9, 30),
-              FlSpot(10, 20), // Example data points
-            ],
-          )
+          if (quizData.isEmpty)
+            Column(
+              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(),
+                Image.asset(
+                  "assets/images/empty-quiz.png",
+                  height: 200,
+                ),
+                Text(
+                  "quiz.quiz-no-works".tr(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: AppFontSizes.sm * 1.2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            )
+          else
+            AppChart(
+              lineColor: AppColors.coolTeal,
+              spots: [
+                FlSpot(1, 20),
+                FlSpot(2, 40),
+                FlSpot(3, 60),
+                FlSpot(4, 80),
+                FlSpot(5, 100),
+                FlSpot(6, 90),
+                FlSpot(7, 70),
+                FlSpot(8, 50),
+                FlSpot(9, 30),
+                FlSpot(10, 20), // Example data points
+              ],
+            )
         ],
       ),
     );

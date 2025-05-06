@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/modules/activity/activity_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/complete_register_screen.dart';
 
 import 'package:misterblast_flutter/src/modules/auth/login_screen.dart';
@@ -73,7 +74,7 @@ GoRouter router(Ref ref) {
           GoRoute(
             path: '/activity',
             pageBuilder: (_, state) => NoTransitionPage(
-              child: const HomeScreen(),
+              child: const ActivityScreen(),
             ),
           ),
           GoRoute(
