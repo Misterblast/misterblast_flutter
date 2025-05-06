@@ -112,19 +112,25 @@
     "task": {
         "title": "Tugas",
         "task-description": "Tugas dirancang untuk mengukur pemahamanmu lebih dalam. Admin akan menilai hasil kerjamu dan memberikan feedback sebagai panduan belajar.",
-        "task-start": "Kerjakan Tugas",
+        "task-start": "Tekan untuk Mengerjakan Tugas",
         "at-last-ten-task": "Pada 10 Penilaian Terakhir",
         "task-no-works": "Sepertinya kamu belum mengumpulkan tugas. Yuk, mulai kerjakan tugas pertamamu dan dapatkan penilaian serta feedback dari pengajar!"
     },
     "quiz": {
         "title": "Kuis",
         "quiz-description": "Kerjakan kuis interaktif untuk setiap mata pelajaran di tiap kelas. Terdiri dari 10 soal per mapel dengan batas waktu 30 detik per soal. Tantang dirimu dan tingkatkan pemahaman secara cepat dan menyenangkan.",
-        "quiz-start": "Kerjakan Kuis",
+        "quiz-start": "Tekan untuk Mengerjakan Kuis",
         "at-last-ten-quiz": "Pada 10 Pengerjaan Terakhir",
         "quiz-no-works": "Belum sempat kerjain kuis? Yuk, mulai sekarang dan buktikan seberapa jauh kamu sudah belajar di menu"
     },
     "exploration": {
         "search-exploration-placeholder": "Cari Eksplorasi Berdasarkan Judul",
         "read-exploration": "Baca lebih lanjut"
+    },
+    "bottombar": {
+        "home": "Beranda",
+        "activity": "Aktivitas",
+        "exploration": "Eksplorasi",
+        "profile": "Profil"
     }
 }

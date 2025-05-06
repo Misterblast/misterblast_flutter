@@ -112,19 +112,25 @@
   "task": {
     "title": "Task",
     "task-description": "The task is designed to measure your understanding deeper. Admin will judge your work and provide feedback as a learning guide.",
-    "task-start": "Start Task!",
+    "task-start": "Tap to Start Task!",
     "at-last-ten-task": "In the last 10 submissions",
     "task-no-works": "Looks like you haven't collected assignments. Come on, start working on your first task and get an assessment and feedback from the instructor!"
   },
   "quiz": {
     "title": "Quiz",
     "quiz-description": "Do an interactive quiz for each subject in each class. Consists of 10 questions per subject with a time limit of 30 seconds per question. Challenge yourself and increase understanding quickly and fun.",
-    "quiz-start": "Start Quiz!",
+    "quiz-start": "Tap to Start Quiz!",
     "at-last-ten-quiz": "In the last 10 assessments",
     "quiz-no-works": "Haven't had time to work on a quiz? Come on, from now on and prove how far you have learned in the menu"
   },
   "exploration": {
     "search-exploration-placeholder": "Find Exploration by Title",
     "read-exploration": "Read More"
+  },
+  "bottombar": {
+    "home": "Home",
+    "activity": "Activity",
+    "exploration": "Exploration",
+    "profile": "Profile"
   }
 }

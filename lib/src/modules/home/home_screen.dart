@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/menu_card.dart';
+import 'package:misterblast_flutter/src/widgets/quiz_chart.dart';
 import 'package:misterblast_flutter/src/widgets/quiz_menu_card.dart';
 import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
+import 'package:misterblast_flutter/src/widgets/task_chart.dart';
 import 'package:misterblast_flutter/src/widgets/task_menu_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                     child: Column(
-                      spacing: 16,
+                      spacing: 12,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -75,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Column(
-                    spacing: 12,
+                    spacing: 8,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SingleChildScrollView(
@@ -128,7 +130,10 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
                         ),
                         child: Column(
                           spacing: 12,
@@ -136,12 +141,12 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Text(
                               "common.greeting".tr(),
-                              style: Theme.of(context).textTheme.headlineLarge,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                             MenuCard(),
                             Text(
                               "menu.self-learn".tr(),
-                              style: Theme.of(context).textTheme.headlineLarge,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                             MenuCard(
                               imageAsset: "assets/images/materi-icon.png",
@@ -155,10 +160,16 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               "menu.evaluation-scoring".tr(),
-                              style: Theme.of(context).textTheme.headlineLarge,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                             QuizMenuCard(),
-                            TaskMenuCard()
+                            TaskMenuCard(),
+                            Text(
+                              "menu.learning-progress".tr(),
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            QuizChart(),
+                            TaskChart()
                           ],
                         ),
                       )
