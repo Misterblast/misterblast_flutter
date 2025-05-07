@@ -30,6 +30,9 @@ class ChangeLocalButton extends StatelessWidget {
       ),
       child: Container(
         alignment: Alignment.center,
+        constraints: const BoxConstraints(
+          maxHeight: 30,
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,

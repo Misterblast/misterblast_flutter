@@ -15,34 +15,35 @@ class ActivityScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Opacity(
-                opacity: 0.3,
-                child: Icon(
-                  Icons.add_task_outlined,
-                  size: 100,
-                  color: Colors.white,
+        child: Stack(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Opacity(
+                  opacity: 0.3,
+                  child: Icon(
+                    Icons.add_task_outlined,
+                    size: 100,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                  child: ChangeLocalButton(),
+                ),
+              ],
+            ),
+            SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 60),
                 child: Column(
                   spacing: 20,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox.shrink(),
-                          ChangeLocalButton(),
-                        ],
-                      ),
-                    ),
                     Container(
                       width: double.maxFinite,
                       padding: const EdgeInsets.all(16),
@@ -58,22 +59,14 @@ class ActivityScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'bottombar.activity'.tr(),
-                            style: TextStyle(
-                              fontSize: AppFontSizes.xl,
-                              fontFamily: fontFamily,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            context.tr('bottombar.activity'),
+                            style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           QuizMenuCard(),
                           TaskMenuCard(),
                           Text(
-                            'activity.your-growth'.tr(),
-                            style: TextStyle(
-                              fontSize: AppFontSizes.xl,
-                              fontFamily: fontFamily,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            context.tr('activity.your-growth'),
+                            style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           QuizChart(quizData: []),
                           TaskChart(taskData: []),
@@ -83,8 +76,8 @@ class ActivityScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

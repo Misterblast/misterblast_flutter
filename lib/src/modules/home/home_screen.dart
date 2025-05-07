@@ -34,12 +34,16 @@ class HomeScreen extends StatelessWidget {
           child: Stack(
             fit: StackFit.loose,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Image.asset(
-                  'assets/images/home_decor.png',
-                  width: MediaQuery.sizeOf(context).width * 0.7,
-                ),
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Image.asset(
+                      'assets/images/home_decor.png',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                    ),
+                  ),
+                ],
               ),
               Column(
                 children: [

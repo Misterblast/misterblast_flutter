@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
@@ -48,13 +49,15 @@ class MenuCard extends StatelessWidget {
                     title.tr(),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                  Text(
+                  AutoSizeText(
                     description.tr(
                       namedArgs: {
                         "applicationName": "GoAssessment",
                       },
                     ),
-                    maxLines: 2,
+                    maxLines: 3,
+                    wrapWords: true,
+                    minFontSize: AppFontSizes.sm,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontSize: AppFontSizes.md,
                         ),
