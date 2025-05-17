@@ -7,8 +7,32 @@ import 'package:misterblast_flutter/src/widgets/quiz_menu_card.dart';
 import 'package:misterblast_flutter/src/widgets/task_chart.dart';
 import 'package:misterblast_flutter/src/widgets/task_menu_card.dart';
 
-class ActivityScreen extends StatelessWidget {
+class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key});
+
+  @override
+  State<ActivityScreen> createState() => _ActivityScreenState();
+}
+
+class _ActivityScreenState extends State<ActivityScreen> {
+  double _rowOpacity = 1.0;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      double offset = _scrollController.offset;
+      double newOpacity = 1.0 - (offset / 50);
+      if (newOpacity < 0.0) newOpacity = 0.0;
+      if (newOpacity > 1.0) newOpacity = 1.0;
+
+      setState(() {
+        _rowOpacity = newOpacity;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,26 +41,34 @@ class ActivityScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Opacity(
-                  opacity: 0.3,
-                  child: Icon(
-                    Icons.add_task_outlined,
-                    size: 100,
-                    color: Colors.white,
+            AnimatedOpacity(
+              opacity: _rowOpacity,
+              alwaysIncludeSemantics: true,
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeInOut,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Opacity(
+                    opacity: 0.3,
+                    child: Icon(
+                      Icons.add_task_outlined,
+                      size: 100,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                  child: ChangeLocalButton(),
-                ),
-              ],
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                    child: ChangeLocalButton(),
+                  ),
+                ],
+              ),
             ),
             SingleChildScrollView(
+              controller: _scrollController,
+              hitTestBehavior: HitTestBehavior.translucent,
               physics: AlwaysScrollableScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),

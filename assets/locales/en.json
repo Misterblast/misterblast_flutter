@@ -18,7 +18,10 @@
     "good-evening": "Good afternoon",
     "good-night": "Good night",
     "see-all-works": "See all works",
-    "see-all-Submissions": "See all submissions"
+    "see-all-Submissions": "See all submissions",
+    "class": "Class",
+    "subject": "Subject",
+    "stats": "Statistics"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -121,7 +124,11 @@
     "quiz-description": "Do an interactive quiz for each subject in each class. Consists of 10 questions per subject with a time limit of 30 seconds per question. Challenge yourself and increase understanding quickly and fun.",
     "quiz-start": "Tap to Start Quiz!",
     "at-last-ten-quiz": "In the last 10 assessments",
-    "quiz-no-works": "Haven't had time to work on a quiz? Come on, from now on and prove how far you have learned in the quiz menu"
+    "quiz-no-works": "Haven't had time to work on a quiz? Come on, from now on and prove how far you have learned in the quiz menu",
+    "select-subject": "Choose subjects",
+    "select-subject-desc": "Choose the subject you want to do",
+    "works-result": "Past work results",
+    "show-all-works": "Show all works"
   },
   "exploration": {
     "search-exploration-placeholder": "Find Exploration by Title",
@@ -135,5 +142,19 @@
   },
   "activity": {
     "your-growth": "Your learning growth"
+  },
+  "examples": {
+    "pick-subject": "Choose Subjects",
+    "subject-card-description": "Tap to see available examples based on the selected class",
+    "select-class": "Select Class",
+    "available-class": "Available Class",
+    "open-examples-of": "Open Examples of {subject} Class {class}",
+    "search-hint": "Search Question Examples"
+  },
+  "subjects": {
+    "mathematics": "Mathematics",
+    "civics": "Pancasila",
+    "indonesian": "Indonesian",
+    "science": "IPAS"
   }
 }

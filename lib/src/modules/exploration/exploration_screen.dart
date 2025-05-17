@@ -34,18 +34,15 @@ class ExplorationScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 75),
-                  child: Column(
-                    spacing: 20,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
+              Padding(
+                padding: const EdgeInsets.only(top: 60),
+                child: Column(
+                  spacing: 20,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Container(
                         width: double.maxFinite,
-                        constraints: BoxConstraints(
-                          minHeight: MediaQuery.sizeOf(context).height * 0.85,
-                        ),
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -93,13 +90,13 @@ class ExplorationScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              elevation: WidgetStateProperty.all(1),
+                              elevation: WidgetStateProperty.all(0.5),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -18,7 +18,10 @@
         "good-evening": "Selamat Sore",
         "good-night": "Selamat Malam",
         "see-all-works": "Lihat Semua Pengerjaan",
-        "see-all-Submissions": "Lihat Semua Pengumpulan"
+        "see-all-Submissions": "Lihat Semua Pengumpulan",
+        "class": "Kelas",
+        "subject": "Mata Pelajaran",
+        "stats": "Statistik"
     },
     "exceptions": {
         "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -121,7 +124,12 @@
         "quiz-description": "Kerjakan kuis interaktif untuk setiap mata pelajaran di tiap kelas. Terdiri dari 10 soal per mapel dengan batas waktu 30 detik per soal. Tantang dirimu dan tingkatkan pemahaman secara cepat dan menyenangkan.",
         "quiz-start": "Tekan untuk Mengerjakan Kuis",
         "at-last-ten-quiz": "Pada 10 Pengerjaan Terakhir",
-        "quiz-no-works": "Belum sempat kerjain kuis? Yuk, mulai sekarang dan buktikan seberapa jauh kamu sudah belajar di menu Kuis!"
+        "quiz-no-works": "Belum sempat kerjain kuis? Yuk, mulai sekarang dan buktikan seberapa jauh kamu sudah belajar di menu Kuis!",
+        "do-quiz": "Kerjakan Kuis",
+        "select-subject": "Pilih Mata Pelajaran",
+        "select-subject-desc": "Pilih Mata Pelajaran yang ingin kamu kerjakan",
+        "works-result": "Hasil Pengerjaan Kuis",
+        "show-all-works": "Lihat Semua Pengerjaan"
     },
     "exploration": {
         "search-exploration-placeholder": "Cari Eksplorasi Berdasarkan Judul",
@@ -135,5 +143,19 @@
     },
     "activity": {
         "your-growth": "Perkembangan Belajarmu"
+    },
+    "examples": {
+        "pick-subject": "Pilih Mata Pelajaran",
+        "subject-card-description": "Tekan untuk melihat contoh soal yang tersedia berdasarkan kelas yang dipilih",
+        "select-class": "Pilih Kelas",
+        "available-class": "Kelas yang tersedia",
+        "open-examples-of": "Buka Contoh Soal {subject} Kelas {class}",
+        "search-hint": "Cari Contoh Soal"
+    },
+    "subjects": {
+        "mathematics": "Matematika",
+        "civics": "Pancasila",
+        "indonesian": "Bahasa Indonesia",
+        "science": "IPAS"
     }
 }

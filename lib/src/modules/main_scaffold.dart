@@ -57,6 +57,13 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, -3),
+            )
+          ],
         ),
         child: SafeArea(
           child: GNav(

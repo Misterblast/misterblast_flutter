@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/menu_card.dart';
@@ -158,6 +159,7 @@ class HomeScreen extends StatelessWidget {
                               description: "menu.card.material-description",
                             ),
                             MenuCard(
+                              onTap: () => context.push("/home/examples"),
                               imageAsset: "assets/images/conso-icon.png",
                               title: "menu.card.examples",
                               description: "menu.card.examples-description",

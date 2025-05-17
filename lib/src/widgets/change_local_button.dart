@@ -26,7 +26,10 @@ class ChangeLocalButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => showDialog(
         context: context,
-        builder: (context) => SelectLocaleDialog(locales: locales),
+        builder: (context) => SelectLocaleDialog(
+          locales: locales,
+          currentLocale: currentLocal["name"],
+        ),
       ),
       child: Container(
         alignment: Alignment.center,
@@ -69,13 +72,27 @@ class ChangeLocalButton extends StatelessWidget {
   }
 }
 
-class SelectLocaleDialog extends StatelessWidget {
+class SelectLocaleDialog extends StatefulWidget {
   const SelectLocaleDialog({
     super.key,
     required this.locales,
+    required this.currentLocale,
   });
-
+  final String currentLocale;
   final List<Map<String, dynamic>> locales;
+
+  @override
+  State<SelectLocaleDialog> createState() => _SelectLocaleDialogState();
+}
+
+class _SelectLocaleDialogState extends State<SelectLocaleDialog> {
+  String? _selectedLocale;
+
+  @override
+  void initState() {
+    _selectedLocale = widget.currentLocale;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,18 +105,50 @@ class SelectLocaleDialog extends StatelessWidget {
         width: double.maxFinite,
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: locales.length,
+          itemCount: widget.locales.length,
           itemBuilder: (context, index) {
+            final isSelected = widget.locales[index]["name"] == _selectedLocale;
             return ListTile(
+              selected: isSelected,
+              selectedTileColor:
+                  Theme.of(context).colorScheme.secondary.withAlpha(75),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent,
+                  width: 1,
+                ),
+              ),
+              selectedColor: Theme.of(context).colorScheme.primary,
               contentPadding: const EdgeInsets.all(0),
               onTap: () {
                 context.setLocale(
-                  Locale(locales[index]["name"]),
+                  Locale(widget.locales[index]["name"]),
                 );
                 Navigator.pop(context);
               },
-              leading: Image.asset(locales[index]["flag"]),
-              title: Text(locales[index]["label"]),
+              leading: Container(
+                height: 50,
+                width: 50,
+                margin: const EdgeInsets.only(left: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.transparent,
+                    width: 2,
+                  ),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                    image: AssetImage(widget.locales[index]["flag"]),
+                  ),
+                ),
+              ),
+              title: Text(widget.locales[index]["label"]),
             );
           },
         ),

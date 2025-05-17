@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -114,7 +113,7 @@ final ThemeData appTheme = ThemeData(
       fontFamily: fontFamily,
     ),
   ),
-  dialogBackgroundColor: Colors.white,
+  dialogTheme: DialogThemeData(backgroundColor: Colors.white),
 );
 
 class AppColors {

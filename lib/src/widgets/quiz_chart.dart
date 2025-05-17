@@ -9,9 +9,11 @@ class QuizChart extends StatelessWidget {
   const QuizChart({
     super.key,
     required this.quizData,
+    this.showSeeAllButton = false,
   });
 
   final List<Map<String, dynamic>> quizData;
+  final bool? showSeeAllButton;
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +110,20 @@ class QuizChart extends StatelessWidget {
                 FlSpot(9, 30),
                 FlSpot(10, 20), // Example data points
               ],
+            ),
+          if (showSeeAllButton == true)
+            Align(
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                onTap: () {},
+                child: Text(
+                  "${"quiz.show-all-works".tr()} >",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.coolTeal,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
             )
         ],
       ),

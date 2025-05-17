@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBackButton extends StatelessWidget {
-  const AppBackButton({super.key, this.size});
+  const AppBackButton({super.key, this.size, this.backgroundColor});
 
   final Size? size;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class AppBackButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Theme.of(context).colorScheme.primary,
+          color: backgroundColor ?? Theme.of(context).colorScheme.primary,
         ),
         child: Icon(
           Icons.chevron_left,

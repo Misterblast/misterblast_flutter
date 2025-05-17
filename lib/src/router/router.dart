@@ -9,10 +9,12 @@ import 'package:misterblast_flutter/src/modules/auth/register_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/reset_password.dart';
 import 'package:misterblast_flutter/src/modules/auth/update_password.dart';
 import 'package:misterblast_flutter/src/modules/exploration/exploration_screen.dart';
+import 'package:misterblast_flutter/src/modules/examples/example_screen.dart';
 import 'package:misterblast_flutter/src/modules/home/home_screen.dart';
 import 'package:misterblast_flutter/src/modules/main_scaffold.dart';
 import 'package:misterblast_flutter/src/modules/onboarding/onboarding_screen.dart';
 import 'package:misterblast_flutter/src/modules/profile/profile_screen.dart';
+import 'package:misterblast_flutter/src/modules/quiz/quiz_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -58,6 +60,18 @@ GoRouter router(Ref ref) {
           );
         },
       ),
+      GoRoute(
+        path: "/quiz",
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const QuizScreen(),
+        routes: [],
+      ),
+      GoRoute(
+        path: "/task",
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const QuizScreen(),
+        routes: [],
+      ),
       ShellRoute(
         parentNavigatorKey: rootNavigatorKey,
         navigatorKey: shellNavigatorKey,
@@ -72,6 +86,13 @@ GoRouter router(Ref ref) {
             pageBuilder: (context, state) => NoTransitionPage(
               child: const HomeScreen(),
             ),
+            routes: [
+              GoRoute(
+                path: '/examples',
+                parentNavigatorKey: rootNavigatorKey,
+                builder: (context, state) => const ExampleScreen(),
+              )
+            ],
           ),
           GoRoute(
             path: '/activity',
