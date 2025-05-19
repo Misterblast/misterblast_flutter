@@ -7,6 +7,7 @@ import 'package:misterblast_flutter/src/modules/quiz/models/quiz_answer.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_question.dart';
 import 'package:misterblast_flutter/src/modules/quiz/widgets/quiz_display.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
+import 'package:misterblast_flutter/src/widgets/linear_timer.dart';
 
 class OnQuizScreen extends StatefulWidget {
   const OnQuizScreen({
@@ -27,6 +28,8 @@ class _OnQuizScreenState extends State<OnQuizScreen>
   bool showSubmitButton = false;
   Map<String, dynamic> selectedAnswer = {};
   final PageController _pageController = PageController();
+  final GlobalKey<LinearTimerState> _timerKey = GlobalKey();
+
   final List<QuizQuestion> questions = List.generate(
     10,
     (index) => QuizQuestion(
@@ -261,6 +264,9 @@ This document was created to test the robustness of Markdown parsers and to ensu
           id: index,
           code: "answer_$index",
           content: "Answer $index",
+          img_url: index % 2 == 0
+              ? "https://avatars.githubusercontent.com/u/103489488?v=4"
+              : null,
         ),
       ),
     ),
@@ -292,6 +298,14 @@ This document was created to test the robustness of Markdown parsers and to ensu
             code;
       });
 
+  onTimerOut() async {
+    await _pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
+    _timerKey.currentState?.restart();
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -300,9 +314,11 @@ This document was created to test the robustness of Markdown parsers and to ensu
 
   @override
   Widget build(BuildContext context) {
-    final bool isCurrentQuestionAnswered = selectedAnswer[
-            questions[_pageController.page!.toInt()].id.toString()] !=
-        null;
+    final bool isCurrentQuestionAnswered = _pageController.hasClients
+        ? selectedAnswer[
+                questions[_pageController.page!.toInt()].id.toString()] !=
+            null
+        : false;
     return GptMarkdownTheme(
       gptThemeData: GptMarkdownTheme.of(context).copyWith(
         highlightColor: Theme.of(context).colorScheme.secondary,
@@ -335,34 +351,55 @@ This document was created to test the robustness of Markdown parsers and to ensu
             child: Column(
               spacing: 16,
               children: [
-                Row(
+                Column(
                   spacing: 4,
                   children: [
-                    AutoSizeText(
-                      maxLines: 1,
-                      "${_pageController.hasClients ? _pageController.page!.toInt() + 1 : 0}/${questions.length}",
-                      style: Theme.of(context).textTheme.headlineSmall,
+                    Row(
+                      spacing: 4,
+                      children: [
+                        AutoSizeText(
+                          maxLines: 1,
+                          "${_pageController.hasClients ? _pageController.page!.toInt() + 1 : 0}/${questions.length}",
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Expanded(
+                          child: AnimatedBuilder(
+                            animation: _pageController,
+                            builder: (context, child) {
+                              double progress = 0.0;
+                              if (_pageController.hasClients &&
+                                  _pageController.page != null) {
+                                progress = _pageController.page! /
+                                    (questions.length - 1);
+                              }
+                              return LinearProgressIndicator(
+                                minHeight: 16,
+                                value: progress.clamp(0.0, 1.0),
+                                borderRadius: BorderRadius.circular(20),
+                                backgroundColor: Colors.grey.withAlpha(20),
+                                color: Theme.of(context).colorScheme.primary,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: AnimatedBuilder(
-                        animation: _pageController,
-                        builder: (context, child) {
-                          double progress = 0.0;
-                          if (_pageController.hasClients &&
-                              _pageController.page != null) {
-                            progress =
-                                _pageController.page! / (questions.length - 1);
-                          }
-                          return LinearProgressIndicator(
-                            minHeight: 16,
-                            value: progress.clamp(0.0, 1.0),
-                            borderRadius: BorderRadius.circular(20),
-                            backgroundColor: Colors.grey.withAlpha(20),
-                            color: Theme.of(context).colorScheme.primary,
-                          );
-                        },
-                      ),
-                    ),
+                    Row(
+                      spacing: 8,
+                      children: [
+                        Icon(
+                          Icons.timer,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        Expanded(
+                          child: LinearTimer(
+                            key: _timerKey,
+                            duration: 30,
+                            onTimerComplete: onTimerOut,
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
                 Expanded(
@@ -406,13 +443,14 @@ This document was created to test the robustness of Markdown parsers and to ensu
                       : Expanded(
                           child: ElevatedButton(
                             onPressed: isCurrentQuestionAnswered
-                                ? () => {
-                                      _pageController.nextPage(
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        curve: Curves.easeIn,
-                                      ),
-                                    }
+                                ? () async {
+                                    await _pageController.nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.easeIn,
+                                    );
+                                    _timerKey.currentState?.restart();
+                                  }
                                 : null,
                             child: Row(
                               spacing: 4,

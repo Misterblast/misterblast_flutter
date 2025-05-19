@@ -35,7 +35,6 @@ class _QuizDisplayState extends State<QuizDisplay> {
       spacing: 8,
       children: [
         Expanded(
-          flex: 2,
           child: Scrollbar(
             controller: scrollController,
             child: SingleChildScrollView(
@@ -45,42 +44,43 @@ class _QuizDisplayState extends State<QuizDisplay> {
           ),
         ),
         Divider(color: Theme.of(context).colorScheme.secondary),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          itemCount: widget.question.answers?.length,
-          itemBuilder: (context, index) {
-            final answer = widget.question.answers?[index];
-            final isSelected = _selectedAnswer == answer?.code;
-            return Card(
-              elevation: 0,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.secondary.withAlpha(75)
-                  : null,
-              shape: isSelected
-                  ? RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: BorderSide(
-                        width: 2,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    )
-                  : null,
-              child: RadioListTile(
-                groupValue: _selectedAnswer,
-                title: Text(answer!.content),
-                activeColor: Theme.of(context).colorScheme.primary,
-                subtitle: answer.img_url != null
-                    ? Image.network(answer.img_url!)
+        Expanded(
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: widget.question.answers?.length,
+            itemBuilder: (context, index) {
+              final answer = widget.question.answers?[index];
+              final isSelected = _selectedAnswer == answer?.code;
+              return Card(
+                elevation: 0,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.secondary.withAlpha(75)
                     : null,
-                selected: _selectedAnswer == answer.code,
-                value: answer.code,
-                onChanged: (value) {
-                  onSelect(value);
-                },
-              ),
-            );
-          },
+                shape: isSelected
+                    ? RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: BorderSide(
+                          width: 2,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      )
+                    : null,
+                child: RadioListTile(
+                  groupValue: _selectedAnswer,
+                  title: Text(answer!.content),
+                  activeColor: Theme.of(context).colorScheme.primary,
+                  subtitle: answer.img_url != null
+                      ? Image.network(answer.img_url!)
+                      : null,
+                  selected: _selectedAnswer == answer.code,
+                  value: answer.code,
+                  onChanged: (value) {
+                    onSelect(value);
+                  },
+                ),
+              );
+            },
+          ),
         ),
       ],
     );
