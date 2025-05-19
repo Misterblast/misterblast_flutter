@@ -2,11 +2,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_chart.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
-import 'package:misterblast_flutter/src/widgets/quiz_chart.dart';
+import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
+
+import 'widgets/select_subject_sheet.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -26,10 +29,6 @@ class QuizScreen extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            Opacity(
-              opacity: 0.5,
-              child: Image.asset('assets/images/home_decor.png'),
-            ),
             Positioned(
               top: -60,
               child: Opacity(
@@ -37,50 +36,41 @@ class QuizScreen extends StatelessWidget {
                 child: Image.asset("assets/images/quiz-icon.png"),
               ),
             ),
-            Column(
-              spacing: 20,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppBackButton(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                      ),
-                      ChangeLocalButton(),
-                    ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppBackButton(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(30),
-                      ),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        Positioned(
-                          right: -120,
-                          bottom: -120,
-                          child: Opacity(
-                            opacity: 0.2,
-                            child: Image.asset(
-                              "assets/images/quiz-icon.png",
-                              scale: 0.7,
-                            ),
-                          ),
+                  ChangeLocalButton(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.sizeOf(context).height * 0.1,
+              ),
+              child: Column(
+                spacing: 20,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(30),
                         ),
-                        Padding(
+                      ),
+                      child: SingleChildScrollView(
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
                             spacing: 24,
-                            mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(),
@@ -118,6 +108,25 @@ class QuizScreen extends StatelessWidget {
                                     ),
                                     child: ListTile(
                                       dense: true,
+                                      onTap: () async {
+                                        final tuple =
+                                            await showModalBottomSheet<
+                                                (String, String)>(
+                                          context: context,
+                                          isDismissible: true,
+                                          isScrollControlled: true,
+                                          builder: (context) =>
+                                              SelectSubjectSheet(),
+                                        );
+                                        if (tuple?.$1 != null &&
+                                            tuple?.$2 != null) {
+                                          // ignore: use_build_context_synchronously
+                                          context.push("/quiz/on-quiz", extra: {
+                                            "subject": tuple!.$1,
+                                            "className": tuple.$2,
+                                          });
+                                        }
+                                      },
                                       style: ListTileStyle.drawer,
                                       tileColor: Colors.white,
                                       contentPadding:
@@ -137,10 +146,9 @@ class QuizScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(100),
                                         ),
-                                        padding: const EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(4),
                                         child: Image.asset(
                                           "assets/images/stopwatch.png",
-                                          scale: 4,
                                         ),
                                       ),
                                       title: Text(
@@ -178,12 +186,89 @@ class QuizScreen extends StatelessWidget {
                                             .primary,
                                       ),
                                       Text(
+                                        context.tr("quiz.works-result"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge,
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withAlpha(65),
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 2),
+                                        )
+                                      ],
+                                    ),
+                                    child: ListTile(
+                                      dense: true,
+                                      style: ListTileStyle.drawer,
+                                      tileColor: Colors.white,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 16,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      leading: Icon(
+                                        Icons.history,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        size: 40,
+                                      ),
+                                      title: Text(
+                                        context.tr("quiz.show-all-works"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      subtitle: AutoSizeText(
+                                        context.tr(
+                                          "quiz.show-all-works-desc",
+                                        ),
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                spacing: 12,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    spacing: 12,
+                                    children: [
+                                      Icon(
+                                        Icons.label_important_sharp,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                      Text(
                                         context.tr("common.stats"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineLarge,
                                       ),
                                     ],
+                                  ),
+                                  Text(
+                                    context.tr("quiz.graph-description"),
                                   ),
                                   AppChart(
                                     lineColor: AppColors.coolTeal,
@@ -200,16 +285,38 @@ class QuizScreen extends StatelessWidget {
                                       FlSpot(10, 20), // Example data points
                                     ],
                                   ),
+                                  Wrap(
+                                    spacing: 3,
+                                    runSpacing: 6,
+                                    children: [
+                                      StatChip(
+                                        iconData: Icons.drafts,
+                                        content:
+                                            "${context.tr("stats.quiz-done")}  : 10",
+                                      ),
+                                      StatChip(
+                                        iconData:
+                                            Icons.local_fire_department_sharp,
+                                        content:
+                                            "${context.tr("stats.quiz-highest-score")} : 100",
+                                      ),
+                                      StatChip(
+                                        iconData: Icons.align_vertical_bottom,
+                                        content:
+                                            "${context.tr("stats.quiz-average-score")}  : 100",
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ],
         ),
@@ -217,87 +324,3 @@ class QuizScreen extends StatelessWidget {
     );
   }
 }
-
-
-//  ListView.separated(
-//                                     shrinkWrap: true,
-//                                     itemCount: items.length,
-//                                     physics: const BouncingScrollPhysics(),
-//                                     separatorBuilder: (context, index) =>
-//                                         const SizedBox(height: 8),
-//                                     itemBuilder: (context, index) => InkWell(
-//                                       onTap: () => showDialog(
-//                                         context: context,
-//                                         builder: (context) => SelectClassDialog(
-//                                           subjectName: items[index]["title"],
-//                                         ),
-//                                       ),
-//                                       child: Container(
-//                                         alignment: Alignment.center,
-//                                         padding: const EdgeInsets.symmetric(
-//                                             horizontal: 16, vertical: 8),
-//                                         decoration: BoxDecoration(
-//                                           color: Colors.white,
-//                                           borderRadius:
-//                                               BorderRadius.circular(12),
-//                                           boxShadow: [
-//                                             BoxShadow(
-//                                               color: Colors.grey.withAlpha(65),
-//                                               blurRadius: 4,
-//                                               offset: const Offset(0, 2),
-//                                             )
-//                                           ],
-//                                         ),
-//                                         child: Row(
-//                                           spacing: 12,
-//                                           crossAxisAlignment:
-//                                               CrossAxisAlignment.center,
-//                                           children: [
-//                                             Container(
-//                                               height: 75,
-//                                               width: 75,
-//                                               decoration: BoxDecoration(
-//                                                 image: DecorationImage(
-//                                                   image: AssetImage(
-//                                                     "assets/images/${items[index]["icon"]}",
-//                                                   ),
-//                                                   fit: BoxFit.fill,
-//                                                 ),
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(12),
-//                                               ),
-//                                             ),
-//                                             Expanded(
-//                                               child: Column(
-//                                                 crossAxisAlignment:
-//                                                     CrossAxisAlignment.start,
-//                                                 children: [
-//                                                   Text(
-//                                                     context.tr(
-//                                                       "subjects.${items[index]["title"]}",
-//                                                     ),
-//                                                     style: Theme.of(context)
-//                                                         .textTheme
-//                                                         .titleMedium!
-//                                                         .copyWith(
-//                                                             fontWeight:
-//                                                                 FontWeight
-//                                                                     .bold),
-//                                                   ),
-//                                                   AutoSizeText(
-//                                                     context.tr(
-//                                                       "examples.subject-card-description",
-//                                                     ),
-//                                                     maxLines: 2,
-//                                                     style: Theme.of(context)
-//                                                         .textTheme
-//                                                         .bodyMedium,
-//                                                   ),
-//                                                 ],
-//                                               ),
-//                                             )
-//                                           ],
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),

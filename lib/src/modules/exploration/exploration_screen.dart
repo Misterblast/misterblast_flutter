@@ -57,11 +57,12 @@ class ExplorationScreen extends StatelessWidget {
                           children: [
                             Text(
                               'bottombar.exploration'.tr(),
-                              style: TextStyle(
-                                fontSize: AppFontSizes.xl,
-                                fontFamily: fontFamily,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                             SearchBar(
                               constraints: const BoxConstraints(

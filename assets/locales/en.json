@@ -21,7 +21,8 @@
     "see-all-Submissions": "See all submissions",
     "class": "Class",
     "subject": "Subject",
-    "stats": "Statistics"
+    "stats": "Statistics",
+    "submit": "Submit"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -89,8 +90,10 @@
   "stats": {
     "quiz-done": "Completed Quiz",
     "quiz-average-score": "Average Quiz Score",
+    "quiz-highest-score": "Highest Quiz Score",
     "task-done": "Submitted Tasks",
-    "task-average-score": "Average Task Score"
+    "task-average-score": "Average Task Score",
+    "task-highest-score": "Highest Task Score"
   },
   "menu": {
     "self-learn": "Learn",
@@ -126,9 +129,12 @@
     "at-last-ten-quiz": "In the last 10 assessments",
     "quiz-no-works": "Haven't had time to work on a quiz? Come on, from now on and prove how far you have learned in the quiz menu",
     "select-subject": "Choose subjects",
+    "do-quiz": "Start Quiz",
     "select-subject-desc": "Choose the subject you want to do",
     "works-result": "Past work results",
-    "show-all-works": "Show all works"
+    "show-all-works": "Show all works",
+    "graph-description": "Graph of the last 10 works",
+    "show-all-works-desc": "See all the results of the quiz you have done."
   },
   "exploration": {
     "search-exploration-placeholder": "Find Exploration by Title",

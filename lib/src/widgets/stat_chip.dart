@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:misterblast_flutter/src/themes/theme.dart';
@@ -19,7 +20,7 @@ class StatChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 6,
-        horizontal: 16,
+        horizontal: 8,
       ),
       decoration: BoxDecoration(
         color: color ?? AppColors.coolTeal,
@@ -27,6 +28,7 @@ class StatChip extends StatelessWidget {
       ),
       child: Row(
         spacing: 8,
+        mainAxisSize: MainAxisSize.min,
         children: [
           iconData != null
               ? Icon(
@@ -35,11 +37,12 @@ class StatChip extends StatelessWidget {
                   size: 20,
                 )
               : const SizedBox.shrink(),
-          Text(
+          AutoSizeText(
             content ?? "",
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
+                  fontSize: AppFontSizes.md,
                 ),
           ),
         ],

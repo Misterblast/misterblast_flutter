@@ -1,0 +1,2 @@
+C:/Users/i3/Projects/misterblast_flutter/android/app/.cxx/RelWithDebInfo/2o4k3g4i/x86/CMakeFiles/edit_cache.dir
+C:/Users/i3/Projects/misterblast_flutter/android/app/.cxx/RelWithDebInfo/2o4k3g4i/x86/CMakeFiles/rebuild_cache.dir

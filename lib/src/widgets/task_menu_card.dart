@@ -44,7 +44,7 @@ class TaskMenuCard extends StatelessWidget {
                         "task.task-description",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Colors.white,
-                              fontSize: AppFontSizes.sm,
+                              fontSize: AppFontSizes.sm + 2,
                             ),
                       ).tr(),
                       const SizedBox(height: 8),

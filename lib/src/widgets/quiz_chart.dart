@@ -23,7 +23,7 @@ class QuizChart extends StatelessWidget {
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withAlpha(10),
             blurRadius: 4,
             offset: const Offset(0, 2),
           )

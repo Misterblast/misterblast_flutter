@@ -44,13 +44,13 @@ class QuizMenuCard extends StatelessWidget {
                               ?.copyWith(color: Colors.white, fontSize: 20),
                         ).tr(),
                         Text(
-                          "quiz.quiz-description",
+                          context.tr("quiz.quiz-description"),
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: Colors.white,
-                                    fontSize: AppFontSizes.sm,
+                                    fontSize: AppFontSizes.sm + 2,
                                   ),
-                        ).tr(),
+                        ),
                         const SizedBox(height: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(

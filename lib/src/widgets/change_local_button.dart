@@ -97,18 +97,30 @@ class _SelectLocaleDialogState extends State<SelectLocaleDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        "settings.language.select-language".tr(),
-        style: Theme.of(context).textTheme.headlineSmall,
+      title: Row(
+        spacing: 12,
+        children: [
+          Icon(
+            size: 32,
+            Icons.label_important_sharp,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          Text(
+            "settings.language.select-language".tr(),
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ],
       ),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView.builder(
+        child: ListView.separated(
           shrinkWrap: true,
           itemCount: widget.locales.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
             final isSelected = widget.locales[index]["name"] == _selectedLocale;
             return ListTile(
+              minVerticalPadding: 24,
               selected: isSelected,
               selectedTileColor:
                   Theme.of(context).colorScheme.secondary.withAlpha(75),
@@ -124,6 +136,9 @@ class _SelectLocaleDialogState extends State<SelectLocaleDialog> {
               selectedColor: Theme.of(context).colorScheme.primary,
               contentPadding: const EdgeInsets.all(0),
               onTap: () {
+                setState(() {
+                  _selectedLocale = widget.locales[index]["name"];
+                });
                 context.setLocale(
                   Locale(widget.locales[index]["name"]),
                 );

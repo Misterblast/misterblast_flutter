@@ -66,74 +66,33 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
           ],
         ),
         child: SafeArea(
-          child: GNav(
-            gap: 8,
-            iconSize: 24,
-            rippleColor: Colors.grey[300]!,
-            hoverColor: Colors.grey[100]!,
-            activeColor: Theme.of(context).colorScheme.primary,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            duration: Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.grey[100]!,
-            color: AppColors.grey,
-            tabs: _navItem
-                .map(
-                  (item) => GButton(
-                    icon: item["icon"],
-                    text: context.tr(item["title"]),
-                    backgroundColor: AppColors.white,
-                  ),
-                )
-                .toList(),
-            selectedIndex: _selectedIndex,
-            onTabChange: _tap,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: GNav(
+              gap: 8,
+              iconSize: 24,
+              rippleColor: Colors.grey[300]!,
+              hoverColor: Colors.grey[100]!,
+              activeColor: Theme.of(context).colorScheme.primary,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: AppColors.grey,
+              tabs: _navItem
+                  .map(
+                    (item) => GButton(
+                      icon: item["icon"],
+                      text: context.tr(item["title"]),
+                      backgroundColor: AppColors.white,
+                    ),
+                  )
+                  .toList(),
+              selectedIndex: _selectedIndex,
+              onTabChange: _tap,
+            ),
           ),
         ),
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: widget.child,
-  //     bottomNavigationBar: Container(
-  //       decoration: const BoxDecoration(
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Color.fromRGBO(0, 0, 0, 0.1),
-  //             blurRadius: 10,
-  //             offset: Offset(0, 4),
-  //           ),
-  //         ],
-  //       ),
-  //       child: ClipRRect(
-  //         borderRadius: const BorderRadius.only(
-  //           topLeft: Radius.circular(10.0),
-  //           topRight: Radius.circular(10.0),
-  //         ),
-  //         child: BottomNavigationBar(
-  //           elevation: 0,
-  //           backgroundColor: Colors.white,
-  //           selectedItemColor: AppColors.primary,
-  //           unselectedItemColor: Colors.grey[400],
-  //           showUnselectedLabels: true,
-  //           type: BottomNavigationBarType.fixed,
-  //           selectedFontSize: 12,
-  //           items: _navItem
-  //               .map(
-  //                 (item) => BottomNavigationBarItem(
-  //                   icon: Icon(item["icon"]),
-  //                   label: item["title"]?.toString().tr(),
-  //                   backgroundColor: AppColors.white,
-  //                 ),
-  //               )
-  //               .toList(),
-  //           currentIndex: _selectedIndex,
-  //           onTap: (index) => _tap(index),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

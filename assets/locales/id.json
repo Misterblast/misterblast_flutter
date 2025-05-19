@@ -21,7 +21,8 @@
         "see-all-Submissions": "Lihat Semua Pengumpulan",
         "class": "Kelas",
         "subject": "Mata Pelajaran",
-        "stats": "Statistik"
+        "stats": "Statistik",
+        "submit": "Kirim"
     },
     "exceptions": {
         "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -89,8 +90,10 @@
     "stats": {
         "quiz-done": "Kuis Selesai",
         "quiz-average-score": "Rata-rata Nilai Kuis",
+        "quiz-highest-score": "Nilai Kuis Tertinggi",
         "task-done": "Tugas Dikerjakan",
-        "task-average-score": "Rata-rata Skor Tugas"
+        "task-average-score": "Rata-rata Skor Tugas",
+        "task-highest-score": "Skor Tugas Tertinggi"
     },
     "menu": {
         "self-learn": "Pembelajaran Mandiri",
@@ -129,7 +132,9 @@
         "select-subject": "Pilih Mata Pelajaran",
         "select-subject-desc": "Pilih Mata Pelajaran yang ingin kamu kerjakan",
         "works-result": "Hasil Pengerjaan Kuis",
-        "show-all-works": "Lihat Semua Pengerjaan"
+        "show-all-works": "Lihat Semua Pengerjaan",
+        "graph-description": "Grafik 10 Pengerjaan Terakhir",
+        "show-all-works-desc": "Lihat semua hasil pengerjaan kuis yang telah kamu lakukan."
     },
     "exploration": {
         "search-exploration-placeholder": "Cari Eksplorasi Berdasarkan Judul",

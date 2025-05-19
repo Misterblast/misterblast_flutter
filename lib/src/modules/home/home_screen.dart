@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
       greetingMessage = "common.good-morning".tr();
     } else if (hour >= 12 && hour < 17) {
       greetingMessage = "common.good-afternoon".tr();
-    } else if (hour >= 17 && hour < 21) {
+    } else if (hour >= 17 && hour < 19) {
       greetingMessage = "common.good-evening".tr();
     } else {
       greetingMessage = "common.good-night".tr();

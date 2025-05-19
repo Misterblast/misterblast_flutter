@@ -39,6 +39,7 @@ class AppChart extends StatelessWidget {
                 show: true,
                 gradient: LinearGradient(
                   colors: [
+                    lineColor.withValues(alpha: 0.6),
                     lineColor.withValues(alpha: 0.5),
                     lineColor.withValues(alpha: 0.4),
                     lineColor.withValues(alpha: 0.3),
