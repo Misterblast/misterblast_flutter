@@ -12,10 +12,9 @@ class SelectClassDialog extends StatefulWidget {
 
 class _SelectClassDialogState extends State<SelectClassDialog> {
   final List<String> _availableClasses = [
-    "1",
-    "2",
-    "3",
     "4",
+    "5",
+    "6",
   ];
   String? _selectedClass;
 
@@ -58,51 +57,55 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
                 Expanded(
                   child: Text(
                     maxLines: 2,
-                    context.tr("examples.select-class"),
+                    context.tr("common.class"),
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
               ],
             ),
-            Row(
+            Column(
+              spacing: 8,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("${context.tr("common.class")} : ",
+                Text("${context.tr("examples.select-class")} : ",
                     style: Theme.of(context).textTheme.headlineSmall),
-                Expanded(
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    children: _availableClasses
-                        .map((item) => InkWell(
-                              onTap: () => _onClassSelected(item),
-                              child: Container(
-                                height: 40,
-                                width: 40,
-                                alignment: Alignment.center,
-                                margin:
-                                    const EdgeInsets.only(right: 8, bottom: 8),
-                                decoration: BoxDecoration(
-                                  color: _selectedClass == item
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Colors.white,
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                ),
-                                child: Text(
-                                  item,
-                                  style: TextStyle(
-                                    color: _selectedClass == item
-                                        ? Colors.white
-                                        : Theme.of(context).colorScheme.primary,
-                                  ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _availableClasses
+                      .map((item) => InkWell(
+                            onTap: () => _onClassSelected(item),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _selectedClass == item
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
-                            ))
-                        .toList(),
-                  ),
+                              child: Text(
+                                "${context.tr("common.class")} $item",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: _selectedClass == item
+                                          ? Colors.white
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                    ),
+                              ),
+                            ),
+                          ))
+                      .toList(),
                 ),
               ],
             ),

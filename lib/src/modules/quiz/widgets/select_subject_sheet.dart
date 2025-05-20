@@ -41,6 +41,7 @@ class _SelectSubjectSheetState extends State<SelectSubjectSheet> {
         children: [
           SingleChildScrollView(
             child: Column(
+              spacing: 16,
               children: [
                 Column(
                   spacing: 16,
@@ -59,60 +60,64 @@ class _SelectSubjectSheetState extends State<SelectSubjectSheet> {
                         Expanded(
                           child: Text(
                             maxLines: 2,
-                            context.tr("examples.select-class"),
+                            context.tr("common.class"),
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
                         ),
                       ],
                     ),
-                    Row(
-                      spacing: 12,
+                    Column(
+                      spacing: 4,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("${context.tr("common.class")} : ",
+                        Text("${context.tr("examples.select-class")} : ",
                             style: Theme.of(context).textTheme.headlineSmall),
-                        Expanded(
-                          child: Wrap(
-                            alignment: WrapAlignment.start,
-                            children: availableClasses
-                                .map((item) => InkWell(
-                                      onTap: () => setState(() {
-                                        _selectedClass = item;
-                                      }),
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        alignment: Alignment.center,
-                                        margin: const EdgeInsets.only(
-                                            right: 8, bottom: 8),
-                                        decoration: BoxDecoration(
-                                          color: _selectedClass == item
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          border: Border.all(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          item,
-                                          style: TextStyle(
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          alignment: WrapAlignment.start,
+                          children: availableClasses
+                              .map(
+                                (item) => InkWell(
+                                  onTap: () => setState(() {
+                                    _selectedClass = item;
+                                  }),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: _selectedClass == item
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "${context.tr("common.class")} $item",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
                                             color: _selectedClass == item
                                                 ? Colors.white
                                                 : Theme.of(context)
                                                     .colorScheme
                                                     .primary,
                                           ),
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
                         ),
                       ],
                     )
@@ -131,7 +136,7 @@ class _SelectSubjectSheetState extends State<SelectSubjectSheet> {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         Text(
-                          "examples.pick-subject".tr(),
+                          "common.subject".tr(),
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                       ],

@@ -64,18 +64,19 @@ class _QuizDisplayState extends State<QuizDisplay> {
               color: isSelected
                   ? Theme.of(context).colorScheme.secondary.withAlpha(75)
                   : null,
-              shape: isSelected
-                  ? RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: BorderSide(
-                        width: 2,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    )
-                  : null,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: BorderSide(
+                  width: 2,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.grey.shade300,
+                ),
+              ),
               child: RadioListTile(
                 groupValue: _selectedAnswer,
                 title: Text(answer!.content),
+                tileColor: Colors.grey.shade50,
                 activeColor: Theme.of(context).colorScheme.primary,
                 subtitle: answer.img_url != null
                     ? Image.network(answer.img_url!)

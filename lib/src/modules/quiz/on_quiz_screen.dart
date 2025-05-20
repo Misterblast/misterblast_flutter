@@ -2,10 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_answer.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_question.dart';
 import 'package:misterblast_flutter/src/modules/quiz/widgets/quiz_display.dart';
+import 'package:misterblast_flutter/src/modules/quiz/widgets/quiz_navigation_sheet.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/linear_timer.dart';
 
@@ -426,7 +428,12 @@ This document was created to test the robustness of Markdown parsers and to ensu
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          leading: const AppBackButton(),
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppBackButton(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           title: AutoSizeText(
             maxLines: 1,
@@ -435,6 +442,36 @@ This document was created to test the robustness of Markdown parsers and to ensu
                   color: Colors.white,
                 ),
           ),
+          actions: [
+            GestureDetector(
+              onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => QuizNavigationSheet(
+                  currentIndex: _pageController.hasClients
+                      ? _pageController.page!.toInt()
+                      : 0,
+                  selectedAnswer: selectedAnswer,
+                  onSelect: (index) {
+                    context.pop();
+                    _pageController.jumpToPage(index);
+                  },
+                ),
+              ),
+              child: Container(
+                margin: const EdgeInsets.only(right: 16),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.grid_view_rounded,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
         ),
         body: SafeArea(
           child: Container(
