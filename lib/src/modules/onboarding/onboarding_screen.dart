@@ -21,7 +21,12 @@ class OnboardingScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   OnboardingTopBar(),
-                  Image.asset("assets/images/onboarding-asset.png"),
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(
+                      "assets/images/onboarding-asset.png",
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -23,10 +23,7 @@
     "subject": "Subject",
     "stats": "Statistics",
     "submit": "Submit",
-    "number": "Number",
-    "question": "Question",
-    "explanation": "Explanation",
-    "reason": "Reason"
+    "number": "Number"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -150,7 +147,7 @@
   },
   "quiz-result": {
     "score": "Score",
-    "attempt-number": "Attempts",
+    "attempt-number": "Workmanship - __placeholder_0__",
     "your-answer": "Your answer",
     "correct-answer": "Correct answer"
   },

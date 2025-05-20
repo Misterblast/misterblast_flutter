@@ -57,57 +57,47 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
                 Expanded(
                   child: Text(
                     maxLines: 2,
-                    context.tr("common.class"),
+                    context.tr("examples.select-class"),
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
               ],
             ),
-            Column(
+            Wrap(
               spacing: 8,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("${context.tr("examples.select-class")} : ",
-                    style: Theme.of(context).textTheme.headlineSmall),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: _availableClasses
-                      .map((item) => InkWell(
-                            onTap: () => _onClassSelected(item),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
-                              ),
-                              decoration: BoxDecoration(
-                                color: _selectedClass == item
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              child: Text(
-                                "${context.tr("common.class")} $item",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: _selectedClass == item
-                                          ? Colors.white
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                    ),
-                              ),
+              runSpacing: 8,
+              children: _availableClasses
+                  .map((item) => InkWell(
+                        onTap: () => _onClassSelected(item),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _selectedClass == item
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.primary,
                             ),
-                          ))
-                      .toList(),
-                ),
-              ],
+                          ),
+                          child: Text(
+                            "${context.tr("common.class")} $item",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: _selectedClass == item
+                                      ? Colors.white
+                                      : Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ),
+                      ))
+                  .toList(),
             ),
             ElevatedButton(
               onPressed: () {},

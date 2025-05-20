@@ -152,7 +152,10 @@
     "score": "Score",
     "attempt-number": "Attempts",
     "your-answer": "Your answer",
-    "correct-answer": "Correct answer"
+    "correct-answer": "Correct answer",
+    "submitted-at": "Sent at",
+    "correct-answer-count": "Number of correct answers",
+    "incorrect-answer-count": "Number of wrong answers"
   },
   "exploration": {
     "search-exploration-placeholder": "Find Exploration by Title",

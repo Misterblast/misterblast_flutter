@@ -308,7 +308,51 @@ This document was created to test the robustness of Markdown parsers and to ensu
             code;
       });
 
-  onTimerOut() => onSubmit();
+  onTimerOut() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(context.tr("quiz.timeout")),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/alert.png",
+                  width: 225,
+                ),
+                Image.asset(
+                  "assets/images/stopwatch.png",
+                  width: 125,
+                ),
+              ],
+            ),
+            Text(
+              context.tr("quiz.timeout-desc"),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actionsOverflowButtonSpacing: 8,
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              context.pop();
+              context.pushReplacement("/quiz/result-detail/1");
+            },
+            child: Text(context.tr("quiz.see-result")),
+          ),
+        ],
+      ),
+    );
+    // submitQuiz();
+  }
 
   onPreviousQuestion() => _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
@@ -320,7 +364,79 @@ This document was created to test the robustness of Markdown parsers and to ensu
         curve: Curves.easeIn,
       );
 
-  onSubmit() => print(selectedAnswer);
+  onSubmit() {
+    String confirmationMessage = "quiz.submit-confirm-desc";
+    List<String?> selectedAnswerList =
+        selectedAnswer.entries.map((e) => e.value as String?).toList();
+    if (selectedAnswerList.contains(null)) {
+      confirmationMessage = "quiz.submit-confirm-empty-answer-desc";
+    }
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(context.tr("quiz.submit-confirm")),
+        content: Text(context.tr(confirmationMessage)),
+        actionsOverflowButtonSpacing: 8,
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              context.pop();
+              submitQuiz();
+            },
+            child: Text(context.tr("common.submit")),
+          ),
+          OutlinedButton(
+            onPressed: () => context.pop(),
+            child: Text(context.tr("common.back")),
+          ),
+        ],
+      ),
+    );
+  }
+
+  submitQuiz() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(context.tr("quiz.submit-success")),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset("assets/images/home_decor.png"),
+                Image.asset(
+                  "assets/images/celebrate.png",
+                  width: 225,
+                ),
+              ],
+            ),
+            Text(
+              context.tr("quiz.submit-success-desc"),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actionsOverflowButtonSpacing: 8,
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              context.pop();
+              context.pushReplacement("/quiz/result-detail/1");
+            },
+            child: Text(context.tr("quiz.see-result")),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -494,7 +610,7 @@ This document was created to test the robustness of Markdown parsers and to ensu
                       children: [
                         AutoSizeText(
                           maxLines: 1,
-                          "${_pageController.hasClients ? _pageController.page!.toInt() + 1 : 0}/${questions.length}",
+                          "${_pageController.hasClients ? _pageController.page!.toInt() + 1 : 1}/${questions.length}",
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Expanded(

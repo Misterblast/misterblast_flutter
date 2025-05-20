@@ -15,6 +15,7 @@ import 'package:misterblast_flutter/src/modules/main_scaffold.dart';
 import 'package:misterblast_flutter/src/modules/onboarding/onboarding_screen.dart';
 import 'package:misterblast_flutter/src/modules/profile/profile_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/on_quiz_screen.dart';
+import 'package:misterblast_flutter/src/modules/quiz/quiz_result_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -72,8 +73,14 @@ GoRouter router(Ref ref) {
               final stateExtra = (state.extra as Map<String, dynamic>);
               final subject = stateExtra['subject'] ?? '';
               final className = stateExtra['className'] ?? '';
-              // return OnQuizScreen(title: "", onPressed: () {});
               return OnQuizScreen(subject: subject, className: className);
+            },
+          ),
+          GoRoute(
+            path: "/result-detail/:resultId",
+            builder: (context, state) {
+              // final resultId = state.pathParameters['resultId'] ?? '';
+              return QuizResultScreen();
             },
           ),
         ],
