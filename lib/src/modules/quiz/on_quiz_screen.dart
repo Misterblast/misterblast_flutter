@@ -26,6 +26,7 @@ class OnQuizScreen extends StatefulWidget {
 class _OnQuizScreenState extends State<OnQuizScreen>
     with TickerProviderStateMixin {
   bool showSubmitButton = false;
+  bool showBackButton = false;
   Map<String, dynamic> selectedAnswer = {};
   final PageController _pageController = PageController();
   final GlobalKey<LinearTimerState> _timerKey = GlobalKey();
@@ -264,9 +265,6 @@ This document was created to test the robustness of Markdown parsers and to ensu
           id: index,
           code: "answer_$index",
           content: "Answer $index",
-          img_url: index % 2 == 0
-              ? "https://avatars.githubusercontent.com/u/103489488?v=4"
-              : null,
         ),
       ),
     ),
@@ -279,6 +277,16 @@ This document was created to test the robustness of Markdown parsers and to ensu
     };
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _pageController.addListener(() {
+        if (_pageController.page == 0) {
+          setState(() {
+            showBackButton = false;
+          });
+        } else {
+          setState(() {
+            showBackButton = true;
+          });
+        }
+
         if (_pageController.page == questions.length - 1) {
           setState(() {
             showSubmitButton = true;
@@ -298,13 +306,19 @@ This document was created to test the robustness of Markdown parsers and to ensu
             code;
       });
 
-  onTimerOut() async {
-    await _pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeIn,
-    );
-    _timerKey.currentState?.restart();
-  }
+  onTimerOut() => onSubmit();
+
+  onPreviousQuestion() => _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+
+  onNextQuestion() => _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+
+  onSubmit() => print(selectedAnswer);
 
   @override
   void dispose() {
@@ -312,13 +326,97 @@ This document was created to test the robustness of Markdown parsers and to ensu
     super.dispose();
   }
 
+  Widget renderFooterButton() {
+    if (showSubmitButton) {
+      return Row(
+        spacing: 8,
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: onPreviousQuestion,
+              child: Row(
+                spacing: 4,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.chevron_left_rounded),
+                  Text(
+                    context.tr("common.back"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: onSubmit,
+              child: Row(
+                spacing: 4,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.tr("common.submit")),
+                  Icon(Icons.done_all_rounded),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (showBackButton) {
+      return Row(
+        spacing: 8,
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: onPreviousQuestion,
+              child: Row(
+                spacing: 4,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.chevron_left_rounded),
+                  Text(context.tr("common.back")),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: onNextQuestion,
+              child: Row(
+                spacing: 4,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.tr("common.next")),
+                  Icon(Icons.chevron_right_rounded),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    return ElevatedButton(
+      onPressed: onNextQuestion,
+      child: Row(
+        spacing: 4,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(context.tr("common.next")),
+          Icon(Icons.chevron_right_rounded),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool isCurrentQuestionAnswered = _pageController.hasClients
-        ? selectedAnswer[
-                questions[_pageController.page!.toInt()].id.toString()] !=
-            null
-        : false;
     return GptMarkdownTheme(
       gptThemeData: GptMarkdownTheme.of(context).copyWith(
         highlightColor: Theme.of(context).colorScheme.secondary,
@@ -394,7 +492,7 @@ This document was created to test the robustness of Markdown parsers and to ensu
                         Expanded(
                           child: LinearTimer(
                             key: _timerKey,
-                            duration: 30,
+                            duration: 300,
                             onTimerComplete: onTimerOut,
                           ),
                         )
@@ -409,6 +507,8 @@ This document was created to test the robustness of Markdown parsers and to ensu
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => QuizDisplay(
                       question: questions[index],
+                      selectedAnswer:
+                          selectedAnswer[questions[index].id.toString()],
                       onSelect: (String? value) {
                         onSelect(value!);
                       },
@@ -425,44 +525,7 @@ This document was created to test the robustness of Markdown parsers and to ensu
                     child: child,
                   ),
                   duration: const Duration(milliseconds: 300),
-                  child: showSubmitButton
-                      ? Expanded(
-                          child: ElevatedButton(
-                            onPressed: () => {},
-                            child: Row(
-                              spacing: 4,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(context.tr("common.submit")),
-                                Icon(Icons.done_all_outlined),
-                              ],
-                            ),
-                          ),
-                        )
-                      : Expanded(
-                          child: ElevatedButton(
-                            onPressed: isCurrentQuestionAnswered
-                                ? () async {
-                                    await _pageController.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeIn,
-                                    );
-                                    _timerKey.currentState?.restart();
-                                  }
-                                : null,
-                            child: Row(
-                              spacing: 4,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(context.tr("common.next")),
-                                Icon(Icons.chevron_right_rounded),
-                              ],
-                            ),
-                          ),
-                        ),
+                  child: renderFooterButton(),
                 ),
               ],
             ),

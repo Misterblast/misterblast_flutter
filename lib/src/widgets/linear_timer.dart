@@ -47,12 +47,12 @@ class LinearTimerState extends State<LinearTimer>
   }
 
   Color _getProgressColor(double remainingTime) {
-    if (remainingTime <= 10) {
+    if (remainingTime <= 60) {
       return Colors.red;
-    } else if (remainingTime <= 20) {
+    } else if (remainingTime <= 150) {
       return AppColors.warmOrange;
     }
-    return Theme.of(context).colorScheme.primary;
+    return AppColors.coolTeal;
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,91 +39,101 @@ class OnboardingScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          context.tr("onboarding.title"),
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        Text(
-                          context.tr("common.taxonomy"),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(
-                                fontWeight: FontWeight.w900,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                        const SizedBox(height: 8),
-                        RichText(
-                          text: TextSpan(
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            children: [
-                              TextSpan(
-                                text: context
-                                    .tr("onboarding.description")
-                                    .split("{remember}")[0],
-                              ),
-                              TextSpan(
-                                text: context.tr("common.remember"),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              context.tr("onboarding.title"),
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                            AutoSizeText(
+                              context.tr("common.taxonomy"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w900,
                                     color:
-                                        Theme.of(context).colorScheme.primary),
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            RichText(
+                              text: TextSpan(
+                                style: Theme.of(context).textTheme.bodyMedium,
+                                children: [
+                                  TextSpan(
+                                    text: context
+                                        .tr("onboarding.description")
+                                        .split("{remember}")[0],
+                                  ),
+                                  TextSpan(
+                                    text: context.tr("common.remember"),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                  TextSpan(
+                                    text: context
+                                        .tr("onboarding.description")
+                                        .split("{remember}")[1]
+                                        .split("{analyze}")[0],
+                                  ),
+                                  TextSpan(
+                                    text: context.tr("common.analyze"),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                  TextSpan(
+                                    text: context
+                                        .tr("onboarding.description")
+                                        .split("{analyze}")[1]
+                                        .split("{create}")[0],
+                                  ),
+                                  TextSpan(
+                                    text: context.tr("common.create"),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                  ),
+                                  TextSpan(
+                                    text: context
+                                        .tr("onboarding.description")
+                                        .split("{create}")[1],
+                                  ),
+                                ],
                               ),
-                              TextSpan(
-                                text: context
-                                    .tr("onboarding.description")
-                                    .split("{remember}")[1]
-                                    .split("{analyze}")[0],
-                              ),
-                              TextSpan(
-                                text: context.tr("common.analyze"),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                              ),
-                              TextSpan(
-                                text: context
-                                    .tr("onboarding.description")
-                                    .split("{analyze}")[1]
-                                    .split("{create}")[0],
-                              ),
-                              TextSpan(
-                                text: context.tr("common.create"),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                              ),
-                              TextSpan(
-                                text: context
-                                    .tr("onboarding.description")
-                                    .split("{create}")[1],
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                    Column(
-                      spacing: 8,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => context.push("/login"),
-                          child: Text(context.tr("auth.login")),
-                        ),
-                        OutlinedButton(
-                          onPressed: () => context.push("/register"),
-                          child: Text(context.tr("auth.register")),
-                        ),
-                        const SizedBox(height: 4),
-                      ],
+                    Expanded(
+                      child: Column(
+                        spacing: 8,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => context.push("/login"),
+                            child: Text(context.tr("auth.login")),
+                          ),
+                          OutlinedButton(
+                            onPressed: () => context.push("/register"),
+                            child: Text(context.tr("auth.register")),
+                          ),
+                          const SizedBox(height: 4),
+                        ],
+                      ),
                     ),
                   ],
                 ),
