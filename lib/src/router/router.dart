@@ -17,6 +17,7 @@ import 'package:misterblast_flutter/src/modules/profile/profile_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/on_quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_result_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_screen.dart';
+import 'package:misterblast_flutter/src/modules/quiz/quiz_submission_list.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -74,6 +75,12 @@ GoRouter router(Ref ref) {
               final subject = stateExtra['subject'] ?? '';
               final className = stateExtra['className'] ?? '';
               return OnQuizScreen(subject: subject, className: className);
+            },
+          ),
+          GoRoute(
+            path: "/submission-list",
+            builder: (context, state) {
+              return QuizSubmissionList();
             },
           ),
           GoRoute(

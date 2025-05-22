@@ -26,7 +26,9 @@
     "number": "Number",
     "question": "Question",
     "explanation": "Explanation",
-    "reason": "Reason"
+    "reason": "Reason",
+    "answer-list": "Answer list",
+    "date": "Date"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -152,7 +154,11 @@
     "score": "Score",
     "attempt-number": "Attempts",
     "your-answer": "Your answer",
-    "correct-answer": "Correct answer"
+    "correct-answer": "Correct answer",
+    "submitted-at": "Submitted at",
+    "correct-answer-count": "Correct answers",
+    "incorrect-answer-count": "Incorrect answers",
+    "submission-details": "Submission details"
   },
   "exploration": {
     "search-exploration-placeholder": "Find Exploration by Title",

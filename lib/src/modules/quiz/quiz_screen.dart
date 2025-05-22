@@ -200,6 +200,9 @@ class QuizScreen extends StatelessWidget {
                                 ),
                                 child: ListTile(
                                   dense: true,
+                                  onTap: () => context.push(
+                                    '/quiz/submission-list',
+                                  ),
                                   style: ListTileStyle.drawer,
                                   tileColor: Colors.white,
                                   contentPadding: const EdgeInsets.symmetric(

@@ -26,7 +26,9 @@
     "number": "Nomor",
     "question": "Soal",
     "explanation": "Penjelasan",
-    "reason": "Alasan"
+    "reason": "Alasan",
+    "answer-list": "Daftar Jawaban",
+    "date": "Tanggal"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -155,7 +157,8 @@
     "correct-answer": "Jawaban Benar",
     "submitted-at": "Dikirim pada",
     "correct-answer-count": "Jumlah Jawaban Benar",
-    "incorrect-answer-count": "Jumlah Jawaban Salah"
+    "incorrect-answer-count": "Jumlah Jawaban Salah",
+    "submission-details": "Detail Pengerjaan"
   },
   "exploration": {
     "search-exploration-placeholder": "Cari Eksplorasi Berdasarkan Judul",

@@ -13,16 +13,6 @@ class AppMarkdownViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GptMarkdown(
       content,
-      imageBuilder: (context, imageUrl) {
-        print("Image URL: $imageUrl");
-        return Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return const SizedBox.shrink();
-          },
-        );
-      },
       components: [
         CodeBlockMd(),
         NewLines(),

@@ -57,7 +57,7 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
                 Expanded(
                   child: Text(
                     maxLines: 2,
-                    context.tr("examples.select-class"),
+                    context.tr("common.class"),
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
