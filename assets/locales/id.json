@@ -28,7 +28,8 @@
     "explanation": "Penjelasan",
     "reason": "Alasan",
     "answer-list": "Daftar Jawaban",
-    "date": "Tanggal"
+    "date": "Tanggal",
+    "answer": "Jawaban"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -179,12 +180,39 @@
     "select-class": "Pilih Kelas",
     "available-class": "Kelas yang tersedia",
     "open-examples-of": "Buka Contoh Soal {subject} Kelas {class}",
-    "search-hint": "Cari Contoh Soal"
+    "search-hint": "Cari Contoh Soal",
+    "search-placeholder": "Masukkan kata kunci untuk mencari contoh soal"
   },
   "subjects": {
     "mathematics": "Matematika",
     "civics": "Pancasila",
     "indonesian": "Bahasa Indonesia",
     "science": "IPAS"
+  },
+  "question-types": {
+    "c1_faktual": "C1 Faktual",
+    "c1_konseptual": "C1 Konseptual",
+    "c1_prosedural": "C1 Prosedural",
+    "c1_metakognitif": "C1 Metakognitif",
+    "c2_faktual": "C2 Faktual",
+    "c2_konseptual": "C2 Konseptual",
+    "c2_prosedural": "C2 Prosedural",
+    "c2_metakognitif": "C2 Metakognitif",
+    "c3_faktual": "C3 Faktual",
+    "c3_konseptual": "C3 Konseptual",
+    "c3_prosedural": "C3 Prosedural",
+    "c3_metakognitif": "C3 Metakognitif",
+    "c4_faktual": "C4 Faktual",
+    "c4_konseptual": "C4 Konseptual",
+    "c4_prosedural": "C4 Prosedural",
+    "c4_metakognitif": "C4 Metakognitif",
+    "c5_faktual": "C5 Faktual",
+    "c5_konseptual": "C5 Konseptual",
+    "c5_prosedural": "C5 Prosedural",
+    "c5_metakognitif": "C5 Metakognitif",
+    "c6_faktual": "C6 Faktual",
+    "c6_konseptual": "C6 Konseptual",
+    "c6_prosedural": "C6 Prosedural",
+    "c6_metakognitif": "C6 Metakognitif"
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/select_class_dialog.dart';
@@ -99,7 +100,8 @@ class ExampleScreen extends StatelessWidget {
                                     ],
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => context
+                                        .push('/examples/search-examples'),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16, vertical: 12),
@@ -120,8 +122,8 @@ class ExampleScreen extends StatelessWidget {
                                                 .textTheme
                                                 .bodyMedium!
                                                 .copyWith(
-                                                    color:
-                                                        Colors.grey.shade500),
+                                                  color: Colors.grey.shade500,
+                                                ),
                                           ),
                                         ],
                                       ),
@@ -142,7 +144,7 @@ class ExampleScreen extends StatelessWidget {
                                             .primary,
                                       ),
                                       Text(
-                                        context.tr("examples.pick-subject"),
+                                        context.tr("common.subject"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineLarge,

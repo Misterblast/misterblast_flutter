@@ -9,7 +9,7 @@ abstract class QuizAnswer with _$QuizAnswer {
     required int id,
     required String code,
     required String content,
-    @JsonKey(name: "img_url") String? img_url,
+    @JsonKey(name: "img_url") String? imageUrl,
   }) = _QuizAnswer;
 
   factory QuizAnswer.fromJson(Map<String, dynamic> json) =>

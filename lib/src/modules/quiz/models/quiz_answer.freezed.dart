@@ -19,7 +19,7 @@ mixin _$QuizAnswer {
   String get code;
   String get content;
   @JsonKey(name: "img_url")
-  String? get img_url;
+  String? get imageUrl;
 
   /// Create a copy of QuizAnswer
   /// with the given fields replaced by the non-null parameter values.
@@ -39,16 +39,17 @@ mixin _$QuizAnswer {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.img_url, img_url) || other.img_url == img_url));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, code, content, img_url);
+  int get hashCode => Object.hash(runtimeType, id, code, content, imageUrl);
 
   @override
   String toString() {
-    return 'QuizAnswer(id: $id, code: $code, content: $content, img_url: $img_url)';
+    return 'QuizAnswer(id: $id, code: $code, content: $content, imageUrl: $imageUrl)';
   }
 }
 
@@ -62,7 +63,7 @@ abstract mixin class $QuizAnswerCopyWith<$Res> {
       {int id,
       String code,
       String content,
-      @JsonKey(name: "img_url") String? img_url});
+      @JsonKey(name: "img_url") String? imageUrl});
 }
 
 /// @nodoc
@@ -80,7 +81,7 @@ class _$QuizAnswerCopyWithImpl<$Res> implements $QuizAnswerCopyWith<$Res> {
     Object? id = null,
     Object? code = null,
     Object? content = null,
-    Object? img_url = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -95,9 +96,9 @@ class _$QuizAnswerCopyWithImpl<$Res> implements $QuizAnswerCopyWith<$Res> {
           ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      img_url: freezed == img_url
-          ? _self.img_url
-          : img_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -110,7 +111,7 @@ class _QuizAnswer implements QuizAnswer {
       {required this.id,
       required this.code,
       required this.content,
-      @JsonKey(name: "img_url") this.img_url});
+      @JsonKey(name: "img_url") this.imageUrl});
   factory _QuizAnswer.fromJson(Map<String, dynamic> json) =>
       _$QuizAnswerFromJson(json);
 
@@ -122,7 +123,7 @@ class _QuizAnswer implements QuizAnswer {
   final String content;
   @override
   @JsonKey(name: "img_url")
-  final String? img_url;
+  final String? imageUrl;
 
   /// Create a copy of QuizAnswer
   /// with the given fields replaced by the non-null parameter values.
@@ -147,16 +148,17 @@ class _QuizAnswer implements QuizAnswer {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.img_url, img_url) || other.img_url == img_url));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, code, content, img_url);
+  int get hashCode => Object.hash(runtimeType, id, code, content, imageUrl);
 
   @override
   String toString() {
-    return 'QuizAnswer(id: $id, code: $code, content: $content, img_url: $img_url)';
+    return 'QuizAnswer(id: $id, code: $code, content: $content, imageUrl: $imageUrl)';
   }
 }
 
@@ -172,7 +174,7 @@ abstract mixin class _$QuizAnswerCopyWith<$Res>
       {int id,
       String code,
       String content,
-      @JsonKey(name: "img_url") String? img_url});
+      @JsonKey(name: "img_url") String? imageUrl});
 }
 
 /// @nodoc
@@ -190,7 +192,7 @@ class __$QuizAnswerCopyWithImpl<$Res> implements _$QuizAnswerCopyWith<$Res> {
     Object? id = null,
     Object? code = null,
     Object? content = null,
-    Object? img_url = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_QuizAnswer(
       id: null == id
@@ -205,9 +207,9 @@ class __$QuizAnswerCopyWithImpl<$Res> implements _$QuizAnswerCopyWith<$Res> {
           ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      img_url: freezed == img_url
-          ? _self.img_url
-          : img_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

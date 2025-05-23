@@ -89,7 +89,11 @@ class _SelectSubjectSheetState extends State<FilterResultSheet> {
                             .map(
                               (item) => InkWell(
                                 onTap: () => setState(() {
-                                  _selectedClass = item;
+                                  if (_selectedClass == item) {
+                                    _selectedClass = null;
+                                  } else {
+                                    _selectedClass = item;
+                                  }
                                 }),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -194,7 +198,11 @@ class _SelectSubjectSheetState extends State<FilterResultSheet> {
                                         ),
                                   ),
                                   onTap: () => setState(() {
-                                    _selectedSubject = subject['title'];
+                                    if (_selectedSubject == subject['title']) {
+                                      _selectedSubject = null;
+                                    } else {
+                                      _selectedSubject = subject['title'];
+                                    }
                                   }),
                                 ),
                               ),

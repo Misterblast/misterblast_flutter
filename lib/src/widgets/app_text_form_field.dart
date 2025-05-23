@@ -8,13 +8,21 @@ class AppTextFormField extends StatefulWidget {
     this.label,
     this.hintText,
     this.validator,
+    this.focusNode,
+    this.prefixIcon,
+    this.textStyle,
+    this.textPadding,
   });
 
+  final FocusNode? focusNode;
   final TextEditingController? controller;
   final bool obsecure;
   final String? label;
   final String? hintText;
   final String? Function(String)? validator;
+  final Widget? prefixIcon;
+  final TextStyle? textStyle;
+  final EdgeInsetsGeometry? textPadding;
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -35,15 +43,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       spacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.label != null
-            ? Text(
-                widget.label!,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              )
-            : const SizedBox.shrink(),
+        if (widget.label != null)
+          Text(
+            widget.label!,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
         TextFormField(
+          focusNode: widget.focusNode,
           keyboardType: widget.obsecure
               ? TextInputType.visiblePassword
               : TextInputType.emailAddress,
@@ -55,11 +63,19 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             }
             return null;
           },
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: widget.textStyle ?? Theme.of(context).textTheme.bodyMedium,
           decoration: InputDecoration(
+            isDense: true,
             hintText: widget.hintText,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
+            contentPadding: widget.textPadding ??
+                const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 16,
+                ),
+            prefixIcon: widget.prefixIcon,
+            prefixIconConstraints: const BoxConstraints(
+              minWidth: 44,
+              minHeight: 24,
             ),
             suffixIcon: widget.obsecure
                 ? IconButton(

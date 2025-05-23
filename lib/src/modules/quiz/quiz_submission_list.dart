@@ -41,11 +41,64 @@ class _QuizSubmissionListState extends State<QuizSubmissionList> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                context.tr("quiz.works-result"),
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: Colors.white,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      context.tr("quiz.works-result"),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge
+                          ?.copyWith(color: Colors.white),
                     ),
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      (String?, String?) tuple = await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => FilterResultSheet(
+                          selectedClass: _filterClass,
+                          selectedSubject: _filterSubject,
+                        ),
+                      );
+                      setState(() {
+                        _filterSubject = tuple.$1;
+                        _filterClass = tuple.$2;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Row(
+                        spacing: 6,
+                        children: [
+                          Icon(
+                            size: 16,
+                            Icons.filter_list,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Filter",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                  color: Colors.white,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -62,128 +115,71 @@ class _QuizSubmissionListState extends State<QuizSubmissionList> {
                   spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 3,
+                      alignment: WrapAlignment.start,
+                      runAlignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.start,
                       children: [
-                        Expanded(
-                          child: Wrap(
-                            spacing: 6,
-                            runSpacing: 3,
-                            alignment: WrapAlignment.start,
-                            runAlignment: WrapAlignment.start,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            children: [
-                              if (_filterSubject != null)
-                                Chip(
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 12,
-                                  ),
-                                  side: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  label: Text(
-                                    context.tr("subjects.${_filterSubject!}"),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: Colors.white,
-                                        ),
-                                  ),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  deleteIcon:
-                                      Icon(Icons.close, color: Colors.white),
-                                  onDeleted: () {
-                                    setState(() {
-                                      _filterSubject = null;
-                                    });
-                                  },
-                                ),
-                              if (_filterClass != null)
-                                Chip(
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8,
-                                      horizontal: 12,
-                                    ),
-                                    side: BorderSide(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                                    label: Text(
-                                      "${context.tr("common.class")} ${_filterClass!}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                            color: Colors.white,
-                                          ),
-                                    ),
-                                    backgroundColor:
-                                        Theme.of(context).colorScheme.primary,
-                                    deleteIcon:
-                                        Icon(Icons.close, color: Colors.white),
-                                    onDeleted: () {
-                                      setState(() {
-                                        _filterClass = null;
-                                      });
-                                    }),
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            (String?, String?) tuple =
-                                await showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (context) => FilterResultSheet(
-                                selectedClass: _filterClass,
-                                selectedSubject: _filterSubject,
-                              ),
-                            );
-                            setState(() {
-                              _filterSubject = tuple.$1;
-                              _filterClass = tuple.$2;
-                            });
-                          },
-                          child: Container(
+                        if (_filterSubject != null)
+                          Chip(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             padding: const EdgeInsets.symmetric(
                               vertical: 8,
-                              horizontal: 16,
+                              horizontal: 12,
                             ),
-                            decoration: BoxDecoration(
+                            side: BorderSide(
                               color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(24),
                             ),
-                            child: Row(
-                              spacing: 6,
-                              children: [
-                                Icon(
-                                  size: 16,
-                                  Icons.filter_list,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "Filter",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                ),
-                              ],
+                            label: Text(
+                              context.tr("subjects.${_filterSubject!}"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                  ),
                             ),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            deleteIcon: Icon(Icons.close, color: Colors.white),
+                            onDeleted: () {
+                              setState(() {
+                                _filterSubject = null;
+                              });
+                            },
                           ),
-                        ),
+                        if (_filterClass != null)
+                          Chip(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 12,
+                              ),
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              label: Text(
+                                "${context.tr("common.class")} ${_filterClass!}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                    ),
+                              ),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              deleteIcon:
+                                  Icon(Icons.close, color: Colors.white),
+                              onDeleted: () {
+                                setState(() {
+                                  _filterClass = null;
+                                });
+                              }),
                       ],
                     ),
                     Expanded(

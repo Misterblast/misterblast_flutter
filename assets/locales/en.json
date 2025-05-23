@@ -28,7 +28,8 @@
     "explanation": "Explanation",
     "reason": "Reason",
     "answer-list": "Answer list",
-    "date": "Date"
+    "date": "Date",
+    "answer": "Answer"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -179,12 +180,39 @@
     "select-class": "Select Class",
     "available-class": "Available Class",
     "open-examples-of": "Open Examples of {subject} Class {class}",
-    "search-hint": "Search Question Examples"
+    "search-hint": "Search Question Examples",
+    "search-placeholder": "Enter keywords to search for question examples"
   },
   "subjects": {
     "mathematics": "Mathematics",
     "civics": "Pancasila",
     "indonesian": "Indonesian",
     "science": "IPAS"
+  },
+  "question-types": {
+    "c1_faktual": "C1 Factual",
+    "c1_konseptual": "C1 Conceptual",
+    "c1_prosedural": "C1 Procedural",
+    "c1_metakognitif": "C1 Metacognitive",
+    "c2_faktual": "C2 Factual",
+    "c2_konseptual": "C2 Conceptual",
+    "c2_prosedural": "C2 Procedural",
+    "c2_metakognitif": "C2 Metacognitive",
+    "c3_faktual": "C3 Factual",
+    "c3_konseptual": "C3 Conceptual",
+    "c3_prosedural": "C3 Procedural",
+    "c3_metakognitif": "C3 Metacognitive",
+    "c4_faktual": "C4 Factual",
+    "c4_konseptual": "C4 Conceptual",
+    "c4_prosedural": "C4 Procedural",
+    "c4_metakognitif": "C4 Metacognitive",
+    "c5_faktual": "C5 Factual",
+    "c5_konseptual": "C5 Conceptual",
+    "c5_prosedural": "C5 Procedural",
+    "c5_metakognitif": "C5 Metacognitive",
+    "c6_faktual": "C6 Factual",
+    "c6_konseptual": "C6 Conceptual",
+    "c6_prosedural": "C6 Procedural",
+    "c6_metakognitif": "C6 Metacognitive"
   }
 }

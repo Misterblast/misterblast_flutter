@@ -8,6 +8,8 @@ import 'package:misterblast_flutter/src/modules/auth/login_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/register_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/reset_password.dart';
 import 'package:misterblast_flutter/src/modules/auth/update_password.dart';
+import 'package:misterblast_flutter/src/modules/examples/example_detail_screen.dart';
+import 'package:misterblast_flutter/src/modules/examples/search_example_screen.dart';
 import 'package:misterblast_flutter/src/modules/exploration/exploration_screen.dart';
 import 'package:misterblast_flutter/src/modules/examples/example_screen.dart';
 import 'package:misterblast_flutter/src/modules/home/home_screen.dart';
@@ -93,6 +95,29 @@ GoRouter router(Ref ref) {
         ],
       ),
       GoRoute(
+        path: '/examples',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const ExampleScreen(),
+        routes: [
+          GoRoute(
+            path: "/example-questions",
+            builder: (context, state) {
+              final queryParameters = state.uri.queryParameters;
+              final subject = queryParameters['subject'] ?? '';
+              final className = queryParameters['className'] ?? '';
+              return ExampleDetailScreen(
+                className: className,
+                subject: subject,
+              );
+            },
+          ),
+          GoRoute(
+            path: "/search-examples",
+            builder: (context, state) => const SearchExampleScreen(),
+          ),
+        ],
+      ),
+      GoRoute(
         path: "/task",
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const QuizScreen(),
@@ -112,13 +137,6 @@ GoRouter router(Ref ref) {
             pageBuilder: (context, state) => NoTransitionPage(
               child: const HomeScreen(),
             ),
-            routes: [
-              GoRoute(
-                path: '/examples',
-                parentNavigatorKey: rootNavigatorKey,
-                builder: (context, state) => const ExampleScreen(),
-              )
-            ],
           ),
           GoRoute(
             path: '/activity',

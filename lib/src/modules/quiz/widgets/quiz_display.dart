@@ -75,11 +75,11 @@ class _QuizDisplayState extends State<QuizDisplay> {
               ),
               child: RadioListTile(
                 groupValue: _selectedAnswer,
-                title: Text(answer!.content),
+                title: AppMarkdownViewer(content : answer!.content),
                 tileColor: Colors.grey.shade50,
                 activeColor: Theme.of(context).colorScheme.primary,
-                subtitle: answer.img_url != null
-                    ? Image.network(answer.img_url!)
+                subtitle: answer.imageUrl != null
+                    ? Image.network(answer.imageUrl!)
                     : null,
                 selected: _selectedAnswer == answer.code,
                 value: answer.code,

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SelectClassDialog extends StatefulWidget {
   const SelectClassDialog({super.key, required this.subjectName});
@@ -100,7 +101,13 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
                   .toList(),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _selectedClass != null
+                  ? () {
+                      context.pop();
+                      context.push(
+                          '/examples/example-questions?subject=${widget.subjectName}&className=$_selectedClass');
+                    }
+                  : null,
               child: AutoSizeText(
                 maxLines: 1,
                 overflow: TextOverflow.visible,

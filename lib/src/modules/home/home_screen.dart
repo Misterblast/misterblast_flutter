@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                               description: "menu.card.material-description",
                             ),
                             MenuCard(
-                              onTap: () => context.push("/home/examples"),
+                              onTap: () => context.push("/examples"),
                               imageAsset: "assets/images/conso-icon.png",
                               title: "menu.card.examples",
                               description: "menu.card.examples-description",

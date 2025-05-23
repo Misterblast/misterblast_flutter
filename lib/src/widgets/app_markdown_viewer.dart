@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
+import 'package:misterblast_flutter/src/utils/clean_text.dart';
 
 class AppMarkdownViewer extends StatelessWidget {
   const AppMarkdownViewer({
@@ -12,7 +13,7 @@ class AppMarkdownViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GptMarkdown(
-      content,
+      cleanText(content),
       components: [
         CodeBlockMd(),
         NewLines(),
