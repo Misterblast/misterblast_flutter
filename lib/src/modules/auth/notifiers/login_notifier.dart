@@ -23,6 +23,7 @@ class LoginNotifier extends _$LoginNotifier {
         SharedPreferencesKey.accesToken.name,
         token,
       );
+      state = AsyncValue.data(token);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
     }

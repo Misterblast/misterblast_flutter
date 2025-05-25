@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/config/local-storage/shared_preferences.dart';
 import 'package:misterblast_flutter/src/config/network/interceptors/base_url.interceptor.dart';
 import 'package:misterblast_flutter/src/config/network/interceptors/bearer.interceptor.dart';
+import 'package:misterblast_flutter/src/config/network/interceptors/log.interceptor.dart';
 import 'package:misterblast_flutter/src/config/remote-config/remote_config.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +23,7 @@ Future<Dio> dio(Ref ref) async {
   dioInstance.options.receiveTimeout = const Duration(minutes: 10);
   dioInstance.options.connectTimeout = const Duration(minutes: 10);
   dioInstance.interceptors.addAll([
+    LoggingInterceptor(),
     BaseUrlInterceptor(instance: remoteConfigInstance),
     BearerInterceptor(sharedPreferences: sharedPreferences),
   ]);

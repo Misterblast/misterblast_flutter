@@ -28,7 +28,8 @@ class AuthRepository extends BaseRepository {
       if (token == null || token.isEmpty) {
         throw 'invalid-response-header';
       }
-      return token.replaceAll("token=", '');
+
+      return token.split(";").first.replaceAll("token=", '');
     } on DioException catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 404) {
         throw 'auth.exceptions.invalid-email-or-password';
@@ -41,7 +42,7 @@ class AuthRepository extends BaseRepository {
       }
     } catch (e) {
       logger.e('Failed to register: $e', stackTrace: StackTrace.current);
-      throw 'Failed to login: $e';
+      rethrow;
     }
   }
 
@@ -52,23 +53,29 @@ class AuthRepository extends BaseRepository {
     String? imagePath,
   ) async {
     try {
+      final FormData formData = FormData.fromMap({
+        'name': name,
+        'email': email,
+        'password': password,
+        if (imagePath != null) 'image': await MultipartFile.fromFile(imagePath),
+      });
       await dio.post(
         'register',
-        data: {
-          'name': name,
-          'email': email,
-          'password': password,
-        },
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
       );
     } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
-        throw Exception('auth.exceptions.invalid-email-or-password');
+        throw 'auth.exceptions.invalid-email-or-password';
       } else {
-        throw Exception(e.message ?? 'exceptions.unknown-error');
+        throw 'exceptions.unknown-error';
       }
     } catch (e) {
-      logger.e('Failed to register: $e');
-      throw Exception('Failed to register: $e');
+      throw '$e';
     }
   }
 }

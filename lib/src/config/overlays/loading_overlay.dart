@@ -17,7 +17,7 @@ class LoadingOverlay {
         children: [
           ModalBarrier(
             dismissible: false,
-            color: Colors.grey.withAlpha(30),
+            color: Colors.black.withAlpha(30),
           ),
           Column(
             spacing: 30,

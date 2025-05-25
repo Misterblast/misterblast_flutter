@@ -98,6 +98,7 @@ class UserDataForm extends StatelessWidget {
               children: [
                 Form(
                   key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUnfocus,
                   child: Column(
                     spacing: 8,
                     children: [
@@ -106,9 +107,10 @@ class UserDataForm extends StatelessWidget {
                         hintText: "auth.full-name-placeholder".tr(),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "auth.exceptions".tr(
+                            return context.tr(
+                              "auth.exceptions.field-required",
                               namedArgs: {
-                                "fieldName": "auth.full-name".tr(),
+                                "fieldName": context.tr("auth.full-name"),
                               },
                             );
                           }
@@ -120,19 +122,46 @@ class UserDataForm extends StatelessWidget {
                         label: "auth.email".tr(),
                         hintText: "auth.email-placeholder".tr(),
                         validator: (value) {
+                          if (value.isEmpty) {
+                            return context.tr(
+                              "auth.exceptions.field-required",
+                              namedArgs: {"fieldName": "Email"},
+                            );
+                          }
+                          final emailRegex = RegExp(
+                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                          );
+                          if (!emailRegex.hasMatch(value)) {
+                            return context.tr(
+                              "auth.exceptions.invalid-email",
+                            );
+                          }
                           return null;
                         },
                         controller: _emailController,
                       ),
                       AppTextFormField(
                         obsecure: true,
+                        controller: _passwordController,
                         label: "auth.password".tr(),
                         hintText:
                             "auth.password-hint-placeholder-min-char".tr(),
                         validator: (value) {
+                          if (value.isEmpty) {
+                            return context.tr(
+                              "auth.exceptions.field-required",
+                              namedArgs: {
+                                "fieldName": context.tr("auth.password")
+                              },
+                            );
+                          }
+                          if (value.length < 8) {
+                            return context.tr(
+                              "auth.exceptions.min-password-length",
+                            );
+                          }
                           return null;
                         },
-                        controller: _passwordController,
                       ),
                       AppTextFormField(
                         obsecure: true,
@@ -140,6 +169,26 @@ class UserDataForm extends StatelessWidget {
                         hintText:
                             "auth.password-hint-placeholder-min-char".tr(),
                         validator: (value) {
+                          if (value.isEmpty) {
+                            return context.tr(
+                              "auth.exceptions.field-required",
+                              namedArgs: {
+                                "fieldName": context.tr(
+                                  "auth.repeat-password-hint-placeholder",
+                                )
+                              },
+                            );
+                          }
+                          if (value.length < 8) {
+                            return context.tr(
+                              "auth.exceptions.min-password-length",
+                            );
+                          }
+                          if (value != _passwordController.text) {
+                            return context.tr(
+                              "auth.exceptions.passwords-not-match",
+                            );
+                          }
                           return null;
                         },
                         controller: _confirmPasswordController,
@@ -148,7 +197,12 @@ class UserDataForm extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: onNextPage,
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      FocusScope.of(context).unfocus();
+                      onNextPage?.call();
+                    }
+                  },
                   style: ButtonStyle(),
                   child: Row(
                     spacing: 4,

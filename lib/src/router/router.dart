@@ -35,12 +35,6 @@ GoRouter router(Ref ref) {
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     initialLocation: "/onboarding",
-    // redirect: (context, state) {
-    //   final authState = ref.watch(authNotifierProvider);
-    //   if (authState.isLoading) return null;
-    //   if (authState.value == AuthState.loggedIn) return "/home";
-    //   return "/onboarding";
-    // },
     routes: [
       GoRoute(
         path: "/onboarding",
@@ -56,7 +50,12 @@ GoRouter router(Ref ref) {
       ),
       GoRoute(
         path: "/register-completed",
-        builder: (context, state) => const RegisterCompleted(),
+        builder: (context, state) {
+          final extras = state.extra as Map<String, String>;
+          final email = extras['email'] ?? '';
+          final password = extras['password'] ?? '';
+          return RegisterCompleted(email: email, password: password);
+        },
       ),
       GoRoute(
         path: "/reset-password",

@@ -15,7 +15,7 @@ Future<FirebaseRemoteConfig> firebaseRemoteConfig(Ref ref) async {
     ),
   );
   logger.i('Firebase Remote Config initialized');
-  instance.fetchAndActivate().then(
+  await instance.fetchAndActivate().then(
     (bool updated) {
       final values = instance
           .getAll()

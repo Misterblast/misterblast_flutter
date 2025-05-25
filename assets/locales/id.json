@@ -76,7 +76,8 @@
       "email-already-in-use": "Email sudah terdaftar",
       "field-required": "{fieldName} tidak boleh kosong.",
       "min-password-length": "Kata sandi harus terdiri dari minimal 8 karakter.",
-      "invalid-email-or-password": "Email atau kata sandi tidak valid."
+      "invalid-email-or-password": "Email atau kata sandi tidak valid.",
+      "passwords-not-match": "Kata sandi tidak cocok."
     }
   },
   "forgot-password": {

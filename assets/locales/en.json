@@ -76,7 +76,8 @@
       "email-already-in-use": "Email is already registered",
       "field-required": "{fieldName} is required.",
       "min-password-length": "Password must be at least 8 characters.",
-      "invalid-email-or-password": "Invalid email or password."
+      "invalid-email-or-password": "Invalid email or password.",
+      "passwords-not-match": "Passwords do not match."
     }
   },
   "forgot-password": {

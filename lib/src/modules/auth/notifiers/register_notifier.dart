@@ -6,7 +6,7 @@ part 'register_notifier.g.dart';
 @riverpod
 class RegisterNotifier extends _$RegisterNotifier {
   @override
-  AsyncValue<String> build() => const AsyncValue.data('');
+  AsyncValue<bool> build() => const AsyncValue.data(false);
 
   void register(
     String name,
@@ -22,6 +22,7 @@ class RegisterNotifier extends _$RegisterNotifier {
             password,
             imagePath,
           );
+      state = const AsyncValue.data(true);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
     }

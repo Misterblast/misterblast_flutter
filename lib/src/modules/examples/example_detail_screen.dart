@@ -1,10 +1,14 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:misterblast_flutter/src/models/set.dart';
 import 'package:misterblast_flutter/src/modules/examples/models/question.dart';
+import 'package:misterblast_flutter/src/providers/resources.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
+import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
-class ExampleDetailScreen extends StatefulWidget {
+class ExampleDetailScreen extends ConsumerStatefulWidget {
   const ExampleDetailScreen({
     super.key,
     required this.subject,
@@ -15,10 +19,11 @@ class ExampleDetailScreen extends StatefulWidget {
   final String className;
 
   @override
-  State<ExampleDetailScreen> createState() => _ExampleDetailScreenState();
+  ConsumerState<ExampleDetailScreen> createState() =>
+      _ExampleDetailScreenState();
 }
 
-class _ExampleDetailScreenState extends State<ExampleDetailScreen> {
+class _ExampleDetailScreenState extends ConsumerState<ExampleDetailScreen> {
   String? _selectedSet;
 
   final List<Map<String, dynamic>> questions = [
@@ -146,6 +151,12 @@ class _ExampleDetailScreenState extends State<ExampleDetailScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    final sets = ref.watch(
+      exampleSetsProvider(
+        className: widget.className,
+        lessonName: widget.subject,
+      ),
+    );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
@@ -178,9 +189,94 @@ class _ExampleDetailScreenState extends State<ExampleDetailScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Wrap(
+            sets.when(
+              data: (sets) => ExampleSetsOptions(
+                sets: [],
+                selectedSet: _selectedSet ?? "1",
+              ),
+              error: (error, stack) => Text(
+                error.toString(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              loading: () => Row(
+                spacing: 8,
+                children: List.generate(
+                  3,
+                  (index) => ShimmerContainer(
+                    size: const Size(60, 30),
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: questions.length,
+                itemBuilder: (context, index) => QuestionTile(
+                  question: Question.fromJson(questions[index]),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExampleSetsOptions extends ConsumerStatefulWidget {
+  ExampleSetsOptions({
+    super.key,
+    required this.selectedSet,
+    required this.sets,
+  });
+
+  String selectedSet;
+  List<ExampleSet> sets;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ExampleSetsOptionsState();
+}
+
+class _ExampleSetsOptionsState extends ConsumerState<ExampleSetsOptions> {
+  bool isScrollable = false;
+  final ScrollController _scrollController = ScrollController();
+  String? _selectedSet;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        if (_scrollController.position.maxScrollExtent >
+            _scrollController.position.minScrollExtent) {
+          setState(() {
+            isScrollable = true;
+          });
+        } else {
+          setState(() {
+            isScrollable = false;
+          });
+        }
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 8,
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            scrollDirection: Axis.horizontal,
+            child: Row(
               spacing: 8,
-              runSpacing: 4,
               children: ['1', '2', '3']
                   .map(
                     (item) => InkWell(
@@ -218,18 +314,34 @@ class _ExampleDetailScreenState extends State<ExampleDetailScreen> {
                   )
                   .toList(),
             ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: questions.length,
-                itemBuilder: (context, index) => QuestionTile(
-                  question: Question.fromJson(questions[index]),
-                ),
-              ),
-            )
-          ],
+          ),
         ),
-      ),
+        if (isScrollable)
+          InkWell(
+            onTap: () {
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                size: 28,
+                Icons.chevron_right_rounded,
+                color: Colors.white,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

@@ -1,22 +1,21 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/config/logger.dart';
+import 'package:misterblast_flutter/src/providers/resources.dart';
+import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
-class SelectClassDialog extends StatefulWidget {
+class SelectClassDialog extends ConsumerStatefulWidget {
   const SelectClassDialog({super.key, required this.subjectName});
   final String subjectName;
 
   @override
-  State<SelectClassDialog> createState() => _SelectClassDialogState();
+  ConsumerState<SelectClassDialog> createState() => _SelectClassDialogState();
 }
 
-class _SelectClassDialogState extends State<SelectClassDialog> {
-  final List<String> _availableClasses = [
-    "4",
-    "5",
-    "6",
-  ];
+class _SelectClassDialogState extends ConsumerState<SelectClassDialog> {
   String? _selectedClass;
 
   void _onClassSelected(String? value) {
@@ -26,13 +25,8 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _selectedClass = _availableClasses.first;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final classProvider = ref.watch(classesProvider);
     return Dialog(
       child: Container(
         width: double.infinity,
@@ -64,41 +58,58 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
                 ),
               ],
             ),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: _availableClasses
-                  .map((item) => InkWell(
-                        onTap: () => _onClassSelected(item),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _selectedClass == item
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Theme.of(context).colorScheme.primary,
+            classProvider.when(
+              data: (classes) => Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: classes
+                    .map((item) => InkWell(
+                          onTap: () => _onClassSelected(item.name),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: _selectedClass == item.name
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            child: Text(
+                              "${context.tr("common.class")} ${item.name}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: _selectedClass == item.name
+                                        ? Colors.white
+                                        : Theme.of(context).colorScheme.primary,
+                                  ),
                             ),
                           ),
-                          child: Text(
-                            "${context.tr("common.class")} $item",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: _selectedClass == item
-                                      ? Colors.white
-                                      : Theme.of(context).colorScheme.primary,
-                                ),
-                          ),
-                        ),
-                      ))
-                  .toList(),
+                        ))
+                    .toList(),
+              ),
+              error: (err, _) {
+                logger.e("Error fetching classes: $err");
+                return Text(context.tr("exceptions.unknown-error"));
+              },
+              loading: () => Row(
+                spacing: 4,
+                children: List.generate(
+                  3,
+                  (index) => ShimmerContainer(
+                    size: const Size(75, 35),
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                  ),
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: _selectedClass != null
@@ -109,8 +120,10 @@ class _SelectClassDialogState extends State<SelectClassDialog> {
                     }
                   : null,
               child: AutoSizeText(
-                maxLines: 1,
+                maxLines: 2,
+                minFontSize: 12,
                 overflow: TextOverflow.visible,
+                textAlign: TextAlign.center,
                 context.tr(
                   "examples.open-examples-of",
                   namedArgs: {

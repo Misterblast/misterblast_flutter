@@ -1,11 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/config/logger.dart';
+import 'package:misterblast_flutter/src/providers/user.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/menu_card.dart';
 import 'package:misterblast_flutter/src/widgets/quiz_chart.dart';
 import 'package:misterblast_flutter/src/widgets/quiz_menu_card.dart';
+import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
 import 'package:misterblast_flutter/src/widgets/task_chart.dart';
 import 'package:misterblast_flutter/src/widgets/task_menu_card.dart';
@@ -48,38 +52,88 @@ class HomeScreen extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                    child: Column(
-                      spacing: 12,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircleAvatar(
-                              maxRadius: 40,
-                              backgroundColor: AppColors.lightBlue,
-                              onBackgroundImageError: (exception, stackTrace) =>
-                                  const Icon(Icons.error),
-                              backgroundImage: NetworkImage(
-                                "https://picsum.photos/id/237/200/300",
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final userNotifier = ref.watch(userProvider);
+                      return userNotifier.when(
+                        data: (user) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 8),
+                          child: Column(
+                            spacing: 12,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircleAvatar(
+                                    maxRadius: 40,
+                                    backgroundColor: AppColors.lightBlue,
+                                    onBackgroundImageError:
+                                        (exception, stackTrace) =>
+                                            const Icon(Icons.error),
+                                    backgroundImage: NetworkImage(
+                                      userNotifier.value?.imgUrl ??
+                                          "https://picsum.photos/id/237/200/300",
+                                    ),
+                                  ),
+                                  ChangeLocalButton(),
+                                ],
                               ),
+                              Text(
+                                "$greetingMessage, ${user!.name}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                        error: (err, _) {
+                          logger.e(err);
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 8),
+                            child: Text(
+                              "common.error".tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge
+                                  ?.copyWith(color: Colors.white),
                             ),
-                            ChangeLocalButton(),
-                          ],
+                          );
+                        },
+                        loading: () => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 8),
+                          child: Column(
+                            spacing: 12,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ShimmerContainer(
+                                    size: const Size(80, 80),
+                                    borderRadius: BorderRadius.circular(120),
+                                  ),
+                                  ChangeLocalButton(),
+                                ],
+                              ),
+                              ShimmerContainer(
+                                size: const Size(200, 30),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          "$greetingMessage, Eka Robyanto",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(color: Colors.white),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                   Column(
                     spacing: 8,

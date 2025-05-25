@@ -1,14 +1,37 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/constants/auth_state.dart';
 import 'package:misterblast_flutter/src/modules/onboarding/widgets/onbording_top_bar.dart';
+import 'package:misterblast_flutter/src/providers/auth.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
+  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    //TODO:: MOVE THIS TO SPLASH SCREEN
+    ref.listen(authNotifierProvider, (_, state) {
+      state.whenOrNull(
+        data: (state) {
+          if (state == AuthState.loggedIn) {
+            context.pushReplacement("/home");
+          }
+        },
+      );
+    });
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
