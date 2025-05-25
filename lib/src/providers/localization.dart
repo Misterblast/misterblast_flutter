@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:misterblast_flutter/src/constants/shared_preferences.key.dart';
-import 'package:misterblast_flutter/src/core/local-storage/shared_preferences.dart';
+import 'package:misterblast_flutter/src/config/local-storage/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'localization.g.dart';

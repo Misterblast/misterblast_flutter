@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/constants/auth_state.dart';
 import 'package:misterblast_flutter/src/modules/activity/activity_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/complete_register_screen.dart';
 
@@ -20,6 +21,7 @@ import 'package:misterblast_flutter/src/modules/quiz/on_quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_result_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_submission_list.dart';
+import 'package:misterblast_flutter/src/modules/task/task_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -33,6 +35,12 @@ GoRouter router(Ref ref) {
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     initialLocation: "/onboarding",
+    // redirect: (context, state) {
+    //   final authState = ref.watch(authNotifierProvider);
+    //   if (authState.isLoading) return null;
+    //   if (authState.value == AuthState.loggedIn) return "/home";
+    //   return "/onboarding";
+    // },
     routes: [
       GoRoute(
         path: "/onboarding",
@@ -93,6 +101,13 @@ GoRouter router(Ref ref) {
             },
           ),
         ],
+      ),
+      GoRoute(
+        path: "/task",
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          return TaskScreen();
+        },
       ),
       GoRoute(
         path: '/examples',

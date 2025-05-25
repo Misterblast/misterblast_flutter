@@ -1,22 +1,53 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
+import 'package:misterblast_flutter/src/modules/auth/notifiers/login_notifier.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    ref.listenManual(
+      loginNotifierProvider,
+      (_, state) {
+        state.whenOrNull(
+          loading: () => _loadingOverlay.show(context),
+          data: (data) {
+            _loadingOverlay.hide();
+            context.pushReplacement("/home");
+          },
+          error: (error, stackTrace) {
+            _loadingOverlay.hide();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(context.tr(error.toString())),
+                backgroundColor: Colors.red,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          },
+        );
+      },
+    );
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -36,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
+
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
@@ -52,7 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [AppBackButton(), ChangeLocalButton()],
+                    children: [
+                      AppBackButton(),
+                      ChangeLocalButton(formKey: _formKey)
+                    ],
                   ),
                 ),
                 Column(
@@ -126,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 Form(
+                  key: _formKey,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
@@ -135,6 +171,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           label: "auth.email".tr(),
                           hintText: "auth.email-placeholder".tr(),
                           validator: (value) {
+                            if (value.isEmpty) {
+                              return context.tr(
+                                "auth.exceptions.field-required",
+                                namedArgs: {"fieldName": "Email"},
+                              );
+                            }
+                            final emailRegex = RegExp(
+                              r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                            );
+                            if (!emailRegex.hasMatch(value)) {
+                              return context.tr(
+                                "auth.exceptions.invalid-email",
+                              );
+                            }
                             return null;
                           },
                           controller: _emailController,
@@ -144,24 +194,46 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             AppTextFormField(
                               obsecure: true,
-                              label: "auth.password".tr(),
+                              label: context.tr("auth.password"),
                               hintText:
                                   "auth.password-hint-placeholder-min-char"
                                       .tr(),
                               validator: (value) {
+                                if (value.isEmpty) {
+                                  return context.tr(
+                                    "auth.exceptions.field-required",
+                                    namedArgs: {
+                                      "fieldName": context.tr("auth.password")
+                                    },
+                                  );
+                                }
+                                if (value.length < 8) {
+                                  return context.tr(
+                                    "auth.exceptions.min-password-length",
+                                  );
+                                }
                                 return null;
                               },
                               controller: _passwordController,
                             ),
-                            TextButton(
-                              child: Text("auth.forgot-password".tr()),
-                              onPressed: () => context.push("/reset-password"),
-                            ),
+                            // TextButton(
+                            //   child: Text("auth.forgot-password".tr()),
+                            //   onPressed: () => context.push("/reset-password"),
+                            // ),
                           ],
                         ),
                         const SizedBox(height: 8),
                         ElevatedButton(
-                          onPressed: () => context.push('/home'),
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            FocusScope.of(context).unfocus();
+                            ref.read(loginNotifierProvider.notifier).login(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
+                          },
                           child: Text(
                             "auth.login".tr(),
                           ),

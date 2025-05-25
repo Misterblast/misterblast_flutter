@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:misterblast_flutter/src/modules/onboarding/widgets/image_logo_container.dart';
 
 class ChangeLocalButton extends StatelessWidget {
-  ChangeLocalButton({super.key});
+  ChangeLocalButton({super.key, this.formKey});
+
+  GlobalKey<FormState>? formKey;
 
   final List<Map<String, dynamic>> locales = [
     {
@@ -29,6 +31,7 @@ class ChangeLocalButton extends StatelessWidget {
         builder: (context) => SelectLocaleDialog(
           locales: locales,
           currentLocale: currentLocal["name"],
+          formKey: formKey,
         ),
       ),
       child: Container(
@@ -77,8 +80,10 @@ class SelectLocaleDialog extends StatefulWidget {
     super.key,
     required this.locales,
     required this.currentLocale,
+    this.formKey,
   });
   final String currentLocale;
+  final GlobalKey<FormState>? formKey;
   final List<Map<String, dynamic>> locales;
 
   @override
@@ -136,12 +141,16 @@ class _SelectLocaleDialogState extends State<SelectLocaleDialog> {
               selectedColor: Theme.of(context).colorScheme.primary,
               contentPadding: const EdgeInsets.all(0),
               onTap: () {
+                print(widget.formKey?.currentState ?? "null");
                 setState(() {
                   _selectedLocale = widget.locales[index]["name"];
                 });
                 context.setLocale(
                   Locale(widget.locales[index]["name"]),
                 );
+                if (widget.formKey != null) {
+                  widget.formKey!.currentState?.reset();
+                }
                 Navigator.pop(context);
               },
               leading: Container(

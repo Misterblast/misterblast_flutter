@@ -212,11 +212,15 @@ class HomeScreen extends StatelessWidget {
                                       ?.copyWith(color: Colors.grey),
                                 ),
                                 titleAlignment: ListTileTitleAlignment.top,
-                                trailing: Text("12-12-2023",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: Colors.grey)),
+                                trailing: Text(
+                                  "12-12-2023",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: Colors.grey,
+                                      ),
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),

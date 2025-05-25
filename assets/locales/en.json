@@ -74,7 +74,9 @@
       "wrong-password": "Wrong Password, Please try again",
       "invalid-email": "Invalid email",
       "email-already-in-use": "Email is already registered",
-      "field-required": "{fieldName} is required."
+      "field-required": "{fieldName} is required.",
+      "min-password-length": "Password must be at least 8 characters.",
+      "invalid-email-or-password": "Invalid email or password."
     }
   },
   "forgot-password": {

@@ -103,7 +103,8 @@ class _QuizSubmissionListState extends State<QuizSubmissionList> {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.all(16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(

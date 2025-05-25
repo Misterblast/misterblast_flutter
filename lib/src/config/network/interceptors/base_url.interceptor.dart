@@ -15,6 +15,9 @@ class BaseUrlInterceptor extends Interceptor {
   ) {
     final String baseUrl =
         remoteConfigInstance.getString(RemoteConfigKey.baseUrl.name);
+    if (baseUrl.isEmpty) {
+      throw 'Base URL is not set in remote config';
+    }
     options.baseUrl = baseUrl;
     super.onRequest(options, handler);
   }
