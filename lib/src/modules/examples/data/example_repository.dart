@@ -12,6 +12,38 @@ part 'example_repository.g.dart';
 class ExampleRepository extends BaseRepository {
   ExampleRepository({required super.dio});
 
+  Future<PaginatedResponse<Question>> searchQuestions({
+    String? search,
+    String? className,
+    String? subjectName,
+    String? subjectCode,
+    int page = 1,
+  }) async {
+    try {
+      return await dio.get(
+        'admin-question',
+        queryParameters: {
+          "search": search,
+          "class": className,
+          "lesson": subjectName,
+          "lessonCode": subjectCode,
+          "page": page,
+          "limit": 10,
+        },
+      ).then(
+        (response) => ApiResponse.fromJson(
+          response.data,
+          (data) => PaginatedResponse<Question>.fromJson(
+            data as Map<String, dynamic>,
+            (json) => Question.fromJson(json as Map<String, dynamic>),
+          ),
+        ).data,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<List<Question>> getExamples(String setName) async {
     try {
       return await dio.get(
@@ -33,5 +65,5 @@ class ExampleRepository extends BaseRepository {
 }
 
 @riverpod
-ExampleRepository exampleRepository(Ref ref) =>
-    ExampleRepository(dio: ref.watch(dioProvider).requireValue);
+Future<ExampleRepository> exampleRepository(Ref ref) async =>
+    ExampleRepository(dio: await ref.watch(dioProvider.future));

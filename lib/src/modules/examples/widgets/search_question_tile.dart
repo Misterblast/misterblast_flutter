@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/constants/subjects.dart';
 import 'package:misterblast_flutter/src/modules/examples/models/question.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
@@ -23,6 +24,9 @@ class SearchQuestionTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
+        onTap: () => context.push(
+          '/examples/example-questions?subjectCode=${subject['code']}&className=${question.class_name}&subjectName=${question.lesson_name}&initialSetId=${question.set_id}',
+        ),
         contentPadding: const EdgeInsets.all(8),
         title: Row(
           spacing: 8,

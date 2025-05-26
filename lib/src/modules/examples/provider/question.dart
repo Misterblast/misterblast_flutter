@@ -7,5 +7,6 @@ part 'question.g.dart';
 
 @riverpod
 Future<List<Question>> question(Ref ref, String setName) async {
-  return await ref.watch(exampleRepositoryProvider).getExamples(setName);
+  final exampleRepository = await ref.watch(exampleRepositoryProvider.future);
+  return await exampleRepository.getExamples(setName);
 }

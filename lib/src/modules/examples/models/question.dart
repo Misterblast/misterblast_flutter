@@ -14,6 +14,7 @@ abstract class Question with _$Question {
     required String content,
     required String explanation,
     required String reason,
+    int? set_id,
     String? lesson_name,
     String? class_name,
     List<QuizAnswer>? answers,

@@ -14,6 +14,7 @@ _Question _$QuestionFromJson(Map<String, dynamic> json) => _Question(
       content: json['content'] as String,
       explanation: json['explanation'] as String,
       reason: json['reason'] as String,
+      set_id: (json['set_id'] as num?)?.toInt(),
       lesson_name: json['lesson_name'] as String?,
       class_name: json['class_name'] as String?,
       answers: (json['answers'] as List<dynamic>?)
@@ -29,6 +30,7 @@ Map<String, dynamic> _$QuestionToJson(_Question instance) => <String, dynamic>{
       'content': instance.content,
       'explanation': instance.explanation,
       'reason': instance.reason,
+      'set_id': instance.set_id,
       'lesson_name': instance.lesson_name,
       'class_name': instance.class_name,
       'answers': instance.answers,

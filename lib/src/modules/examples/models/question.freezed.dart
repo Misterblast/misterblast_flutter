@@ -22,6 +22,7 @@ mixin _$Question {
   String get content;
   String get explanation;
   String get reason;
+  int? get set_id;
   String? get lesson_name;
   String? get class_name;
   List<QuizAnswer>? get answers;
@@ -49,6 +50,7 @@ mixin _$Question {
             (identical(other.explanation, explanation) ||
                 other.explanation == explanation) &&
             (identical(other.reason, reason) || other.reason == reason) &&
+            (identical(other.set_id, set_id) || other.set_id == set_id) &&
             (identical(other.lesson_name, lesson_name) ||
                 other.lesson_name == lesson_name) &&
             (identical(other.class_name, class_name) ||
@@ -67,13 +69,14 @@ mixin _$Question {
       content,
       explanation,
       reason,
+      set_id,
       lesson_name,
       class_name,
       const DeepCollectionEquality().hash(answers));
 
   @override
   String toString() {
-    return 'Question(id: $id, number: $number, type: $type, format: $format, content: $content, explanation: $explanation, reason: $reason, lesson_name: $lesson_name, class_name: $class_name, answers: $answers)';
+    return 'Question(id: $id, number: $number, type: $type, format: $format, content: $content, explanation: $explanation, reason: $reason, set_id: $set_id, lesson_name: $lesson_name, class_name: $class_name, answers: $answers)';
   }
 }
 
@@ -90,6 +93,7 @@ abstract mixin class $QuestionCopyWith<$Res> {
       String content,
       String explanation,
       String reason,
+      int? set_id,
       String? lesson_name,
       String? class_name,
       List<QuizAnswer>? answers});
@@ -114,6 +118,7 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
     Object? content = null,
     Object? explanation = null,
     Object? reason = null,
+    Object? set_id = freezed,
     Object? lesson_name = freezed,
     Object? class_name = freezed,
     Object? answers = freezed,
@@ -147,6 +152,10 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
           ? _self.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
+      set_id: freezed == set_id
+          ? _self.set_id
+          : set_id // ignore: cast_nullable_to_non_nullable
+              as int?,
       lesson_name: freezed == lesson_name
           ? _self.lesson_name
           : lesson_name // ignore: cast_nullable_to_non_nullable
@@ -174,6 +183,7 @@ class _Question implements Question {
       required this.content,
       required this.explanation,
       required this.reason,
+      this.set_id,
       this.lesson_name,
       this.class_name,
       final List<QuizAnswer>? answers})
@@ -195,6 +205,8 @@ class _Question implements Question {
   final String explanation;
   @override
   final String reason;
+  @override
+  final int? set_id;
   @override
   final String? lesson_name;
   @override
@@ -237,6 +249,7 @@ class _Question implements Question {
             (identical(other.explanation, explanation) ||
                 other.explanation == explanation) &&
             (identical(other.reason, reason) || other.reason == reason) &&
+            (identical(other.set_id, set_id) || other.set_id == set_id) &&
             (identical(other.lesson_name, lesson_name) ||
                 other.lesson_name == lesson_name) &&
             (identical(other.class_name, class_name) ||
@@ -255,13 +268,14 @@ class _Question implements Question {
       content,
       explanation,
       reason,
+      set_id,
       lesson_name,
       class_name,
       const DeepCollectionEquality().hash(_answers));
 
   @override
   String toString() {
-    return 'Question(id: $id, number: $number, type: $type, format: $format, content: $content, explanation: $explanation, reason: $reason, lesson_name: $lesson_name, class_name: $class_name, answers: $answers)';
+    return 'Question(id: $id, number: $number, type: $type, format: $format, content: $content, explanation: $explanation, reason: $reason, set_id: $set_id, lesson_name: $lesson_name, class_name: $class_name, answers: $answers)';
   }
 }
 
@@ -280,6 +294,7 @@ abstract mixin class _$QuestionCopyWith<$Res>
       String content,
       String explanation,
       String reason,
+      int? set_id,
       String? lesson_name,
       String? class_name,
       List<QuizAnswer>? answers});
@@ -304,6 +319,7 @@ class __$QuestionCopyWithImpl<$Res> implements _$QuestionCopyWith<$Res> {
     Object? content = null,
     Object? explanation = null,
     Object? reason = null,
+    Object? set_id = freezed,
     Object? lesson_name = freezed,
     Object? class_name = freezed,
     Object? answers = freezed,
@@ -337,6 +353,10 @@ class __$QuestionCopyWithImpl<$Res> implements _$QuestionCopyWith<$Res> {
           ? _self.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
+      set_id: freezed == set_id
+          ? _self.set_id
+          : set_id // ignore: cast_nullable_to_non_nullable
+              as int?,
       lesson_name: freezed == lesson_name
           ? _self.lesson_name
           : lesson_name // ignore: cast_nullable_to_non_nullable

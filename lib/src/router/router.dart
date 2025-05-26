@@ -120,10 +120,14 @@ GoRouter router(Ref ref) {
               final subjectName = queryParameters['subjectName'] ?? '';
               final className = queryParameters['className'] ?? '';
               final subjectCode = queryParameters['subjectCode'] ?? '';
+              final initialSetId = int.tryParse(
+                queryParameters['initialSetId'] ?? '',
+              );
               return ExampleDetailScreen(
                 className: className,
                 subjectCode: subjectCode,
                 subjectName: subjectName,
+                initialSetId: initialSetId,
               );
             },
           ),
