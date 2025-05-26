@@ -36,9 +36,20 @@ class SearchQuestionTile extends StatelessWidget {
               width: 48,
               "assets/images/${subject['icon']}",
             ),
-            Text(
-              "${context.tr("subjects.${subject['code']}")} - ${context.tr("common.class")} ${question.class_name}",
-              style: Theme.of(context).textTheme.headlineMedium,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${context.tr("subjects.${subject['code']}")} - ${context.tr("common.class")} ${question.class_name}",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                Text(
+                  question.set_name ?? '',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+              ],
             ),
           ],
         ),
