@@ -8,7 +8,9 @@ import 'package:misterblast_flutter/src/providers/resources.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
 class SelectClassDialog extends ConsumerStatefulWidget {
-  const SelectClassDialog({super.key, required this.subjectName});
+  const SelectClassDialog(
+      {super.key, required this.subjectCode, required this.subjectName});
+  final String subjectCode;
   final String subjectName;
 
   @override
@@ -116,7 +118,7 @@ class _SelectClassDialogState extends ConsumerState<SelectClassDialog> {
                   ? () {
                       context.pop();
                       context.push(
-                          '/examples/example-questions?subject=${widget.subjectName}&className=$_selectedClass');
+                          '/examples/example-questions?subjectCode=${widget.subjectCode}&className=$_selectedClass&subjectName=${widget.subjectName}');
                     }
                   : null,
               child: AutoSizeText(
@@ -127,7 +129,7 @@ class _SelectClassDialogState extends ConsumerState<SelectClassDialog> {
                 context.tr(
                   "examples.open-examples-of",
                   namedArgs: {
-                    "subject": context.tr("subjects.${widget.subjectName}"),
+                    "subject": context.tr("subjects.${widget.subjectCode}"),
                     "class": _selectedClass ?? "",
                   },
                 ),

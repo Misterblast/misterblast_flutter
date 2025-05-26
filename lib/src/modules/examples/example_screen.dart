@@ -195,7 +195,8 @@ class SubjectList extends ConsumerWidget {
                   onTap: () => showDialog(
                     context: context,
                     builder: (context) => SelectClassDialog(
-                      subjectName: item.code ?? '',
+                      subjectName: item.name,
+                      subjectCode: item.code ?? '',
                     ),
                   ),
                   child: Container(

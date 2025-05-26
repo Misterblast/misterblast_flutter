@@ -51,7 +51,11 @@ class ResourceRepository extends BaseRepository {
     try {
       return await dio.get(
         'set',
-        queryParameters: {'lesson': lessonName, 'class': className},
+        queryParameters: {
+          'lesson': lessonName,
+          'class': className,
+          "is_quiz": false
+        },
       ).then(
         (response) => ApiResponse.fromJson(
           response.data,

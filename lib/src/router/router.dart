@@ -117,11 +117,13 @@ GoRouter router(Ref ref) {
             path: "/example-questions",
             builder: (context, state) {
               final queryParameters = state.uri.queryParameters;
-              final subject = queryParameters['subject'] ?? '';
+              final subjectName = queryParameters['subjectName'] ?? '';
               final className = queryParameters['className'] ?? '';
+              final subjectCode = queryParameters['subjectCode'] ?? '';
               return ExampleDetailScreen(
                 className: className,
-                subject: subject,
+                subjectCode: subjectCode,
+                subjectName: subjectName,
               );
             },
           ),
