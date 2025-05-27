@@ -217,5 +217,13 @@
     "c6_konseptual": "C6 Konseptual",
     "c6_prosedural": "C6 Prosedural",
     "c6_metakognitif": "C6 Metakognitif"
+  },
+  "question-answer-types" : {
+    "mm": "Menjodohkan",
+    "t/f": "Benar/Salah",
+    "sa": "Jawaban Singkat",
+    "mc4": "Pilihan Ganda",
+    "mcx": "Pilihan Ganda Kompleks",
+    "essay": "Essay"
   }
 }

@@ -24,9 +24,42 @@ class QuestionTile extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                child: Text(
-                  context.tr("question-types.${question.type}"),
-                  style: Theme.of(context).textTheme.headlineMedium,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        context.tr("question-types.${question.type}"),
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withAlpha(50),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Text(
+                        context.tr("question-answer-types.${question.format}"),
+                        textAlign: TextAlign.end,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               ExpansionTile(

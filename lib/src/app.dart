@@ -11,8 +11,8 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(firebaseRemoteConfigProvider);
     ref.watch(dioProvider);
+    ref.watch(firebaseRemoteConfigProvider);
     return MaterialApp.router(
       theme: appTheme,
       debugShowCheckedModeBanner: false,

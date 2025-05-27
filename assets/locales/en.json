@@ -217,5 +217,13 @@
     "c6_konseptual": "C6 Conceptual",
     "c6_prosedural": "C6 Procedural",
     "c6_metakognitif": "C6 Metacognitive"
+  },
+  "question-answer-types" : {
+    "mm": "Matching",
+    "t/f": "True/False",
+    "sa": "Short Answer",
+    "mc4": "Multiple Choices",
+    "mcx": "Complex Multiple Choices",
+    "essay": "Essay"
   }
 }
