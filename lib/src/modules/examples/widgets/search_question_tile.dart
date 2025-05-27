@@ -72,6 +72,7 @@ class SearchQuestionTile extends StatelessWidget {
                       question.set_name ?? '',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
                   ],

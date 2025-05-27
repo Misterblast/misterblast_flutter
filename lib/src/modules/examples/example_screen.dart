@@ -78,59 +78,35 @@ class ExampleScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(),
-                                Column(
-                                  spacing: 16,
-                                  children: [
-                                    Row(
+                                InkWell(
+                                  onTap: () =>
+                                      context.push('/examples/search-examples'),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
                                       spacing: 12,
                                       children: [
-                                        Icon(
-                                          Icons.label_important_sharp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
+                                        Icon(Icons.search,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
                                         Text(
                                           context.tr("examples.search-hint"),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headlineLarge,
+                                              .bodyMedium!
+                                              .copyWith(
+                                                color: Colors.grey.shade500,
+                                              ),
                                         ),
                                       ],
                                     ),
-                                    InkWell(
-                                      onTap: () => context
-                                          .push('/examples/search-examples'),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 12),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade200,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Row(
-                                          spacing: 12,
-                                          children: [
-                                            Icon(Icons.search,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary),
-                                            Text(
-                                              context
-                                                  .tr("examples.search-hint"),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(
-                                                    color: Colors.grey.shade500,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                                 SubjectList(),
                               ],
