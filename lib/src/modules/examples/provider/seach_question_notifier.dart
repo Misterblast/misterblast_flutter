@@ -7,10 +7,21 @@ part 'seach_question_notifier.g.dart';
 part 'seach_question_notifier.freezed.dart';
 
 @freezed
+abstract class SearchQuestionFilter with _$SearchQuestionFilter {
+  const factory SearchQuestionFilter({
+    String? search,
+    String? className,
+    String? subjectName,
+    String? subjectCode,
+  }) = _SearchQuestionFilter;
+}
+
+@freezed
 abstract class SearchQuestionState with _$SearchQuestionState {
   const factory SearchQuestionState({
     @Default(1) int page,
     @Default(0) int total,
+    SearchQuestionFilter? filter,
     @Default([]) List<Question> questions,
     @Default(false) bool isInitialLoading,
     @Default(false) bool isFetchingMore,
@@ -45,10 +56,16 @@ class SearchQuestionNotifier extends _$SearchQuestionNotifier {
   }) async {
     final exampleRepository = await ref.watch(exampleRepositoryProvider.future);
     state = state.copyWith(
-      isInitialLoading: true,
-      isFetchingMore: false,
-      isError: false,
       errorMessage: '',
+      isError: false,
+      isFetchingMore: false,
+      isInitialLoading: true,
+      filter: SearchQuestionFilter(
+        search: search,
+        className: className,
+        subjectName: subjectName,
+        subjectCode: subjectCode,
+      ),
     );
     try {
       final result = await exampleRepository.searchQuestions(
@@ -64,6 +81,8 @@ class SearchQuestionNotifier extends _$SearchQuestionNotifier {
         total: result.total,
         isInitialLoading: false,
         isFetchingMore: false,
+        page: state.page,
+        filter: state.filter,
       );
     } catch (e) {
       state = state.copyWith(
@@ -74,21 +93,16 @@ class SearchQuestionNotifier extends _$SearchQuestionNotifier {
     }
   }
 
-  Future<void> fetchMoreQuestions({
-    String? search,
-    String? className,
-    String? subjectName,
-    String? subjectCode,
-  }) async {
+  Future<void> fetchMoreQuestions() async {
     final exampleRepository = await ref.watch(exampleRepositoryProvider.future);
     if (state.isFetchingMore || state.page * 10 >= state.total) return;
     state = state.copyWith(isFetchingMore: true);
     try {
       final result = await exampleRepository.searchQuestions(
-        search: search,
-        className: className,
-        subjectName: subjectName,
-        subjectCode: subjectCode,
+        search: state.filter?.search,
+        className: state.filter?.className,
+        subjectName: state.filter?.subjectName,
+        subjectCode: state.filter?.subjectCode,
         page: state.page + 1,
       );
 

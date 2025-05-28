@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:misterblast_flutter/src/config/local-storage/shared_preferences.dart';
 import 'package:misterblast_flutter/src/config/network/dio.dart';
 import 'package:misterblast_flutter/src/config/remote-config/remote_config.dart';
 import 'package:misterblast_flutter/src/router/router.dart';
@@ -11,15 +12,16 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(dioProvider);
+    ref.watch(sharedPreferencesProvider);
     ref.watch(firebaseRemoteConfigProvider);
+    ref.watch(dioProvider);
     return MaterialApp.router(
       theme: appTheme,
       debugShowCheckedModeBanner: false,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      routerConfig: ref.read(routerProvider),
+      routerConfig: ref.watch(routerProvider),
     );
   }
 }

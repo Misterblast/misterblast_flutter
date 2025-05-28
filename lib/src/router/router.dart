@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:misterblast_flutter/src/constants/auth_state.dart';
 import 'package:misterblast_flutter/src/modules/activity/activity_screen.dart';
 import 'package:misterblast_flutter/src/modules/auth/complete_register_screen.dart';
 
@@ -21,6 +20,7 @@ import 'package:misterblast_flutter/src/modules/quiz/on_quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_result_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_submission_list.dart';
+import 'package:misterblast_flutter/src/modules/splash_screen.dart';
 import 'package:misterblast_flutter/src/modules/task/task_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -34,8 +34,12 @@ GoRouter router(Ref ref) {
   return GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
-    initialLocation: "/onboarding",
+    initialLocation: "/splash",
     routes: [
+      GoRoute(
+        path: "/splash",
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: "/onboarding",
         builder: (context, state) => const OnboardingScreen(),

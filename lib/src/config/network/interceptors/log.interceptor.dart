@@ -12,8 +12,7 @@ class LoggingInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     logger.i('Response: ${response.statusCode} ${response.statusMessage}\n'
-        'URL: ${response.requestOptions.uri} \n'
-        'Data: ${response.data}');
+        'URL: ${response.requestOptions.uri}\n');
     super.onResponse(response, handler);
   }
 

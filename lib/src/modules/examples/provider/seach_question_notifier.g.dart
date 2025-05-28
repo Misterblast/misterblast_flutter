@@ -7,7 +7,7 @@ part of 'seach_question_notifier.dart';
 // **************************************************************************
 
 String _$searchQuestionNotifierHash() =>
-    r'a87fd4244c930696aef1dfa441c3802e60b664c3';
+    r'8462ee79091afa8c9bf2857360e3084981d80c60';
 
 /// Copied from Dart SDK
 class _SystemHash {

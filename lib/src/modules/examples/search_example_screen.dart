@@ -46,7 +46,7 @@ class _SearchExampleScreenState extends State<SearchExampleScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Column(
-            spacing: 16,
+            spacing: 4,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
@@ -219,25 +219,6 @@ class _SearchQuestionListState extends ConsumerState<SearchQuestionList> {
   final ScrollController _scrollController = ScrollController();
 
   @override
-  void initState() {
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        ref
-            .read(
-              searchQuestionNotifierProvider(
-                className: widget._filter["class"],
-                subjectCode: widget._filter["subject"],
-                search: widget._searchController.text,
-              ).notifier,
-            )
-            .fetchMoreQuestions();
-      }
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Consumer(
@@ -249,6 +230,22 @@ class _SearchQuestionListState extends ConsumerState<SearchQuestionList> {
               search: widget._searchController.text,
             ),
           );
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _scrollController.addListener(() {
+              if (_scrollController.position.pixels ==
+                  _scrollController.position.maxScrollExtent) {
+                ref
+                    .read(searchQuestionNotifierProvider(
+                      className: widget._filter["class"],
+                      subjectCode: widget._filter["subject"],
+                      search: widget._searchController.text,
+                    ).notifier)
+                    .fetchMoreQuestions();
+              }
+            });
+          });
+
           if (questions.isError) {
             return Center(
               child: Text(

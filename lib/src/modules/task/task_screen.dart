@@ -20,7 +20,7 @@ class TaskScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 15,
+              top: 25,
               child: Opacity(
                 opacity: 0.4,
                 child: Container(

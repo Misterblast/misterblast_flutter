@@ -39,6 +39,7 @@
   },
   "settings": {
     "language": {
+      "update-language" : "Switch Language",
       "select-language": "Choose language",
       "id": "Indonesia",
       "en": "English"
@@ -225,5 +226,23 @@
     "mc4": "Multiple Choices",
     "mcx": "Complex Multiple Choices",
     "essay": "Essay"
+  },
+  "profile": {
+    "profile": "Profile",
+    "profile-description": "Manage your profile and account settings",
+    "edit-profile": "Update Profile",
+    "change-photo": "Change Photo",
+    "change-password": "Change Password",
+    "logout": "Logout",
+    "logout-confirmation": "Are you sure you want to logout?",
+    "logout-success": "You have successfully logged out.",
+    "profile-updated": "Profile successfully updated.",
+    "password-updated": "Password successfully updated.",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-new-password": "Confirm New Password",
+    "current-password-placeholder": "Enter your current password",
+    "new-password-placeholder": "Enter your new password",
+    "confirm-new-password-placeholder": "Confirm your new password"
   }
 }

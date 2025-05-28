@@ -27,4 +27,10 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   void setAuthState(AuthState authState) => state = AsyncValue.data(authState);
+
+  void logout() async {
+    final sharedPrefs = await ref.watch(sharedPreferencesProvider.future);
+    await sharedPrefs.remove(SharedPreferencesKey.accesToken.name);
+    setAuthState(AuthState.loggedOut);
+  }
 }

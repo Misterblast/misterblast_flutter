@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/config/notification/firebase_messaging.dart';
 import 'package:misterblast_flutter/src/app.dart';
+import 'package:misterblast_flutter/src/providers/observers/log.observer.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -25,6 +26,7 @@ void main() async {
   };
   runApp(
     ProviderScope(
+      observers: [Logger()],
       child: EasyLocalization(
         supportedLocales: const [
           Locale('en'),

@@ -39,6 +39,7 @@
   },
   "settings": {
     "language": {
+      "update-language" : "Ubah Bahasa",
       "select-language": "Pilih Bahasa",
       "id": "Indonesia",
       "en": "Inggris"
@@ -225,5 +226,23 @@
     "mc4": "Pilihan Ganda",
     "mcx": "Pilihan Ganda Kompleks",
     "essay": "Essay"
+  },
+  "profile": {
+    "profile": "Profil",
+    "profile-description": "Kelola akun Anda, ubah foto profil, dan atur preferensi lainnya.",
+    "edit-profile": "Ubah Profil",
+    "change-photo": "Ubah Foto Profil",
+    "change-password": "Ubah Kata Sandi",
+    "logout": "Keluar",
+    "logout-confirmation": "Apakah Anda yakin ingin keluar?",
+    "logout-success": "Anda telah berhasil keluar.",
+    "profile-updated": "Profil berhasil diperbarui.",
+    "password-updated": "Kata sandi berhasil diperbarui.",
+    "current-password": "Kata Sandi Saat Ini",
+    "new-password": "Kata Sandi Baru",
+    "confirm-new-password": "Konfirmasi Kata Sandi Baru",
+    "current-password-placeholder": "Masukkan kata sandi saat ini",
+    "new-password-placeholder": "Masukkan kata sandi baru",
+    "confirm-new-password-placeholder": "Konfirmasi kata sandi baru"
   }
 }

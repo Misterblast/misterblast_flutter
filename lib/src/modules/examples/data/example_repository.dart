@@ -27,6 +27,7 @@ class ExampleRepository extends BaseRepository {
           "class": className,
           "lesson": subjectName,
           "lessonCode": subjectCode,
+          "is_quiz": false,
           "page": page,
           "limit": 10,
         },
