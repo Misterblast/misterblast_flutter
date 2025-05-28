@@ -29,7 +29,9 @@
     "reason": "Reason",
     "answer-list": "Answer list",
     "date": "Date",
-    "answer": "Answer"
+    "answer": "Answer",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",

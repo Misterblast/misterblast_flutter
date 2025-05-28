@@ -1,7 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/constants/available_locales.dart';
 import 'package:misterblast_flutter/src/modules/profile/widgets/profile_header.dart';
+import 'package:misterblast_flutter/src/providers/auth.dart';
 import 'package:misterblast_flutter/src/widgets/select_locale_dialog.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -152,9 +155,13 @@ class ProfileScreen extends StatelessWidget {
                                           Theme.of(context).colorScheme.error,
                                     ),
                               ),
-                              onTap: () {},
+                              onTap: () => showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    LogoutConfirmationAlertDialog(),
+                              ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -165,6 +172,46 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LogoutConfirmationAlertDialog extends ConsumerWidget {
+  const LogoutConfirmationAlertDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AlertDialog(
+      title: Text(
+        context.tr("profile.logout"),
+      ),
+      content: Text(
+        context.tr("profile.logout-confirmation"),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(
+            context.tr(
+              "common.cancel",
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            ref.read(authNotifierProvider.notifier).logout();
+            context.go("/onboarding");
+          },
+          child: Text(
+            context.tr(
+              "common.confirm",
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

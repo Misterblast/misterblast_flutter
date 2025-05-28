@@ -29,7 +29,9 @@
     "reason": "Alasan",
     "answer-list": "Daftar Jawaban",
     "date": "Tanggal",
-    "answer": "Jawaban"
+    "answer": "Jawaban",
+    "confirm": "Konfirmasi",
+    "cancel": "Batal"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
