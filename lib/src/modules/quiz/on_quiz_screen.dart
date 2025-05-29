@@ -15,11 +15,11 @@ class OnQuizScreen extends StatefulWidget {
   const OnQuizScreen({
     super.key,
     required this.subject,
-    required this.className,
+    // required this.className,
   });
 
   final String subject;
-  final String className;
+  // final String className;
 
   @override
   State<OnQuizScreen> createState() => _OnQuizScreenState();
@@ -303,10 +303,10 @@ This document was created to test the robustness of Markdown parsers and to ensu
     super.initState();
   }
 
-  onSelect(String code) => setState(() {
-        selectedAnswer[questions[_pageController.page!.toInt()].id.toString()] =
-            code;
-      });
+  onSelect(String code) => setState(
+        () => selectedAnswer[
+            questions[_pageController.page!.toInt()].id.toString()] = code,
+      );
 
   onTimerOut() {
     showDialog(
@@ -553,7 +553,8 @@ This document was created to test the robustness of Markdown parsers and to ensu
           backgroundColor: Theme.of(context).colorScheme.primary,
           title: AutoSizeText(
             maxLines: 1,
-            "${context.tr("subjects.${widget.subject}")} ${context.tr(widget.className)}",
+            // "${context.tr("subjects.${widget.subject}")} ${context.tr(widget.className)}",
+            context.tr("subjects.${widget.subject}"),
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   color: Colors.white,
                 ),

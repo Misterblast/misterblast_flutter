@@ -86,8 +86,8 @@ GoRouter router(Ref ref) {
             builder: (context, state) {
               final stateExtra = (state.extra as Map<String, dynamic>);
               final subject = stateExtra['subject'] ?? '';
-              final className = stateExtra['className'] ?? '';
-              return OnQuizScreen(subject: subject, className: className);
+              // final className = stateExtra['className'] ?? '';
+              return OnQuizScreen(subject: subject);
             },
           ),
           GoRoute(

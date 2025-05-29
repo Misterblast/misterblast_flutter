@@ -9,7 +9,7 @@ import 'package:misterblast_flutter/src/widgets/app_chart.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
 
-import 'widgets/select_subject_sheet.dart';
+import '../../widgets/select_subject_sheet.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -107,22 +107,28 @@ class QuizScreen extends StatelessWidget {
                                 child: ListTile(
                                   dense: true,
                                   onTap: () async {
-                                    final tuple = await showModalBottomSheet<
-                                        (String, String)>(
+                                    final subject =
+                                        await showModalBottomSheet<String>(
                                       context: context,
                                       isDismissible: true,
                                       isScrollControlled: true,
                                       builder: (context) =>
-                                          SelectSubjectSheet(),
+                                          SelectSubjectSheet(showClass: false),
                                     );
-                                    if (tuple?.$1 != null &&
-                                        tuple?.$2 != null) {
-                                      // ignore: use_build_context_synchronously
-                                      context.push("/quiz/on-quiz", extra: {
-                                        "subject": tuple!.$1,
-                                        "className": tuple.$2,
-                                      });
-                                    }
+                                    // ignore: use_build_context_synchronously
+                                    context.push(
+                                      "/quiz/on-quiz",
+                                      extra: {"subject": subject},
+                                    );
+
+                                    // if (tuple?.$1 != null &&
+                                    //     tuple?.$2 != null) {
+                                    //   // ignore: use_build_context_synchronously
+                                    //   context.push("/quiz/on-quiz", extra: {
+                                    //     "subject": tuple!.$1,
+                                    //     "className": tuple.$2,
+                                    //   });
+                                    // }
                                   },
                                   style: ListTileStyle.drawer,
                                   tileColor: Colors.white,

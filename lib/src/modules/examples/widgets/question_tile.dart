@@ -100,33 +100,33 @@ class QuestionTile extends StatelessWidget {
                   ],
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Column(
-              //     spacing: 8,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         context.tr("common.answer"),
-              //         style:
-              //             Theme.of(context).textTheme.headlineSmall!.copyWith(
-              //                   color: Theme.of(context).colorScheme.primary,
-              //                 ),
-              //       ),
-              //       Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: (question.answers ?? [])
-              //             .map(
-              //               (answer) => Padding(
-              //                 padding: const EdgeInsets.only(bottom: 8.0),
-              //                 child: AppMarkdownViewer(content: answer.content),
-              //               ),
-              //             )
-              //             .toList(),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.tr("common.answer"),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: (question.answers ?? [])
+                          .map(
+                            (answer) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: AppMarkdownViewer(content: answer.content),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                ),
+              ),
               ExpansionTile(
                 dense: true,
                 initiallyExpanded: true,
