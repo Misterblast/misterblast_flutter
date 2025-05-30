@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
@@ -23,6 +24,7 @@ class QuizScreen extends ConsumerStatefulWidget {
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen> {
+  Lesson? _selectedSubject;
   final LoadingOverlay _loadingOverlay = LoadingOverlay();
 
   @override
@@ -31,7 +33,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       state.when(
         data: (data) => {
           _loadingOverlay.hide(),
-          //navigate
+          context.push("/quiz/on-quiz", extra: {
+            "questions": data,
+            "subject": _selectedSubject,
+          }),
         },
         error: (err, trace) => {
           _loadingOverlay.hide(),
@@ -152,6 +157,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                           ),
                                         );
                                         if (subject == null) return;
+                                        setState(() {
+                                          _selectedSubject = subject;
+                                        });
                                         ref
                                             .read(quizNotifierProvider.notifier)
                                             .fetchQuiz(subject.id);
