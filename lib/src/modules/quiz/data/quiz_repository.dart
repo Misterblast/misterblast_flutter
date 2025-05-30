@@ -131,10 +131,61 @@ class QuizRepository extends BaseRepository {
   }
 
   Future<QuizExplanation> fetchQuizResult(int resultId) async {
+    final String json = '''{
+  "message": "quiz result retrieved successfully",
+  "data": {
+    "id": 7,
+    "grade": "66",
+    "submitted_at": 1741285700,
+    "correct": 2,
+    "wrong": 1,
+    "attempt_no": 1,
+    "answers": [
+      {
+        "number": 1,
+        "user_code": "a",
+        "actual_code": "a",
+        "user_content": "jawaban a",
+        "actual_content": "jawaban a",
+        "question_content": "soal no 1?",
+        "is_correct": true,
+        "explanation": "-",
+        "reason": "r-15",
+        "Format": "mm"
+      },
+      {
+        "number": 2,
+        "user_code": "a",
+        "actual_code": "b",
+        "user_content": "jawaban a",
+        "actual_content": "jawaban b",
+        "question_content": "soal no 2?",
+        "is_correct": false,
+        "explanation": "-",
+        "reason": "r-17",
+        "Format": "mm"
+      },
+      {
+        "number": 3,
+        "user_code": "c",
+        "actual_code": "c",
+        "user_content": "jawaban c",
+        "actual_content": "jawaban c",
+        "question_content": "soal no 3?",
+        "is_correct": true,
+        "explanation": "-",
+        "reason": "r-16",
+        "Format": "mm"
+      }
+    ]
+  }
+}''';
     try {
-      final response = await dio.get('quiz-result/$resultId');
+      await Future.delayed(const Duration(seconds: 2));
+      // final response = await dio.get('quiz-result/$resultId');
       final ApiResponse<QuizExplanation> result = ApiResponse.fromJson(
-        response.data,
+        // response.data,
+        jsonDecode(json),
         (item) => QuizExplanation.fromJson(item as Map<String, dynamic>),
       );
       return result.data;
