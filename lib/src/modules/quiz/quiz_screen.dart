@@ -2,7 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
+import 'package:misterblast_flutter/src/models/lesson.dart';
+import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_notifier.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_chart.dart';
@@ -11,15 +15,43 @@ import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
 
 import '../../widgets/select_subject_sheet.dart';
 
-class QuizScreen extends StatelessWidget {
+class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({super.key});
 
-  static List<Map<String, dynamic>> items = [
-    {"icon": "math-icon.png", "title": "mathematics"},
-    {"icon": "pancasila-icon.png", "title": "civics"},
-    {"icon": "bindo-icon.png", "title": "indonesian"},
-    {"icon": "ipas-icon.png", "title": "science"},
-  ];
+  @override
+  ConsumerState<QuizScreen> createState() => _QuizScreenState();
+}
+
+class _QuizScreenState extends ConsumerState<QuizScreen> {
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
+
+  @override
+  void initState() {
+    ref.listenManual(quizNotifierProvider, (_, state) {
+      state.when(
+        data: (data) => {
+          _loadingOverlay.hide(),
+          //navigate
+        },
+        error: (err, trace) => {
+          _loadingOverlay.hide(),
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              content: Text(
+                context.tr("exceptions.unknown-error"),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+            ),
+          ),
+        },
+        loading: () => _loadingOverlay.show(context),
+      );
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,71 +136,70 @@ class QuizScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                child: ListTile(
-                                  dense: true,
-                                  onTap: () async {
-                                    final subject =
-                                        await showModalBottomSheet<String>(
-                                      context: context,
-                                      isDismissible: true,
-                                      isScrollControlled: true,
-                                      builder: (context) =>
-                                          SelectSubjectSheet(showClass: false),
-                                    );
-                                    // ignore: use_build_context_synchronously
-                                    context.push(
-                                      "/quiz/on-quiz",
-                                      extra: {"subject": subject},
-                                    );
-
-                                    // if (tuple?.$1 != null &&
-                                    //     tuple?.$2 != null) {
-                                    //   // ignore: use_build_context_synchronously
-                                    //   context.push("/quiz/on-quiz", extra: {
-                                    //     "subject": tuple!.$1,
-                                    //     "className": tuple.$2,
-                                    //   });
-                                    // }
-                                  },
-                                  style: ListTileStyle.drawer,
-                                  tileColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 4,
-                                    horizontal: 8,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  leading: Container(
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary
-                                          .withAlpha(75),
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                    padding: const EdgeInsets.all(4),
-                                    child: Image.asset(
-                                      "assets/images/stopwatch.png",
-                                    ),
-                                  ),
-                                  title: Text(
-                                    context.tr("quiz.select-subject"),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
+                                child: Consumer(
+                                  builder: (context, ref, child) {
+                                    return ListTile(
+                                      dense: true,
+                                      onTap: () async {
+                                        final subject =
+                                            await showModalBottomSheet<Lesson>(
+                                          context: context,
+                                          isDismissible: true,
+                                          isScrollControlled: true,
+                                          builder: (context) =>
+                                              SelectSubjectSheet(
+                                            showClass: false,
+                                          ),
+                                        );
+                                        if (subject == null) return;
+                                        ref
+                                            .read(quizNotifierProvider.notifier)
+                                            .fetchQuiz(subject.id);
+                                      },
+                                      style: ListTileStyle.drawer,
+                                      tileColor: Colors.white,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 8,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      leading: Container(
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary
+                                              .withAlpha(75),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
                                         ),
-                                  ),
-                                  subtitle: AutoSizeText(
-                                    context.tr(
-                                      "quiz.select-subject-desc",
-                                    ),
-                                    maxLines: 2,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
+                                        padding: const EdgeInsets.all(4),
+                                        child: Image.asset(
+                                          "assets/images/stopwatch.png",
+                                        ),
+                                      ),
+                                      title: Text(
+                                        context.tr("quiz.select-subject"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      subtitle: AutoSizeText(
+                                        context.tr(
+                                          "quiz.select-subject-desc",
+                                        ),
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ],

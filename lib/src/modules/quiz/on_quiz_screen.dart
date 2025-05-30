@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_answer.dart';
@@ -11,21 +12,17 @@ import 'package:misterblast_flutter/src/modules/quiz/widgets/quiz_navigation_she
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/linear_timer.dart';
 
-class OnQuizScreen extends StatefulWidget {
-  const OnQuizScreen({
-    super.key,
-    required this.subject,
-    // required this.className,
-  });
+class OnQuizScreen extends ConsumerStatefulWidget {
+  const OnQuizScreen({super.key, required this.subject});
 
   final String subject;
   // final String className;
 
   @override
-  State<OnQuizScreen> createState() => _OnQuizScreenState();
+  ConsumerState<OnQuizScreen> createState() => _OnQuizScreenState();
 }
 
-class _OnQuizScreenState extends State<OnQuizScreen>
+class _OnQuizScreenState extends ConsumerState<OnQuizScreen>
     with TickerProviderStateMixin {
   bool showSubmitButton = false;
   bool showBackButton = false;

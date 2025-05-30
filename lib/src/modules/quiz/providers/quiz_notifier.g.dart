@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'router.dart';
+part of 'quiz_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'593b1c1aa163cccce79781f4cefe972bcd4ae061';
+String _$quizNotifierHash() => r'a68a3cef677ccfd1f54188ef5cbeff3302ea8bba';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = Provider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
+/// See also [QuizNotifier].
+@ProviderFor(QuizNotifier)
+final quizNotifierProvider = AutoDisposeNotifierProvider<QuizNotifier,
+    AsyncValue<List<QuizQuestion>>>.internal(
+  QuizNotifier.new,
+  name: r'quizNotifierProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$quizNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = ProviderRef<GoRouter>;
+typedef _$QuizNotifier = AutoDisposeNotifier<AsyncValue<List<QuizQuestion>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

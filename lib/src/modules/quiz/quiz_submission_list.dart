@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/models/class.dart';
+import 'package:misterblast_flutter/src/models/lesson.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_submission.dart';
-import 'package:misterblast_flutter/src/modules/quiz/widgets/filter_result_sheet.dart';
 import 'package:misterblast_flutter/src/utils/parse_unix_datetime.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
+import 'package:misterblast_flutter/src/widgets/select_subject_sheet.dart';
 
 class QuizSubmissionList extends StatefulWidget {
   const QuizSubmissionList({super.key});
@@ -15,8 +17,7 @@ class QuizSubmissionList extends StatefulWidget {
 }
 
 class _QuizSubmissionListState extends State<QuizSubmissionList> {
-  String? _filterSubject;
-  String? _filterClass;
+  Lesson? _filterSubject;
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +56,15 @@ class _QuizSubmissionListState extends State<QuizSubmissionList> {
                   ),
                   InkWell(
                     onTap: () async {
-                      (String?, String?) tuple = await showModalBottomSheet(
+                      (Lesson?, Class?) tuple = await showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        builder: (context) => FilterResultSheet(
-                          selectedClass: _filterClass,
-                          selectedSubject: _filterSubject,
+                        builder: (context) => SelectSubjectSheet(
+                          showClass: false,
                         ),
                       );
                       setState(() {
                         _filterSubject = tuple.$1;
-                        _filterClass = tuple.$2;
                       });
                     },
                     child: Container(
@@ -152,35 +151,6 @@ class _QuizSubmissionListState extends State<QuizSubmissionList> {
                               });
                             },
                           ),
-                        if (_filterClass != null)
-                          Chip(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 12,
-                              ),
-                              side: BorderSide(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              label: Text(
-                                "${context.tr("common.class")} ${_filterClass!}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color: Colors.white,
-                                    ),
-                              ),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              deleteIcon:
-                                  Icon(Icons.close, color: Colors.white),
-                              onDeleted: () {
-                                setState(() {
-                                  _filterClass = null;
-                                });
-                              }),
                       ],
                     ),
                     Expanded(
