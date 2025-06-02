@@ -87,7 +87,12 @@ GoRouter router(Ref ref) {
               final stateExtra = (state.extra as Map<String, dynamic>);
               final subject = stateExtra['subject'] ?? '';
               final questions = stateExtra['questions'] ?? [];
-              return OnQuizScreen(subject: subject, quizQuestions: questions);
+              final questionSet = stateExtra['question-set'] ?? '';
+              return OnQuizScreen(
+                subject: subject,
+                quizQuestions: questions,
+                questionSet: questionSet,
+              );
             },
           ),
           GoRoute(

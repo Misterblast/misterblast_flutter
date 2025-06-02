@@ -18,9 +18,10 @@ class OnQuizScreen extends ConsumerStatefulWidget {
   const OnQuizScreen({
     super.key,
     required this.subject,
+    required this.questionSet,
     required this.quizQuestions,
   });
-
+  final int questionSet;
   final Lesson subject;
   final List<QuizQuestion> quizQuestions;
   // final String className;
@@ -223,7 +224,7 @@ class _OnQuizScreenState extends ConsumerState<OnQuizScreen>
   }
 
   submitQuiz() => ref.read(submitQuizNotifierProvider.notifier).submitQuiz(
-      subjectId: widget.subject.id,
+      subjectId: widget.questionSet,
       answers: selectedAnswer.entries.map((entry) {
         return {
           "number": int.parse(entry.key),
@@ -455,7 +456,7 @@ class _OnQuizScreenState extends ConsumerState<OnQuizScreen>
                     itemBuilder: (context, index) => QuizDisplay(
                       question: questions[index],
                       selectedAnswer:
-                          selectedAnswer[questions[index].id.toString()],
+                          selectedAnswer[questions[index].number.toString()],
                       onSelect: (String? value) {
                         onSelect(value!);
                       },

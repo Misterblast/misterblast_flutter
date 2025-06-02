@@ -1,5 +1,5 @@
 import 'package:misterblast_flutter/src/modules/quiz/data/quiz_repository.dart';
-import 'package:misterblast_flutter/src/modules/quiz/models/quiz_question.dart';
+import 'package:misterblast_flutter/src/modules/quiz/models/quiz_set.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'quiz_notifier.g.dart';
@@ -7,8 +7,8 @@ part 'quiz_notifier.g.dart';
 @riverpod
 class QuizNotifier extends _$QuizNotifier {
   @override
-  AsyncValue<List<QuizQuestion>> build() {
-    return AsyncValue.data([]);
+  AsyncValue<QuizSet> build() {
+    return AsyncValue.loading();
   }
 
   void fetchQuiz(int subjectId) async {

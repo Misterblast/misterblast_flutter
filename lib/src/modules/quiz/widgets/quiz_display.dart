@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_question.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
@@ -75,7 +76,11 @@ class _QuizDisplayState extends State<QuizDisplay> {
               ),
               child: RadioListTile(
                 groupValue: _selectedAnswer,
-                title: AppMarkdownViewer(content : answer!.content),
+                title: AppMarkdownViewer(
+                  content: context.tr(
+                    "question-types.${answer!.content.replaceAll("\\", '')}",
+                  ),
+                ),
                 tileColor: Colors.grey.shade50,
                 activeColor: Theme.of(context).colorScheme.primary,
                 subtitle: answer.imageUrl != null

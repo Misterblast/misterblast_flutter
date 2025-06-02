@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/config/base_repository.dart';
 import 'package:misterblast_flutter/src/config/network/dio.dart'
@@ -7,7 +5,7 @@ import 'package:misterblast_flutter/src/config/network/dio.dart'
 
 import 'package:misterblast_flutter/src/models/api_response.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_explanation.dart';
-import 'package:misterblast_flutter/src/modules/quiz/models/quiz_question.dart';
+import 'package:misterblast_flutter/src/modules/quiz/models/quiz_set.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_submission.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,74 +14,13 @@ part 'quiz_repository.g.dart';
 class QuizRepository extends BaseRepository {
   QuizRepository({required super.dio});
 
-  Future<List<QuizQuestion>> fetchQuiz(int subjectId) async {
-    final String json = '''{
-  "message": "questions retrieved successfully",
-  "data": [
-    {
-      "id": 11,
-      "number": 1,
-      "type": "C2",
-      "content": "Hewan berkaki dua adalah?",
-      "set_id": 9,
-      "answers": [
-        {
-          "id": 6,
-          "code": "a",
-          "content": "semut",
-          "img_url": null
-        },
-        {
-          "id": 5,
-          "code": "b",
-          "content": "Katak",
-          "img_url": null
-        },
-        {
-          "id": 4,
-          "code": "c",
-          "content": "Ikan",
-          "img_url": null
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "number": 2,
-      "type": "C4",
-      "content": "Hewan berkaki tiga adalah?",
-      "set_id": 9,
-      "answers": [
-        {
-          "id": 1,
-          "code": "a",
-          "content": "Kerbau",
-          "img_url": null
-        },
-        {
-          "id": 2,
-          "code": "b",
-          "content": "Singa",
-          "img_url": null
-        },
-        {
-          "id": 3,
-          "code": "c",
-          "content": "Ikan",
-          "img_url": null
-        }
-      ]
-    }
-  ]
-}''';
+  Future<QuizSet> fetchQuiz(int subjectId) async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      // final response =
-      //     await dio.get('quiz', queryParameters: {"lesson_id": subjectId});
-      final ApiResponse<List<QuizQuestion>> result = ApiResponse.fromJson(
-        jsonDecode(json),
-        (items) =>
-            (items as List).map((item) => QuizQuestion.fromJson(item)).toList(),
+      final response =
+          await dio.get('quiz', queryParameters: {"lesson_id": subjectId});
+      final ApiResponse<QuizSet> result = ApiResponse.fromJson(
+        response.data,
+        (item) => QuizSet.fromJson(item as Map<String, dynamic>),
       );
       return result.data;
     } catch (e) {
@@ -92,21 +29,16 @@ class QuizRepository extends BaseRepository {
   }
 
   Future<int> submitQuiz(
-    int subjectId,
+    int questionSetId,
     List<Map<String, dynamic>> answers,
   ) async {
     try {
-      // final response = await dio.post(
-      //   'submit-quiz/$subjectId',
-      //   data: {"answers": answers},
-      // );
-      await Future.delayed(const Duration(seconds: 2));
-      final String json = '''{
-  "message": "questions retrieved successfully",
-  "data": 1}
-''';
+      final response = await dio.post(
+        'submit-quiz/$questionSetId',
+        data: {"answers": answers},
+      );
       final ApiResponse<int> result = ApiResponse.fromJson(
-        jsonDecode(json),
+        response.data,
         (item) => item as int,
       );
       return result.data;
@@ -131,61 +63,10 @@ class QuizRepository extends BaseRepository {
   }
 
   Future<QuizExplanation> fetchQuizResult(int resultId) async {
-    final String json = '''{
-  "message": "quiz result retrieved successfully",
-  "data": {
-    "id": 7,
-    "grade": "66",
-    "submitted_at": 1741285700,
-    "correct": 2,
-    "wrong": 1,
-    "attempt_no": 1,
-    "answers": [
-      {
-        "number": 1,
-        "user_code": "a",
-        "actual_code": "a",
-        "user_content": "jawaban a",
-        "actual_content": "jawaban a",
-        "question_content": "soal no 1?",
-        "is_correct": true,
-        "explanation": "-",
-        "reason": "r-15",
-        "Format": "mm"
-      },
-      {
-        "number": 2,
-        "user_code": "a",
-        "actual_code": "b",
-        "user_content": "jawaban a",
-        "actual_content": "jawaban b",
-        "question_content": "soal no 2?",
-        "is_correct": false,
-        "explanation": "-",
-        "reason": "r-17",
-        "Format": "mm"
-      },
-      {
-        "number": 3,
-        "user_code": "c",
-        "actual_code": "c",
-        "user_content": "jawaban c",
-        "actual_content": "jawaban c",
-        "question_content": "soal no 3?",
-        "is_correct": true,
-        "explanation": "-",
-        "reason": "r-16",
-        "Format": "mm"
-      }
-    ]
-  }
-}''';
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      // final response = await dio.get('quiz-result/$resultId');
+      final response = await dio.get('quiz-result/$resultId');
       final ApiResponse<QuizExplanation> result = ApiResponse.fromJson(
-        // response.data,
-        jsonDecode(json),
+        response.data,
         (item) => QuizExplanation.fromJson(item as Map<String, dynamic>),
       );
       return result.data;

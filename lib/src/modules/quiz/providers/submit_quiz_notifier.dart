@@ -6,8 +6,8 @@ part 'submit_quiz_notifier.g.dart';
 @riverpod
 class SubmitQuizNotifier extends _$SubmitQuizNotifier {
   @override
-  AsyncValue<int> build() {
-    return const AsyncValue.loading();
+  AsyncValue<int?> build() {
+    return const AsyncValue.data(null);
   }
 
   submitQuiz({

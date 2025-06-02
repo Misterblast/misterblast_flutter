@@ -8,7 +8,7 @@ import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
 class ExampleDetailScreen extends ConsumerStatefulWidget {
-  ExampleDetailScreen({
+  const ExampleDetailScreen({
     super.key,
     required this.subjectCode,
     required this.subjectName,
@@ -19,7 +19,7 @@ class ExampleDetailScreen extends ConsumerStatefulWidget {
   final String subjectCode;
   final String subjectName;
   final String className;
-  int? initialSetId;
+  final int? initialSetId;
 
   @override
   ConsumerState<ExampleDetailScreen> createState() =>

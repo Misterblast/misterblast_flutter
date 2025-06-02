@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
@@ -34,7 +33,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         data: (data) => {
           _loadingOverlay.hide(),
           context.push("/quiz/on-quiz", extra: {
-            "questions": data,
+            "question-set": data.setId,
+            "questions": data.questions,
             "subject": _selectedSubject,
           }),
         },
@@ -125,7 +125,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                     context.tr("quiz.do-quiz"),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineLarge,
+                                        .headlineMedium,
                                   ),
                                 ],
                               ),
@@ -227,7 +227,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                     context.tr("quiz.works-result"),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineLarge,
+                                        .headlineMedium,
                                   ),
                                 ],
                               ),
@@ -300,7 +300,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                     context.tr("common.stats"),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineLarge,
+                                        .headlineMedium,
                                   ),
                                 ],
                               ),
