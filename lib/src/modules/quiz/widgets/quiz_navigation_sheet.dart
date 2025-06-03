@@ -41,10 +41,13 @@ class QuizNavigationSheet extends StatelessWidget {
                       : Theme.of(context).colorScheme.secondary.withAlpha(75),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text("${int.parse(answers[index])}",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: isCurrentIndex ? Colors.white : Colors.black,
-                        )),
+                child: Text(
+                  "${index + 1}",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: isCurrentIndex ? Colors.white : Colors.black,
+                      ),
+                ),
               ),
             );
           },

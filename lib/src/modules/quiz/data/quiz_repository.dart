@@ -4,6 +4,7 @@ import 'package:misterblast_flutter/src/config/network/dio.dart'
     show dioProvider;
 
 import 'package:misterblast_flutter/src/models/api_response.dart';
+import 'package:misterblast_flutter/src/models/paginated_response.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_explanation.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_set.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_submission.dart';
@@ -47,14 +48,26 @@ class QuizRepository extends BaseRepository {
     }
   }
 
-  Future<List<QuizSubmission>> fetchQuizSubmissions(int? subjectId) async {
+  Future<PaginatedResponse<QuizSubmission>> fetchQuizSubmissions({
+    required int page,
+    int? subjectId,
+  }) async {
     try {
-      final response = await dio.get('quiz-submission');
-      final ApiResponse<List<QuizSubmission>> result = ApiResponse.fromJson(
+      final response = await dio.get(
+        'quiz-submission',
+        queryParameters: {
+          "limit": 10,
+          "page": page,
+          if (subjectId != null) "lesson_id": subjectId,
+        },
+      );
+      final ApiResponse<PaginatedResponse<QuizSubmission>> result =
+          ApiResponse.fromJson(
         response.data,
-        (items) => (items as List)
-            .map((item) => QuizSubmission.fromJson(item))
-            .toList(),
+        (item) => PaginatedResponse<QuizSubmission>.fromJson(
+          item as Map<String, dynamic>,
+          (data) => QuizSubmission.fromJson(data as Map<String, dynamic>),
+        ),
       );
       return result.data;
     } catch (e) {
@@ -64,7 +77,7 @@ class QuizRepository extends BaseRepository {
 
   Future<QuizExplanation> fetchQuizResult(int resultId) async {
     try {
-      final response = await dio.get('quiz-result/$resultId');
+      final response = await dio.get('quiz-submission/$resultId');
       final ApiResponse<QuizExplanation> result = ApiResponse.fromJson(
         response.data,
         (item) => QuizExplanation.fromJson(item as Map<String, dynamic>),

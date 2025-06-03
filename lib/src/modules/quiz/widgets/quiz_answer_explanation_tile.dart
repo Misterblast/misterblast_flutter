@@ -38,7 +38,9 @@ class QuestionAnswerExplanationTile extends StatelessWidget {
                   ),
               children: [
                 TextSpan(
-                  text: answerExplanation.userCode,
+                  text: answerExplanation.userCode == "x"
+                      ? "-"
+                      : answerExplanation.userCode,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: widgetColor,
                         fontWeight: FontWeight.bold,

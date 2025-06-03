@@ -182,15 +182,15 @@ class _$QuizAnswerExplanationCopyWithImpl<$Res>
 class _QuizAnswerExplanation implements QuizAnswerExplanation {
   const _QuizAnswerExplanation(
       {required this.number,
-      @JsonKey(name: "user_code") required this.userCode,
-      @JsonKey(name: "actual_code") required this.actualCode,
-      @JsonKey(name: "user_content") required this.userContent,
-      @JsonKey(name: "actual_content") required this.actualContent,
-      @JsonKey(name: "question_content") required this.questionContent,
-      @JsonKey(name: "is_correct") required this.isCorrect,
-      required this.explanation,
-      required this.reason,
-      @JsonKey(name: "Format") required this.format});
+      @JsonKey(name: "user_code") this.userCode = "-",
+      @JsonKey(name: "actual_code") this.actualCode = "-",
+      @JsonKey(name: "user_content") this.userContent = "-",
+      @JsonKey(name: "actual_content") this.actualContent = "-",
+      @JsonKey(name: "question_content") this.questionContent = "-",
+      @JsonKey(name: "is_correct") this.isCorrect = false,
+      this.explanation = "-",
+      this.reason = "-",
+      @JsonKey(name: "Format") this.format = "-"});
   factory _QuizAnswerExplanation.fromJson(Map<String, dynamic> json) =>
       _$QuizAnswerExplanationFromJson(json);
 
@@ -215,8 +215,10 @@ class _QuizAnswerExplanation implements QuizAnswerExplanation {
   @JsonKey(name: "is_correct")
   final bool isCorrect;
   @override
+  @JsonKey()
   final String explanation;
   @override
+  @JsonKey()
   final String reason;
   @override
   @JsonKey(name: "Format")

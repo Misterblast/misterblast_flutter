@@ -11,6 +11,7 @@ abstract class QuizExplanation with _$QuizExplanation {
     required String grade,
     required int correct,
     required int wrong,
+    required String lesson,
     @JsonKey(name: "attempt_no") required int attemptNo,
     @JsonKey(name: "submitted_at") required int submittedAt,
     required List<QuizAnswerExplanation> answers,

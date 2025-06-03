@@ -15,17 +15,14 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$QuizSubmission {
-  String get id;
-  @JsonKey(name: 'set_id')
-  String get setId;
-  String get name;
+  int get id;
   int get correct;
   int get grade;
   String get lesson;
-  @JsonKey(name: 'class')
-  String get className;
+  @JsonKey(name: 'set_id')
+  int? get setId;
   @JsonKey(name: 'submitted_at')
-  int get submittedAt;
+  String? get submittedAt;
 
   /// Create a copy of QuizSubmission
   /// with the given fields replaced by the non-null parameter values.
@@ -44,25 +41,22 @@ mixin _$QuizSubmission {
         (other.runtimeType == runtimeType &&
             other is QuizSubmission &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.setId, setId) || other.setId == setId) &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.correct, correct) || other.correct == correct) &&
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.lesson, lesson) || other.lesson == lesson) &&
-            (identical(other.className, className) ||
-                other.className == className) &&
+            (identical(other.setId, setId) || other.setId == setId) &&
             (identical(other.submittedAt, submittedAt) ||
                 other.submittedAt == submittedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, setId, name, correct, grade,
-      lesson, className, submittedAt);
+  int get hashCode =>
+      Object.hash(runtimeType, id, correct, grade, lesson, setId, submittedAt);
 
   @override
   String toString() {
-    return 'QuizSubmission(id: $id, setId: $setId, name: $name, correct: $correct, grade: $grade, lesson: $lesson, className: $className, submittedAt: $submittedAt)';
+    return 'QuizSubmission(id: $id, correct: $correct, grade: $grade, lesson: $lesson, setId: $setId, submittedAt: $submittedAt)';
   }
 }
 
@@ -73,14 +67,12 @@ abstract mixin class $QuizSubmissionCopyWith<$Res> {
       _$QuizSubmissionCopyWithImpl;
   @useResult
   $Res call(
-      {String id,
-      @JsonKey(name: 'set_id') String setId,
-      String name,
+      {int id,
       int correct,
       int grade,
       String lesson,
-      @JsonKey(name: 'class') String className,
-      @JsonKey(name: 'submitted_at') int submittedAt});
+      @JsonKey(name: 'set_id') int? setId,
+      @JsonKey(name: 'submitted_at') String? submittedAt});
 }
 
 /// @nodoc
@@ -97,27 +89,17 @@ class _$QuizSubmissionCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? setId = null,
-    Object? name = null,
     Object? correct = null,
     Object? grade = null,
     Object? lesson = null,
-    Object? className = null,
-    Object? submittedAt = null,
+    Object? setId = freezed,
+    Object? submittedAt = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      setId: null == setId
-          ? _self.setId
-          : setId // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       correct: null == correct
           ? _self.correct
           : correct // ignore: cast_nullable_to_non_nullable
@@ -130,14 +112,14 @@ class _$QuizSubmissionCopyWithImpl<$Res>
           ? _self.lesson
           : lesson // ignore: cast_nullable_to_non_nullable
               as String,
-      className: null == className
-          ? _self.className
-          : className // ignore: cast_nullable_to_non_nullable
-              as String,
-      submittedAt: null == submittedAt
+      setId: freezed == setId
+          ? _self.setId
+          : setId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      submittedAt: freezed == submittedAt
           ? _self.submittedAt
           : submittedAt // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
     ));
   }
 }
@@ -147,23 +129,16 @@ class _$QuizSubmissionCopyWithImpl<$Res>
 class _QuizSubmission implements QuizSubmission {
   const _QuizSubmission(
       {required this.id,
-      @JsonKey(name: 'set_id') required this.setId,
-      required this.name,
       required this.correct,
       required this.grade,
       required this.lesson,
-      @JsonKey(name: 'class') required this.className,
-      @JsonKey(name: 'submitted_at') required this.submittedAt});
+      @JsonKey(name: 'set_id') this.setId,
+      @JsonKey(name: 'submitted_at') this.submittedAt});
   factory _QuizSubmission.fromJson(Map<String, dynamic> json) =>
       _$QuizSubmissionFromJson(json);
 
   @override
-  final String id;
-  @override
-  @JsonKey(name: 'set_id')
-  final String setId;
-  @override
-  final String name;
+  final int id;
   @override
   final int correct;
   @override
@@ -171,11 +146,11 @@ class _QuizSubmission implements QuizSubmission {
   @override
   final String lesson;
   @override
-  @JsonKey(name: 'class')
-  final String className;
+  @JsonKey(name: 'set_id')
+  final int? setId;
   @override
   @JsonKey(name: 'submitted_at')
-  final int submittedAt;
+  final String? submittedAt;
 
   /// Create a copy of QuizSubmission
   /// with the given fields replaced by the non-null parameter values.
@@ -198,25 +173,22 @@ class _QuizSubmission implements QuizSubmission {
         (other.runtimeType == runtimeType &&
             other is _QuizSubmission &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.setId, setId) || other.setId == setId) &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.correct, correct) || other.correct == correct) &&
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.lesson, lesson) || other.lesson == lesson) &&
-            (identical(other.className, className) ||
-                other.className == className) &&
+            (identical(other.setId, setId) || other.setId == setId) &&
             (identical(other.submittedAt, submittedAt) ||
                 other.submittedAt == submittedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, setId, name, correct, grade,
-      lesson, className, submittedAt);
+  int get hashCode =>
+      Object.hash(runtimeType, id, correct, grade, lesson, setId, submittedAt);
 
   @override
   String toString() {
-    return 'QuizSubmission(id: $id, setId: $setId, name: $name, correct: $correct, grade: $grade, lesson: $lesson, className: $className, submittedAt: $submittedAt)';
+    return 'QuizSubmission(id: $id, correct: $correct, grade: $grade, lesson: $lesson, setId: $setId, submittedAt: $submittedAt)';
   }
 }
 
@@ -229,14 +201,12 @@ abstract mixin class _$QuizSubmissionCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      @JsonKey(name: 'set_id') String setId,
-      String name,
+      {int id,
       int correct,
       int grade,
       String lesson,
-      @JsonKey(name: 'class') String className,
-      @JsonKey(name: 'submitted_at') int submittedAt});
+      @JsonKey(name: 'set_id') int? setId,
+      @JsonKey(name: 'submitted_at') String? submittedAt});
 }
 
 /// @nodoc
@@ -253,27 +223,17 @@ class __$QuizSubmissionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
-    Object? setId = null,
-    Object? name = null,
     Object? correct = null,
     Object? grade = null,
     Object? lesson = null,
-    Object? className = null,
-    Object? submittedAt = null,
+    Object? setId = freezed,
+    Object? submittedAt = freezed,
   }) {
     return _then(_QuizSubmission(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      setId: null == setId
-          ? _self.setId
-          : setId // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       correct: null == correct
           ? _self.correct
           : correct // ignore: cast_nullable_to_non_nullable
@@ -286,14 +246,14 @@ class __$QuizSubmissionCopyWithImpl<$Res>
           ? _self.lesson
           : lesson // ignore: cast_nullable_to_non_nullable
               as String,
-      className: null == className
-          ? _self.className
-          : className // ignore: cast_nullable_to_non_nullable
-              as String,
-      submittedAt: null == submittedAt
+      setId: freezed == setId
+          ? _self.setId
+          : setId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      submittedAt: freezed == submittedAt
           ? _self.submittedAt
           : submittedAt // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
     ));
   }
 }

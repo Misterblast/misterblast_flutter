@@ -19,6 +19,7 @@ mixin _$QuizExplanation {
   String get grade;
   int get correct;
   int get wrong;
+  String get lesson;
   @JsonKey(name: "attempt_no")
   int get attemptNo;
   @JsonKey(name: "submitted_at")
@@ -45,6 +46,7 @@ mixin _$QuizExplanation {
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.correct, correct) || other.correct == correct) &&
             (identical(other.wrong, wrong) || other.wrong == wrong) &&
+            (identical(other.lesson, lesson) || other.lesson == lesson) &&
             (identical(other.attemptNo, attemptNo) ||
                 other.attemptNo == attemptNo) &&
             (identical(other.submittedAt, submittedAt) ||
@@ -54,12 +56,20 @@ mixin _$QuizExplanation {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, grade, correct, wrong,
-      attemptNo, submittedAt, const DeepCollectionEquality().hash(answers));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      grade,
+      correct,
+      wrong,
+      lesson,
+      attemptNo,
+      submittedAt,
+      const DeepCollectionEquality().hash(answers));
 
   @override
   String toString() {
-    return 'QuizExplanation(id: $id, grade: $grade, correct: $correct, wrong: $wrong, attemptNo: $attemptNo, submittedAt: $submittedAt, answers: $answers)';
+    return 'QuizExplanation(id: $id, grade: $grade, correct: $correct, wrong: $wrong, lesson: $lesson, attemptNo: $attemptNo, submittedAt: $submittedAt, answers: $answers)';
   }
 }
 
@@ -74,6 +84,7 @@ abstract mixin class $QuizExplanationCopyWith<$Res> {
       String grade,
       int correct,
       int wrong,
+      String lesson,
       @JsonKey(name: "attempt_no") int attemptNo,
       @JsonKey(name: "submitted_at") int submittedAt,
       List<QuizAnswerExplanation> answers});
@@ -96,6 +107,7 @@ class _$QuizExplanationCopyWithImpl<$Res>
     Object? grade = null,
     Object? correct = null,
     Object? wrong = null,
+    Object? lesson = null,
     Object? attemptNo = null,
     Object? submittedAt = null,
     Object? answers = null,
@@ -117,6 +129,10 @@ class _$QuizExplanationCopyWithImpl<$Res>
           ? _self.wrong
           : wrong // ignore: cast_nullable_to_non_nullable
               as int,
+      lesson: null == lesson
+          ? _self.lesson
+          : lesson // ignore: cast_nullable_to_non_nullable
+              as String,
       attemptNo: null == attemptNo
           ? _self.attemptNo
           : attemptNo // ignore: cast_nullable_to_non_nullable
@@ -141,6 +157,7 @@ class _QuizExplanation implements QuizExplanation {
       required this.grade,
       required this.correct,
       required this.wrong,
+      required this.lesson,
       @JsonKey(name: "attempt_no") required this.attemptNo,
       @JsonKey(name: "submitted_at") required this.submittedAt,
       required final List<QuizAnswerExplanation> answers})
@@ -156,6 +173,8 @@ class _QuizExplanation implements QuizExplanation {
   final int correct;
   @override
   final int wrong;
+  @override
+  final String lesson;
   @override
   @JsonKey(name: "attempt_no")
   final int attemptNo;
@@ -194,6 +213,7 @@ class _QuizExplanation implements QuizExplanation {
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.correct, correct) || other.correct == correct) &&
             (identical(other.wrong, wrong) || other.wrong == wrong) &&
+            (identical(other.lesson, lesson) || other.lesson == lesson) &&
             (identical(other.attemptNo, attemptNo) ||
                 other.attemptNo == attemptNo) &&
             (identical(other.submittedAt, submittedAt) ||
@@ -203,12 +223,20 @@ class _QuizExplanation implements QuizExplanation {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, grade, correct, wrong,
-      attemptNo, submittedAt, const DeepCollectionEquality().hash(_answers));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      grade,
+      correct,
+      wrong,
+      lesson,
+      attemptNo,
+      submittedAt,
+      const DeepCollectionEquality().hash(_answers));
 
   @override
   String toString() {
-    return 'QuizExplanation(id: $id, grade: $grade, correct: $correct, wrong: $wrong, attemptNo: $attemptNo, submittedAt: $submittedAt, answers: $answers)';
+    return 'QuizExplanation(id: $id, grade: $grade, correct: $correct, wrong: $wrong, lesson: $lesson, attemptNo: $attemptNo, submittedAt: $submittedAt, answers: $answers)';
   }
 }
 
@@ -225,6 +253,7 @@ abstract mixin class _$QuizExplanationCopyWith<$Res>
       String grade,
       int correct,
       int wrong,
+      String lesson,
       @JsonKey(name: "attempt_no") int attemptNo,
       @JsonKey(name: "submitted_at") int submittedAt,
       List<QuizAnswerExplanation> answers});
@@ -247,6 +276,7 @@ class __$QuizExplanationCopyWithImpl<$Res>
     Object? grade = null,
     Object? correct = null,
     Object? wrong = null,
+    Object? lesson = null,
     Object? attemptNo = null,
     Object? submittedAt = null,
     Object? answers = null,
@@ -268,6 +298,10 @@ class __$QuizExplanationCopyWithImpl<$Res>
           ? _self.wrong
           : wrong // ignore: cast_nullable_to_non_nullable
               as int,
+      lesson: null == lesson
+          ? _self.lesson
+          : lesson // ignore: cast_nullable_to_non_nullable
+              as String,
       attemptNo: null == attemptNo
           ? _self.attemptNo
           : attemptNo // ignore: cast_nullable_to_non_nullable

@@ -104,8 +104,8 @@ GoRouter router(Ref ref) {
           GoRoute(
             path: "/result-detail/:resultId",
             builder: (context, state) {
-              // final resultId = state.pathParameters['resultId'] ?? '';
-              return QuizResultScreen();
+              final resultId = state.pathParameters['resultId'] ?? '';
+              return QuizResultScreen(resultId: int.parse(resultId));
             },
           ),
         ],

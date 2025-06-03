@@ -12,6 +12,7 @@ _QuizExplanation _$QuizExplanationFromJson(Map<String, dynamic> json) =>
       grade: json['grade'] as String,
       correct: (json['correct'] as num).toInt(),
       wrong: (json['wrong'] as num).toInt(),
+      lesson: json['lesson'] as String,
       attemptNo: (json['attempt_no'] as num).toInt(),
       submittedAt: (json['submitted_at'] as num).toInt(),
       answers: (json['answers'] as List<dynamic>)
@@ -25,6 +26,7 @@ Map<String, dynamic> _$QuizExplanationToJson(_QuizExplanation instance) =>
       'grade': instance.grade,
       'correct': instance.correct,
       'wrong': instance.wrong,
+      'lesson': instance.lesson,
       'attempt_no': instance.attemptNo,
       'submitted_at': instance.submittedAt,
       'answers': instance.answers,

@@ -15,10 +15,10 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$PaginatedResponse<T> {
-  List<T> get data;
   int get total;
   int get page;
   int get limit;
+  List<T> get data;
 
   /// Create a copy of PaginatedResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -36,20 +36,20 @@ mixin _$PaginatedResponse<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is PaginatedResponse<T> &&
-            const DeepCollectionEquality().equals(other.data, data) &&
             (identical(other.total, total) || other.total == total) &&
             (identical(other.page, page) || other.page == page) &&
-            (identical(other.limit, limit) || other.limit == limit));
+            (identical(other.limit, limit) || other.limit == limit) &&
+            const DeepCollectionEquality().equals(other.data, data));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(data), total, page, limit);
+  int get hashCode => Object.hash(runtimeType, total, page, limit,
+      const DeepCollectionEquality().hash(data));
 
   @override
   String toString() {
-    return 'PaginatedResponse<$T>(data: $data, total: $total, page: $page, limit: $limit)';
+    return 'PaginatedResponse<$T>(total: $total, page: $page, limit: $limit, data: $data)';
   }
 }
 
@@ -59,7 +59,7 @@ abstract mixin class $PaginatedResponseCopyWith<T, $Res> {
           $Res Function(PaginatedResponse<T>) _then) =
       _$PaginatedResponseCopyWithImpl;
   @useResult
-  $Res call({List<T> data, int total, int page, int limit});
+  $Res call({int total, int page, int limit, List<T> data});
 }
 
 /// @nodoc
@@ -75,16 +75,12 @@ class _$PaginatedResponseCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = null,
     Object? total = null,
     Object? page = null,
     Object? limit = null,
+    Object? data = null,
   }) {
     return _then(_self.copyWith(
-      data: null == data
-          ? _self.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<T>,
       total: null == total
           ? _self.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -97,6 +93,10 @@ class _$PaginatedResponseCopyWithImpl<T, $Res>
           ? _self.limit
           : limit // ignore: cast_nullable_to_non_nullable
               as int,
+      data: null == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<T>,
     ));
   }
 }
@@ -105,22 +105,14 @@ class _$PaginatedResponseCopyWithImpl<T, $Res>
 @JsonSerializable(genericArgumentFactories: true)
 class _PaginatedResponse<T> implements PaginatedResponse<T> {
   const _PaginatedResponse(
-      {required final List<T> data,
-      required this.total,
+      {required this.total,
       required this.page,
-      required this.limit})
+      required this.limit,
+      final List<T> data = const []})
       : _data = data;
   factory _PaginatedResponse.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
       _$PaginatedResponseFromJson(json, fromJsonT);
-
-  final List<T> _data;
-  @override
-  List<T> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
 
   @override
   final int total;
@@ -128,6 +120,14 @@ class _PaginatedResponse<T> implements PaginatedResponse<T> {
   final int page;
   @override
   final int limit;
+  final List<T> _data;
+  @override
+  @JsonKey()
+  List<T> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
 
   /// Create a copy of PaginatedResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -148,20 +148,20 @@ class _PaginatedResponse<T> implements PaginatedResponse<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PaginatedResponse<T> &&
-            const DeepCollectionEquality().equals(other._data, _data) &&
             (identical(other.total, total) || other.total == total) &&
             (identical(other.page, page) || other.page == page) &&
-            (identical(other.limit, limit) || other.limit == limit));
+            (identical(other.limit, limit) || other.limit == limit) &&
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_data), total, page, limit);
+  int get hashCode => Object.hash(runtimeType, total, page, limit,
+      const DeepCollectionEquality().hash(_data));
 
   @override
   String toString() {
-    return 'PaginatedResponse<$T>(data: $data, total: $total, page: $page, limit: $limit)';
+    return 'PaginatedResponse<$T>(total: $total, page: $page, limit: $limit, data: $data)';
   }
 }
 
@@ -173,7 +173,7 @@ abstract mixin class _$PaginatedResponseCopyWith<T, $Res>
       __$PaginatedResponseCopyWithImpl;
   @override
   @useResult
-  $Res call({List<T> data, int total, int page, int limit});
+  $Res call({int total, int page, int limit, List<T> data});
 }
 
 /// @nodoc
@@ -189,16 +189,12 @@ class __$PaginatedResponseCopyWithImpl<T, $Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? data = null,
     Object? total = null,
     Object? page = null,
     Object? limit = null,
+    Object? data = null,
   }) {
     return _then(_PaginatedResponse<T>(
-      data: null == data
-          ? _self._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<T>,
       total: null == total
           ? _self.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -211,6 +207,10 @@ class __$PaginatedResponseCopyWithImpl<T, $Res>
           ? _self.limit
           : limit // ignore: cast_nullable_to_non_nullable
               as int,
+      data: null == data
+          ? _self._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<T>,
     ));
   }
 }

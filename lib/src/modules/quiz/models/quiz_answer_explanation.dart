@@ -7,15 +7,15 @@ part 'quiz_answer_explanation.freezed.dart';
 abstract class QuizAnswerExplanation with _$QuizAnswerExplanation {
   const factory QuizAnswerExplanation({
     required int number,
-    @JsonKey(name: "user_code") required String userCode,
-    @JsonKey(name: "actual_code") required String actualCode,
-    @JsonKey(name: "user_content") required String userContent,
-    @JsonKey(name: "actual_content") required String actualContent,
-    @JsonKey(name: "question_content") required String questionContent,
-    @JsonKey(name: "is_correct") required bool isCorrect,
-    required String explanation,
-    required String reason,
-    @JsonKey(name: "Format") required String format,
+    @Default("-") @JsonKey(name: "user_code") String userCode,
+    @Default("-") @JsonKey(name: "actual_code") String actualCode,
+    @Default("-") @JsonKey(name: "user_content") String userContent,
+    @Default("-") @JsonKey(name: "actual_content") String actualContent,
+    @Default("-") @JsonKey(name: "question_content") String questionContent,
+    @Default(false) @JsonKey(name: "is_correct") bool isCorrect,
+    @Default("-") String explanation,
+    @Default("-") String reason,
+    @Default("-") @JsonKey(name: "Format") String format,
   }) = _QuizAnswerExplanation;
 
   factory QuizAnswerExplanation.fromJson(Map<String, dynamic> json) =>

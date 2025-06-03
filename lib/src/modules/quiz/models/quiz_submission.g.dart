@@ -8,24 +8,20 @@ part of 'quiz_submission.dart';
 
 _QuizSubmission _$QuizSubmissionFromJson(Map<String, dynamic> json) =>
     _QuizSubmission(
-      id: json['id'] as String,
-      setId: json['set_id'] as String,
-      name: json['name'] as String,
+      id: (json['id'] as num).toInt(),
       correct: (json['correct'] as num).toInt(),
       grade: (json['grade'] as num).toInt(),
       lesson: json['lesson'] as String,
-      className: json['class'] as String,
-      submittedAt: (json['submitted_at'] as num).toInt(),
+      setId: (json['set_id'] as num?)?.toInt(),
+      submittedAt: json['submitted_at'] as String?,
     );
 
 Map<String, dynamic> _$QuizSubmissionToJson(_QuizSubmission instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'set_id': instance.setId,
-      'name': instance.name,
       'correct': instance.correct,
       'grade': instance.grade,
       'lesson': instance.lesson,
-      'class': instance.className,
+      'set_id': instance.setId,
       'submitted_at': instance.submittedAt,
     };
