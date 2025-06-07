@@ -74,23 +74,26 @@ class _QuizDisplayState extends State<QuizDisplay> {
                       : Colors.grey.shade300,
                 ),
               ),
-              child: RadioListTile(
-                groupValue: _selectedAnswer,
-                title: AppMarkdownViewer(
-                  content: context.tr(
-                    "question-types.${answer!.content.replaceAll("\\", '')}",
+              child: Material(
+                type: MaterialType.transparency,
+                child: RadioListTile(
+                  groupValue: _selectedAnswer,
+                  title: AppMarkdownViewer(
+                    content: context.tr(
+                      "question-types.${answer!.content.replaceAll("\\", '')}",
+                    ),
                   ),
+                  tileColor: Colors.grey.shade50,
+                  activeColor: Theme.of(context).colorScheme.primary,
+                  subtitle: answer.imageUrl != null
+                      ? Image.network(answer.imageUrl!)
+                      : null,
+                  selected: _selectedAnswer == answer.code,
+                  value: answer.code,
+                  onChanged: (value) {
+                    onSelect(value);
+                  },
                 ),
-                tileColor: Colors.grey.shade50,
-                activeColor: Theme.of(context).colorScheme.primary,
-                subtitle: answer.imageUrl != null
-                    ? Image.network(answer.imageUrl!)
-                    : null,
-                selected: _selectedAnswer == answer.code,
-                value: answer.code,
-                onChanged: (value) {
-                  onSelect(value);
-                },
               ),
             );
           },

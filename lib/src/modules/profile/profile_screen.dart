@@ -42,123 +42,138 @@ class ProfileScreen extends StatelessWidget {
                         spacing: 8,
                         children: [
                           Card(
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 8,
-                              ),
-                              leading: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondary
-                                      .withAlpha(75),
-                                  borderRadius: BorderRadius.circular(100),
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                  horizontal: 8,
                                 ),
-                                child: Icon(
-                                  Icons.settings,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              title: Text(
-                                context.tr("profile.profile"),
-                                style:
-                                    Theme.of(context).textTheme.headlineMedium,
-                              ),
-                              subtitle: Text(
-                                context.tr(
-                                  "profile.profile-description",
-                                ),
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              onTap: () {
-                                // Navigate to profile details
-                              },
-                            ),
-                          ),
-                          Card(
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 8,
-                              ),
-                              leading: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondary
-                                      .withAlpha(75),
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Icon(
-                                  Icons.language,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              title: Text(
-                                context.tr("settings.language.update-language"),
-                                style:
-                                    Theme.of(context).textTheme.headlineMedium,
-                              ),
-                              subtitle: Text(
-                                context.tr(
-                                  context.tr(
-                                    "settings.language.${context.locale.toString()}",
+                                leading: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary
+                                        .withAlpha(75),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Icon(
+                                    Icons.settings,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
+                                title: Text(
+                                  context.tr("profile.profile"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                ),
+                                subtitle: Text(
+                                  context.tr(
+                                    "profile.profile-description",
+                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                onTap: () {
+                                  // Navigate to profile details
+                                },
                               ),
-                              onTap: () => showDialog(
-                                context: context,
-                                builder: (context) => SelectLocaleDialog(
-                                  locales: AVAILABLE_LOCALES,
-                                  currentLocale: context.locale.toString(),
+                            ),
+                          ),
+                          Card(
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                  horizontal: 8,
+                                ),
+                                leading: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary
+                                        .withAlpha(75),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Icon(
+                                    Icons.language,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                                title: Text(
+                                  context
+                                      .tr("settings.language.update-language"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                ),
+                                subtitle: Text(
+                                  context.tr(
+                                    context.tr(
+                                      "settings.language.${context.locale.toString()}",
+                                    ),
+                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                ),
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) => SelectLocaleDialog(
+                                    locales: AVAILABLE_LOCALES,
+                                    currentLocale: context.locale.toString(),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           Card(
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 8,
-                              ),
-                              leading: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .error
-                                      .withAlpha(75),
-                                  borderRadius: BorderRadius.circular(100),
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                  horizontal: 8,
                                 ),
-                                child: Icon(
-                                  Icons.exit_to_app,
-                                  color: Theme.of(context).colorScheme.error,
+                                leading: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .error
+                                        .withAlpha(75),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Icon(
+                                    Icons.exit_to_app,
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                                 ),
-                              ),
-                              title: Text(
-                                context.tr("profile.logout"),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
-                              ),
-                              onTap: () => showDialog(
-                                context: context,
-                                builder: (context) =>
-                                    LogoutConfirmationAlertDialog(),
+                                title: Text(
+                                  context.tr("profile.logout"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                      ),
+                                ),
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      LogoutConfirmationAlertDialog(),
+                                ),
                               ),
                             ),
                           ),

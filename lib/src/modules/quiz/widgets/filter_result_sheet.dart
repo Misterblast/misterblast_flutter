@@ -155,55 +155,59 @@ class _SelectSubjectSheetState extends State<FilterResultSheet> {
                         children: subjects
                             .map(
                               (subject) => Card(
-                                child: ListTile(
-                                  selected:
-                                      _selectedSubject == subject['title'],
-                                  selectedTileColor: Theme.of(context)
-                                      .colorScheme
-                                      .secondary
-                                      .withAlpha(75),
-                                  contentPadding: const EdgeInsets.all(8),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    side: BorderSide(
-                                      width: 2,
-                                      color:
-                                          _selectedSubject == subject['title']
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Colors.transparent,
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  child: ListTile(
+                                    selected:
+                                        _selectedSubject == subject['title'],
+                                    selectedTileColor: Theme.of(context)
+                                        .colorScheme
+                                        .secondary
+                                        .withAlpha(75),
+                                    contentPadding: const EdgeInsets.all(8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      side: BorderSide(
+                                        width: 2,
+                                        color:
+                                            _selectedSubject == subject['title']
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .primary
+                                                : Colors.transparent,
+                                      ),
                                     ),
-                                  ),
-                                  horizontalTitleGap: 16,
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.asset(
-                                      "assets/images/${subject['icon']}",
-                                      width: 75,
+                                    horizontalTitleGap: 16,
+                                    leading: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.asset(
+                                        "assets/images/${subject['icon']}",
+                                        width: 75,
+                                      ),
                                     ),
+                                    title: Text(
+                                      "subjects.${subject['title']}".tr(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(
+                                            color: _selectedSubject ==
+                                                    subject['title']
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .primary
+                                                : Colors.black,
+                                          ),
+                                    ),
+                                    onTap: () => setState(() {
+                                      if (_selectedSubject ==
+                                          subject['title']) {
+                                        _selectedSubject = null;
+                                      } else {
+                                        _selectedSubject = subject['title'];
+                                      }
+                                    }),
                                   ),
-                                  title: Text(
-                                    "subjects.${subject['title']}".tr(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                          color: _selectedSubject ==
-                                                  subject['title']
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Colors.black,
-                                        ),
-                                  ),
-                                  onTap: () => setState(() {
-                                    if (_selectedSubject == subject['title']) {
-                                      _selectedSubject = null;
-                                    } else {
-                                      _selectedSubject = subject['title'];
-                                    }
-                                  }),
                                 ),
                               ),
                             )

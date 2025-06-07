@@ -28,140 +28,161 @@ class _QuizSubmissionListState extends State<QuizSubmissionList> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
-        child: Column(
-          spacing: 16,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          alignment: Alignment.topLeft,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppBackButton(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                  ),
-                  ChangeLocalButton()
-                ],
+            Positioned(
+              top: 36,
+              child: Opacity(
+                opacity: 0.5,
+                child: Icon(
+                  Icons.history,
+                  size: 160,
+                  color: AppColors.lightBlue,
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      context.tr("quiz.works-result"),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge
-                          ?.copyWith(color: Colors.white),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      Lesson? subject = await showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (context) => SelectSubjectSheet(
-                          showClass: false,
-                        ),
-                      );
-                      if (subject == null) return;
-                      setState(() {
-                        _filterSubject = subject;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 16,
+            Column(
+              spacing: 16,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppBackButton(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                       ),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Row(
-                        spacing: 6,
-                        children: [
-                          Icon(
-                            size: 16,
-                            Icons.filter_list,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            "Filter",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                  color: Colors.white,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
+                      ChangeLocalButton()
+                    ],
                   ),
                 ),
-                child: Column(
-                  spacing: 8,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Wrap(
-                      spacing: 6,
-                      runSpacing: 3,
-                      alignment: WrapAlignment.start,
-                      runAlignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      children: [
-                        if (_filterSubject != null)
-                          Chip(
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 12,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          context.tr("quiz.works-result"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          Lesson? subject = await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) => SelectSubjectSheet(
+                              showClass: false,
+                              buttonTitle: "Filter",
                             ),
-                            side: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            label: Text(
-                              context.tr("subjects.${_filterSubject!.code}"),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                            ),
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            deleteIcon: Icon(Icons.close, color: Colors.white),
-                            onDeleted: () {
-                              setState(() {
-                                _filterSubject = null;
-                              });
-                            },
+                          );
+                          if (subject == null) return;
+                          setState(() {
+                            _filterSubject = subject;
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 16,
                           ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Row(
+                            spacing: 6,
+                            children: [
+                              Icon(
+                                size: 16,
+                                Icons.filter_list,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Filter",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                    ),
+                    child: Column(
+                      spacing: 8,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 3,
+                          alignment: WrapAlignment.start,
+                          runAlignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          children: [
+                            if (_filterSubject != null)
+                              Chip(
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 12,
+                                ),
+                                side: BorderSide(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                label: Text(
+                                  context
+                                      .tr("subjects.${_filterSubject!.code}"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                ),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                deleteIcon:
+                                    Icon(Icons.close, color: Colors.white),
+                                onDeleted: () {
+                                  setState(() {
+                                    _filterSubject = null;
+                                  });
+                                },
+                              ),
+                          ],
+                        ),
+                        QuizSubmissionListWidget(subjectId: _filterSubject?.id),
                       ],
                     ),
-                    QuizSubmissionListWidget(subjectId: _filterSubject?.id),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
@@ -332,28 +353,31 @@ class QuizSubmissionCard extends StatelessWidget {
       orElse: () => {'title': 'Unknown', 'icon': 'default_icon.png'},
     );
     return Card(
-      child: ListTile(
-        onTap: () => context.push('/quiz/result-detail/${submission.id}'),
-        leading: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          backgroundImage: AssetImage(
-            "assets/images/${subject['icon']}",
+      child: Material(
+        type: MaterialType.transparency,
+        child: ListTile(
+          onTap: () => context.push('/quiz/result-detail/${submission.id}'),
+          leading: CircleAvatar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundImage: AssetImage(
+              "assets/images/${subject['icon']}",
+            ),
           ),
-        ),
-        title: Text(
-          context.tr("subjects.${subject['code']}"),
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        subtitle: Text(
-          "${context.tr("common.date")} : ${submission.submittedAt != null && submission.submittedAt != "" ? parseUnixDatetime(
-              int.parse(submission.submittedAt!),
-              locale: context.locale.countryCode,
-            ) : "-"}",
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        trailing: Text(
-          submission.grade.toString(),
-          style: Theme.of(context).textTheme.headlineSmall,
+          title: Text(
+            context.tr("subjects.${subject['code']}"),
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          subtitle: Text(
+            "${context.tr("common.date")} : ${submission.submittedAt != null && submission.submittedAt != "" ? parseUnixDatetime(
+                int.parse(submission.submittedAt!),
+                locale: context.locale.countryCode,
+              ) : "-"}",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          trailing: Text(
+            submission.grade.toString(),
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
         ),
       ),
     );

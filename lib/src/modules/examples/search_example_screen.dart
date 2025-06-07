@@ -5,6 +5,7 @@ import 'package:misterblast_flutter/src/modules/examples/provider/seach_question
 import 'package:misterblast_flutter/src/modules/examples/widgets/search_question_tile.dart';
 import 'package:misterblast_flutter/src/modules/quiz/widgets/filter_result_sheet.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
+import 'package:misterblast_flutter/src/widgets/app_loading.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
@@ -70,8 +71,9 @@ class _SearchExampleScreenState extends State<SearchExampleScreen> {
                   ),
                   child: Container(
                     color: Colors.white,
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                     child: Column(
+                      spacing: 4,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -287,10 +289,8 @@ class _SearchQuestionListState extends ConsumerState<SearchQuestionList> {
               ),
               if (questions.isFetchingMore)
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  padding: EdgeInsets.all(4),
+                  child: Center(child: AppLoading(size: 24)),
                 ),
             ],
           );

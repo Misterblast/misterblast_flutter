@@ -31,7 +31,9 @@
     "date": "Tanggal",
     "answer": "Jawaban",
     "confirm": "Konfirmasi",
-    "cancel": "Batal"
+    "cancel": "Batal",
+    "show-all" : "Lihat Semua",
+    "search-placeholder": "Cari berdasarkan judul atau kata kunci"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -133,7 +135,9 @@
     "task-description": "Tugas dirancang untuk mengukur pemahamanmu lebih dalam. Admin akan menilai hasil kerjamu dan memberikan feedback sebagai panduan belajar.",
     "task-start": "Tekan untuk Mengerjakan Tugas",
     "at-last-ten-task": "Pada 10 Penilaian Terakhir",
-    "task-no-works": "Sepertinya kamu belum mengumpulkan tugas. Yuk, mulai kerjakan tugas pertamamu dan dapatkan penilaian serta feedback dari pengajar!"
+    "task-no-works": "Sepertinya kamu belum mengumpulkan tugas. Yuk, mulai kerjakan tugas pertamamu dan dapatkan penilaian serta feedback dari pengajar!",
+    "do-task": "Kerjakan Tugas",
+    "task-submissions": "Pengumpulan Tugas"
   },
   "quiz": {
     "title": "Kuis",

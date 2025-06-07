@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/constants/subjects.dart';
 import 'package:misterblast_flutter/src/modules/quiz/models/quiz_answer_explanation.dart';
-import 'package:misterblast_flutter/src/modules/quiz/models/quiz_explanation.dart';
 import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_result_notifier.dart';
 import 'package:misterblast_flutter/src/modules/quiz/widgets/quiz_answer_explanation_tile.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
@@ -239,35 +238,40 @@ class SubmissionDetails extends ConsumerWidget {
                 final subject = AVAILABLE_SUBJECTS
                     .firstWhere((element) => element['code'] == data?.lesson);
                 return Card(
-                  child: ListTile(
-                    selected: false,
-                    selectedTileColor:
-                        Theme.of(context).colorScheme.secondary.withAlpha(75),
-                    contentPadding: const EdgeInsets.all(4),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        width: 1,
-                        color: Theme.of(context).colorScheme.primary,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: ListTile(
+                      selected: false,
+                      selectedTileColor:
+                          Theme.of(context).colorScheme.secondary.withAlpha(75),
+                      contentPadding: const EdgeInsets.all(4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
-                    ),
-                    horizontalTitleGap: 16,
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        "assets/images/${subject['icon']}",
-                        width: 75,
+                      horizontalTitleGap: 16,
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          "assets/images/${subject['icon']}",
+                          width: 75,
+                        ),
                       ),
-                    ),
-                    title: Text(
-                      context.tr("subjects.${subject['code']}"),
-                      style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                    ),
-                    subtitle: Text(
-                      "${context.tr("quiz-result.attempt-number")} - ${data?.attemptNo}",
+                      title: Text(
+                        context.tr("subjects.${subject['code']}"),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                      subtitle: Text(
+                        "${context.tr("quiz-result.attempt-number")} - ${data?.attemptNo}",
+                      ),
                     ),
                   ),
                 );
@@ -293,9 +297,9 @@ class SubmissionDetails extends ConsumerWidget {
             ),
             if (isLoading)
               ListView.separated(
+                itemCount: 3,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 0,
                 separatorBuilder: (_, index) => const SizedBox(
                   height: 8,
                 ),

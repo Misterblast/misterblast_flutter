@@ -31,7 +31,8 @@
     "date": "Date",
     "answer": "Answer",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "show-all" : "Show All"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -133,7 +134,8 @@
     "task-description": "The task is designed to measure your understanding deeper. Admin will judge your work and provide feedback as a learning guide.",
     "task-start": "Tap to Start Task!",
     "at-last-ten-task": "In the last 10 submissions",
-    "task-no-works": "Looks like you haven't collected assignments. Come on, start working on your first task and get an assessment and feedback from the instructor!"
+    "task-no-works": "Looks like you haven't collected assignments. Come on, start working on your first task and get an assessment and feedback from the instructor!",
+    "do-task": "Do Tasks"
   },
   "quiz": {
     "title": "Quiz",

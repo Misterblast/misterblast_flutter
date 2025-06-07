@@ -63,133 +63,217 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
-            clipBehavior: Clip.none,
-            alignment: Alignment.topCenter,
-            children: [
-              Positioned(
-                top: -60,
-                child: Opacity(
-                  opacity: 0.3,
-                  child: Image.asset("assets/images/quiz-icon.png"),
-                ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.topCenter,
+          children: [
+            Positioned(
+              top: -60,
+              child: Opacity(
+                opacity: 0.3,
+                child: Image.asset("assets/images/quiz-icon.png"),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppBackButton(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                    ChangeLocalButton(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.sizeOf(context).height * 0.1,
-                ),
-                child: Column(
-                  spacing: 20,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      alignment: Alignment.topCenter,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(30),
-                        ),
+            ),
+            Column(
+              spacing: 16,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppBackButton(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                       ),
-                      child: Column(
-                        spacing: 24,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(),
-                          Column(
-                            spacing: 12,
-                            children: [
-                              Row(
-                                spacing: 12,
-                                children: [
-                                  Icon(
-                                    Icons.label_important_sharp,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  Text(
-                                    context.tr("quiz.do-quiz"),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium,
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withAlpha(65),
-                                      blurRadius: 4,
-                                      offset: const Offset(0, 2),
-                                    )
+                      ChangeLocalButton(),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(30),
+                      ),
+                    ),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        Column(
+                          spacing: 24,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              spacing: 12,
+                              children: [
+                                Row(
+                                  spacing: 12,
+                                  children: [
+                                    Icon(
+                                      Icons.label_important_sharp,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    Text(
+                                      context.tr("quiz.do-quiz"),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                    ),
                                   ],
                                 ),
-                                child: Consumer(
-                                  builder: (context, ref, child) {
-                                    return ListTile(
-                                      dense: true,
-                                      onTap: () async {
-                                        final subject =
-                                            await showModalBottomSheet<Lesson>(
-                                          context: context,
-                                          isDismissible: true,
-                                          isScrollControlled: true,
-                                          builder: (context) =>
-                                              SelectSubjectSheet(
-                                            showClass: false,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withAlpha(65),
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 2),
+                                      )
+                                    ],
+                                  ),
+                                  child: Consumer(
+                                    builder: (context, ref, child) {
+                                      return Material(
+                                        type: MaterialType.transparency,
+                                        child: ListTile(
+                                          dense: true,
+                                          onTap: () async {
+                                            final subject =
+                                                await showModalBottomSheet<
+                                                    Lesson>(
+                                              context: context,
+                                              isDismissible: true,
+                                              isScrollControlled: true,
+                                              builder: (context) =>
+                                                  SelectSubjectSheet(
+                                                showClass: false,
+                                              ),
+                                            );
+                                            if (subject == null) return;
+                                            setState(() {
+                                              _selectedSubject = subject;
+                                            });
+                                            ref
+                                                .read(quizNotifierProvider
+                                                    .notifier)
+                                                .fetchQuiz(subject.id);
+                                          },
+                                          style: ListTileStyle.drawer,
+                                          tileColor: Colors.white,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            vertical: 4,
+                                            horizontal: 8,
                                           ),
-                                        );
-                                        if (subject == null) return;
-                                        setState(() {
-                                          _selectedSubject = subject;
-                                        });
-                                        ref
-                                            .read(quizNotifierProvider.notifier)
-                                            .fetchQuiz(subject.id);
-                                      },
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          leading: Container(
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary
+                                                  .withAlpha(75),
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                            ),
+                                            padding: const EdgeInsets.all(4),
+                                            child: Image.asset(
+                                              "assets/images/stopwatch.png",
+                                            ),
+                                          ),
+                                          title: Text(
+                                            context.tr("quiz.select-subject"),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                          subtitle: AutoSizeText(
+                                            context.tr(
+                                              "quiz.select-subject-desc",
+                                            ),
+                                            maxLines: 2,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              spacing: 12,
+                              children: [
+                                Row(
+                                  spacing: 12,
+                                  children: [
+                                    Icon(
+                                      Icons.label_important_sharp,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    Text(
+                                      context.tr("quiz.works-result"),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withAlpha(65),
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 2),
+                                      )
+                                    ],
+                                  ),
+                                  child: Material(
+                                    type: MaterialType.transparency,
+                                    child: ListTile(
+                                      dense: true,
+                                      onTap: () => context.push(
+                                        '/quiz/submission-list',
+                                      ),
                                       style: ListTileStyle.drawer,
                                       tileColor: Colors.white,
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                         vertical: 4,
-                                        horizontal: 8,
+                                        horizontal: 16,
                                       ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      leading: Container(
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary
-                                              .withAlpha(75),
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                        ),
-                                        padding: const EdgeInsets.all(4),
-                                        child: Image.asset(
-                                          "assets/images/stopwatch.png",
-                                        ),
+                                      leading: Icon(
+                                        Icons.history,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        size: 40,
                                       ),
                                       title: Text(
-                                        context.tr("quiz.select-subject"),
+                                        context.tr("quiz.show-all-works"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium!
@@ -199,163 +283,89 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                       ),
                                       subtitle: AutoSizeText(
                                         context.tr(
-                                          "quiz.select-subject-desc",
+                                          "quiz.show-all-works-desc",
                                         ),
                                         maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyMedium,
+                                            .bodySmall,
                                       ),
-                                    );
-                                  },
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            spacing: 12,
-                            children: [
-                              Row(
-                                spacing: 12,
-                                children: [
-                                  Icon(
-                                    Icons.label_important_sharp,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  Text(
-                                    context.tr("quiz.works-result"),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium,
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withAlpha(65),
-                                      blurRadius: 4,
-                                      offset: const Offset(0, 2),
-                                    )
+                              ],
+                            ),
+                            Column(
+                              spacing: 12,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  spacing: 12,
+                                  children: [
+                                    Icon(
+                                      Icons.label_important_sharp,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    Text(
+                                      context.tr("common.stats"),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                    ),
                                   ],
                                 ),
-                                child: ListTile(
-                                  dense: true,
-                                  onTap: () => context.push(
-                                    '/quiz/submission-list',
-                                  ),
-                                  style: ListTileStyle.drawer,
-                                  tileColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 4,
-                                    horizontal: 16,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  leading: Icon(
-                                    Icons.history,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    size: 40,
-                                  ),
-                                  title: Text(
-                                    context.tr("quiz.show-all-works"),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  subtitle: AutoSizeText(
-                                    context.tr(
-                                      "quiz.show-all-works-desc",
-                                    ),
-                                    maxLines: 2,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
+                                Text(
+                                  context.tr("quiz.graph-description"),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            spacing: 12,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                spacing: 12,
-                                children: [
-                                  Icon(
-                                    Icons.label_important_sharp,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  Text(
-                                    context.tr("common.stats"),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium,
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                context.tr("quiz.graph-description"),
-                              ),
-                              AppChart(
-                                lineColor: AppColors.coolTeal,
-                                spots: [
-                                  FlSpot(1, 20),
-                                  FlSpot(2, 40),
-                                  FlSpot(3, 60),
-                                  FlSpot(4, 80),
-                                  FlSpot(5, 100),
-                                  FlSpot(6, 90),
-                                  FlSpot(7, 70),
-                                  FlSpot(8, 50),
-                                  FlSpot(9, 30),
-                                  FlSpot(10, 20), // Example data points
-                                ],
-                              ),
-                              Wrap(
-                                spacing: 3,
-                                runSpacing: 6,
-                                children: [
-                                  StatChip(
-                                    iconData: Icons.drafts,
-                                    content:
-                                        "${context.tr("stats.quiz-done")}  : 10",
-                                  ),
-                                  StatChip(
-                                    iconData: Icons.local_fire_department_sharp,
-                                    content:
-                                        "${context.tr("stats.quiz-highest-score")} : 100",
-                                  ),
-                                  StatChip(
-                                    iconData: Icons.align_vertical_bottom,
-                                    content:
-                                        "${context.tr("stats.quiz-average-score")}  : 100",
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 100,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+                                AppChart(
+                                  lineColor: AppColors.coolTeal,
+                                  spots: [
+                                    FlSpot(1, 20),
+                                    FlSpot(2, 40),
+                                    FlSpot(3, 60),
+                                    FlSpot(4, 80),
+                                    FlSpot(5, 100),
+                                    FlSpot(6, 90),
+                                    FlSpot(7, 70),
+                                    FlSpot(8, 50),
+                                    FlSpot(9, 30),
+                                    FlSpot(10, 20), // Example data points
+                                  ],
+                                ),
+                                Wrap(
+                                  spacing: 3,
+                                  runSpacing: 6,
+                                  children: [
+                                    StatChip(
+                                      iconData: Icons.drafts,
+                                      content:
+                                          "${context.tr("stats.quiz-done")}  : 10",
+                                    ),
+                                    StatChip(
+                                      iconData:
+                                          Icons.local_fire_department_sharp,
+                                      content:
+                                          "${context.tr("stats.quiz-highest-score")} : 100",
+                                    ),
+                                    StatChip(
+                                      iconData: Icons.align_vertical_bottom,
+                                      content:
+                                          "${context.tr("stats.quiz-average-score")}  : 100",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );

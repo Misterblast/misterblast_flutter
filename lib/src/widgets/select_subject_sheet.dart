@@ -15,12 +15,14 @@ class SelectSubjectSheet extends StatefulWidget {
     this.showClass = true,
     this.showSubject = true,
     this.isLoading = false,
+    this.buttonTitle,
   });
 
   final bool isLoading;
 
   final bool showClass;
   final bool showSubject;
+  final String? buttonTitle;
 
   @override
   State<SelectSubjectSheet> createState() => _SelectSubjectSheetState();
@@ -185,51 +187,54 @@ class _SelectSubjectSheetState extends State<SelectSubjectSheet> {
                                     final isSelected =
                                         _selectedSubject?.id == subject.id;
                                     return Card(
-                                      child: ListTile(
-                                        selected: isSelected,
-                                        selectedTileColor: Theme.of(context)
-                                            .colorScheme
-                                            .secondary
-                                            .withAlpha(75),
-                                        contentPadding:
-                                            const EdgeInsets.all(16),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          side: BorderSide(
-                                            width: 2,
-                                            color: isSelected
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .primary
-                                                : Colors.transparent,
+                                      child: Material(
+                                        type: MaterialType.transparency,
+                                        child: ListTile(
+                                          selected: isSelected,
+                                          selectedTileColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary
+                                              .withAlpha(75),
+                                          contentPadding:
+                                              const EdgeInsets.all(16),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            side: BorderSide(
+                                              width: 2,
+                                              color: isSelected
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .primary
+                                                  : Colors.transparent,
+                                            ),
                                           ),
-                                        ),
-                                        horizontalTitleGap: 16,
-                                        leading: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.asset(
-                                            "assets/images/$subjectIcon",
-                                            width: 75,
+                                          horizontalTitleGap: 16,
+                                          leading: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: Image.asset(
+                                              "assets/images/$subjectIcon",
+                                              width: 75,
+                                            ),
                                           ),
+                                          title: Text(
+                                            "subjects.${subject.code}".tr(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .copyWith(
+                                                  color: isSelected
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : Colors.black,
+                                                ),
+                                          ),
+                                          onTap: () => setState(() {
+                                            _selectedSubject = subject;
+                                          }),
                                         ),
-                                        title: Text(
-                                          "subjects.${subject.code}".tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineMedium!
-                                              .copyWith(
-                                                color: isSelected
-                                                    ? Theme.of(context)
-                                                        .colorScheme
-                                                        .primary
-                                                    : Colors.black,
-                                              ),
-                                        ),
-                                        onTap: () => setState(() {
-                                          _selectedSubject = subject;
-                                        }),
                                       ),
                                     );
                                   },
@@ -266,7 +271,7 @@ class _SelectSubjectSheetState extends State<SelectSubjectSheet> {
                     color: Colors.white,
                     constraints: BoxConstraints(minHeight: 24, minWidth: 24),
                   )
-                : Text("quiz.do-quiz".tr()),
+                : Text(widget.buttonTitle ?? "quiz.do-quiz".tr()),
           )
         ],
       ),

@@ -19,21 +19,27 @@ class SelectImageSourceDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          ListTile(
-            title: const Text('Camera'),
-            contentPadding: EdgeInsets.zero,
-            leading: const Icon(Icons.camera),
-            onTap: () {
-              Navigator.of(context).pop(ImageSource.camera);
-            },
+          Material(
+            type: MaterialType.transparency,
+            child: ListTile(
+              title: const Text('Camera'),
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.camera),
+              onTap: () {
+                Navigator.of(context).pop(ImageSource.camera);
+              },
+            ),
           ),
-          ListTile(
-            title: const Text('Gallery'),
-            contentPadding: EdgeInsets.zero,
-            leading: const Icon(Icons.image),
-            onTap: () {
-              Navigator.of(context).pop(ImageSource.gallery);
-            },
+          Material(
+            type: MaterialType.transparency,
+            child: ListTile(
+              title: const Text('Gallery'),
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.image),
+              onTap: () {
+                Navigator.of(context).pop(ImageSource.gallery);
+              },
+            ),
           ),
         ],
       ),

@@ -63,14 +63,16 @@ class AppChart extends StatelessWidget {
             ),
             rightTitles: AxisTitles(
               sideTitles: SideTitles(
-                showTitles: false,
-              ),
+                  reservedSize: 5,
+                  showTitles: true,
+                  getTitlesWidget: (value, meta) => Text("")),
+              axisNameWidget: const SizedBox.shrink(),
             ),
             leftTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
                 interval: 20,
-                reservedSize: 40,
+                reservedSize: 25,
                 maxIncluded: false,
                 minIncluded: false,
                 getTitlesWidget: (value, meta) {
@@ -84,11 +86,11 @@ class AppChart extends StatelessWidget {
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
-                reservedSize: 40,
+                reservedSize: 20,
                 getTitlesWidget: (value, meta) {
                   return Padding(
                     padding: const EdgeInsets.only(
-                      top: 12,
+                      top: 6,
                     ),
                     child: Text(
                       value.toInt().toString(),
