@@ -18,4 +18,17 @@ abstract class Task with _$Task {
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 }
 
-// {id: 23, title: task 5, description: description task 5, content: content task 5, last_updated_at: 1743847931}
+@freezed
+abstract class TaskDetail with _$TaskDetail {
+  const factory TaskDetail({
+    int? id,
+    String? title,
+    String? content,
+    String? description,
+    @JsonKey(name: "last_updated_at") String? lastUpdatedAt,
+    @JsonKey(name: "attached_url") String? attachedUrl,
+  }) = _TaskDetail;
+
+  factory TaskDetail.fromJson(Map<String, dynamic> json) =>
+      _$TaskDetailFromJson(json);
+}

@@ -1,5 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/modules/task/models/task.dart';
 import 'package:misterblast_flutter/src/utils/parse_unix_datetime.dart';
 
@@ -10,32 +10,46 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
-      type: MaterialType.transparency,
-      child: Card(
-        child: ListTile(
-          leading: Icon(Icons.task_alt, color: theme.colorScheme.primary),
-          title: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  item.title ?? "",
-                  style: theme.textTheme.headlineMedium,
-                ),
-              ),
-              Text(
-                parseUnixDatetime(
-                      locale: context.locale.countryCode,
-                      int.parse(
-                        item.lastUpdatedAt ?? "0",
+    return InkWell(
+      onTap: () => context.push("/task/${item.id}"),
+      child: Material(
+        type: MaterialType.transparency,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  spacing: 8,
+                  children: [
+                    Icon(
+                      Icons.task_sharp,
+                      color: theme.colorScheme.primary,
+                    ),
+                    Expanded(
+                      child: Text(
+                        maxLines: 1,
+                        item.title ?? "",
+                        style: theme.textTheme.headlineMedium,
                       ),
-                    ) ??
-                    "",
-                style: theme.textTheme.bodySmall,
-              ),
-            ],
+                    ),
+                    Text(
+                      parseUnixDatetime(int.parse(item.lastUpdatedAt!)) ?? "",
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(color: theme.colorScheme.primary, thickness: 1),
+                Text(
+                  maxLines: 2,
+                  item.description ?? "",
+                ),
+              ],
+            ),
           ),
-          subtitle: Text(item.description ?? ""),
         ),
       ),
     );

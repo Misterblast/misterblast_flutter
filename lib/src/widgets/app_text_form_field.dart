@@ -12,6 +12,7 @@ class AppTextFormField extends StatefulWidget {
     this.prefixIcon,
     this.textStyle,
     this.textPadding,
+    this.maxLines,
   });
 
   final FocusNode? focusNode;
@@ -23,6 +24,7 @@ class AppTextFormField extends StatefulWidget {
   final Widget? prefixIcon;
   final TextStyle? textStyle;
   final EdgeInsetsGeometry? textPadding;
+  final int? maxLines;
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -51,6 +53,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                 ),
           ),
         TextFormField(
+          maxLines: widget.maxLines ?? 1,
           focusNode: widget.focusNode,
           keyboardType: widget.obsecure
               ? TextInputType.visiblePassword

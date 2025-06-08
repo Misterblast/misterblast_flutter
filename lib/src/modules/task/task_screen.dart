@@ -64,7 +64,8 @@ class TaskScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -76,7 +77,7 @@ class TaskScreen extends StatelessWidget {
                       shrinkWrap: true,
                       children: [
                         Column(
-                          spacing: 16,
+                          spacing: 8,
                           children: [
                             _TaskList(),
                             _TaskSubmissionList(),

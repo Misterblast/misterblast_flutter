@@ -38,6 +38,20 @@ class TaskRepository extends BaseRepository {
       rethrow;
     }
   }
+
+  Future<TaskDetail> fetchTaskDetail(int taskId) async {
+    try {
+      return await dio.get('tasks/$taskId').then(
+            (response) => ApiResponse.fromJson(
+              response.data,
+              (data) => TaskDetail.fromJson(data as Map<String, dynamic>),
+            ).data,
+          );
+    } catch (e) {
+      logger.e('Error fetching task detail for taskId $taskId: $e');
+      rethrow;
+    }
+  }
 }
 
 @Riverpod(keepAlive: true)

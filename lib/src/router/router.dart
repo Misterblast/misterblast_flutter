@@ -21,6 +21,7 @@ import 'package:misterblast_flutter/src/modules/quiz/quiz_result_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_submission_list.dart';
 import 'package:misterblast_flutter/src/modules/splash_screen.dart';
+import 'package:misterblast_flutter/src/modules/task/task_detail_screen.dart';
 import 'package:misterblast_flutter/src/modules/task/task_list_screen.dart';
 import 'package:misterblast_flutter/src/modules/task/task_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -122,6 +123,13 @@ GoRouter router(Ref ref) {
             path: "/task-list",
             builder: (context, state) => TaskListScreen(),
           ),
+          GoRoute(
+            path: ":taskId",
+            builder: (context, state) {
+              final taskId = state.pathParameters['taskId'] ?? '';
+              return TaskDetailScreen(taskId: int.parse(taskId));
+            },
+          ),
         ],
       ),
       GoRoute(
@@ -152,12 +160,6 @@ GoRouter router(Ref ref) {
             builder: (context, state) => const SearchExampleScreen(),
           ),
         ],
-      ),
-      GoRoute(
-        path: "/task",
-        parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const QuizScreen(),
-        routes: [],
       ),
       ShellRoute(
         parentNavigatorKey: rootNavigatorKey,
