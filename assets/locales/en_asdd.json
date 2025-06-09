@@ -32,13 +32,9 @@
     "answer": "Answer",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "show-all" : "Show All",
+    "show-all": "Show All",
     "search-placeholder": "Search",
-    "select-file": "Select File",
-    "title":"Title",
-    "desc":"Description",
-    "opt-attachment": "Attachment (Optional)",
-    "answer-placeholder": "Enter your answer here"
+    "select-file": "Select File"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -48,7 +44,7 @@
   },
   "settings": {
     "language": {
-      "update-language" : "Switch Language",
+      "update-language": "Switch Language",
       "select-language": "Choose language",
       "id": "Indonesia",
       "en": "English"
@@ -142,11 +138,7 @@
     "at-last-ten-task": "In the last 10 submissions",
     "task-no-works": "Looks like you haven't collected assignments. Come on, start working on your first task and get an assessment and feedback from the instructor!",
     "do-task": "Do Tasks",
-    "task-submissions": "Task Submissions",
-    "submit-task": "Submit Task",
-    "info": "Task Information",
-    "submit-success":"Task Submitted Successfully",
-    "submit-success-desc":"Well done! You’ve submitted your task. Please wait for the instructor to review your submission." 
+    "task-submissions": "Task collection"
   },
   "quiz": {
     "title": "Quiz",
@@ -234,7 +226,7 @@
     "c6_prosedural": "C6 Procedural",
     "c6_metakognitif": "C6 Metacognitive"
   },
-  "question-answer-types" : {
+  "question-answer-types": {
     "mm": "Matching",
     "t/f": "True/False",
     "sa": "Short Answer",

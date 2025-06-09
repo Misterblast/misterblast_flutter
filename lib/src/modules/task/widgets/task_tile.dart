@@ -18,6 +18,7 @@ class TaskTile extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              spacing: 8,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -42,7 +43,6 @@ class TaskTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                Divider(color: theme.colorScheme.primary, thickness: 1),
                 Text(
                   maxLines: 2,
                   item.description ?? "",

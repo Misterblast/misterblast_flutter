@@ -1,7 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
+import 'package:misterblast_flutter/src/modules/task/notifiers/submit_task_notifier.dart';
 import 'package:misterblast_flutter/src/modules/task/notifiers/task_detail_notifier.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
+import 'package:misterblast_flutter/src/widgets/app_document_field.dart';
 import 'package:misterblast_flutter/src/widgets/app_loading.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
@@ -15,7 +21,74 @@ class TaskDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
+  FilePickerResult? _filePickerResult;
   final _answerController = TextEditingController();
+  final LoadingOverlay _loadingOverlay = LoadingOverlay();
+
+  @override
+  void initState() {
+    ref.listenManual(submitTaskNotifierProvider, (_, state) {
+      state.whenOrNull(
+        error: (error, stackTrace) {
+          _loadingOverlay.hide();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              content: Text(
+                context.tr("exceptions.unknown-error"),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+            ),
+          );
+        },
+        loading: () => _loadingOverlay.show(context),
+        data: (data) {
+          _loadingOverlay.hide();
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              title: Text(context.tr("task.submit-success")),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset("assets/images/home_decor.png"),
+                      Image.asset(
+                        "assets/images/celebrate.png",
+                        width: 225,
+                      ),
+                    ],
+                  ),
+                  Text(
+                    context.tr("task.submit-success-desc"),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              actionsOverflowButtonSpacing: 8,
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    context.pop();
+                    context.pop();
+                  },
+                  child: Text(context.tr("common.back")),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -39,9 +112,11 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
             color: Colors.white,
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => ref
+                  .read(submitTaskNotifierProvider.notifier)
+                  .submitTask(widget.taskId, _answerController.text, null),
               child: Text(
-                "Kumpulkan Tugas",
+                context.tr("task.submit-task"),
               ),
             ),
           ),
@@ -105,7 +180,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Informasi Tugas",
+                                              context.tr("task.info"),
                                               style:
                                                   theme.textTheme.headlineSmall,
                                             ),
@@ -114,7 +189,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "Judul",
+                                                  context.tr("common.title"),
                                                   style: theme
                                                       .textTheme.headlineSmall,
                                                 ),
@@ -130,7 +205,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "Deskripsi",
+                                                  context.tr("common.desc"),
                                                   style: theme
                                                       .textTheme.headlineSmall,
                                                 ),
@@ -225,17 +300,24 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                   ),
                                 ],
                               ),
+                              AppDocumentField(
+                                label: context.tr("common.opt-attachment"),
+                                filePickerResult: _filePickerResult,
+                                onFileSelected: (file) =>
+                                    setState(() => _filePickerResult = file),
+                              ),
                               AppTextFormField(
                                 maxLines: 4,
                                 controller: _answerController,
-                                label: "Jawaban",
-                                hintText: "Tulis jawabanmu di sini...",
+                                label: context.tr("common.answer"),
+                                hintText:
+                                    context.tr("common.answer-placeholder"),
                               ),
                             ],
                           ),
                           error: (error, stackTrace) => Center(
                             child: Text(
-                              "Error: $error",
+                              context.tr("exceptions.unknown-error"),
                               style: theme.textTheme.bodyMedium,
                             ),
                           ),

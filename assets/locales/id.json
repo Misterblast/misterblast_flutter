@@ -33,7 +33,12 @@
     "confirm": "Konfirmasi",
     "cancel": "Batal",
     "show-all" : "Lihat Semua",
-    "search-placeholder": "Cari berdasarkan judul atau kata kunci"
+    "search-placeholder": "Cari berdasarkan judul atau kata kunci",
+    "select-file": "Pilih File",
+    "title":"Judul",
+    "desc":"Deskripsi",
+    "opt-attachment": "Lampiran (Opsional)",
+    "answer-placeholder": "Masukkan jawaban Anda di sini"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -51,7 +56,7 @@
   },
   "onboarding": {
     "title": "Buat Soal Berkualitas Dengan",
-    "description": "Susun soal dengan mudah berdasarkan tingkat kognitif siswa, dari {remember} hingga {analyze} dan {create}. Buat pembelajaran lebih efektif dan terstruktur!"
+    "description": "Susun soal dengan mudah berdasarkan tingkat kognitif siswa, dari {remember} hingga {analyze} dan {create}. Buat pembelajaran lebih efektif dan terstrukr!"
   },
   "auth": {
     "login": "Masuk",
@@ -137,7 +142,11 @@
     "at-last-ten-task": "Pada 10 Penilaian Terakhir",
     "task-no-works": "Sepertinya kamu belum mengumpulkan tugas. Yuk, mulai kerjakan tugas pertamamu dan dapatkan penilaian serta feedback dari pengajar!",
     "do-task": "Kerjakan Tugas",
-    "task-submissions": "Pengumpulan Tugas"
+    "task-submissions": "Pengumpulan Tugas",
+    "submit-task": "Kumpulkan Tugas",
+    "info":"Informasi Tugas",
+    "submit-success":"Tugas berhasil dikumpulkan",
+    "submit-success-desc":"Kerja Bagus! Tugas berhasil dikumpulkan. Silahkan menunggu penilaian dari pengajar."
   },
   "quiz": {
     "title": "Kuis",

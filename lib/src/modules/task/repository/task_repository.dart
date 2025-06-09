@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/config/base_repository.dart';
 import 'package:misterblast_flutter/src/config/logger.dart';
@@ -49,6 +50,25 @@ class TaskRepository extends BaseRepository {
           );
     } catch (e) {
       logger.e('Error fetching task detail for taskId $taskId: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> submitTask(taskId, String answer, String? filePath) async {
+    try {
+      final formData = FormData.fromMap({
+        "answer": answer,
+        if (filePath != null) 'file': await MultipartFile.fromFile(filePath),
+      });
+      await dio.post(
+        'submit-task/$taskId',
+        data: formData,
+        options: Options(
+          contentType: 'multipart/form-data',
+        ),
+      );
+    } catch (e) {
+      logger.e('Error SubmitTask for taskId $taskId: $e');
       rethrow;
     }
   }
