@@ -8,6 +8,7 @@ import 'package:misterblast_flutter/src/models/api_response.dart';
 
 import 'package:misterblast_flutter/src/models/paginated_response.dart';
 import 'package:misterblast_flutter/src/modules/task/models/task.dart';
+import 'package:misterblast_flutter/src/modules/task/models/task_submission.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'task_repository.g.dart';
@@ -69,6 +70,29 @@ class TaskRepository extends BaseRepository {
       );
     } catch (e) {
       logger.e('Error SubmitTask for taskId $taskId: $e');
+      rethrow;
+    }
+  }
+
+  Future<PaginatedResponse<TaskSubmission>> fetchSubmissions({
+    int? page,
+    int? limit,
+  }) async {
+    try {
+      return await dio.get('my-submissions', queryParameters: {
+        "page": page ?? 1,
+        "limit": limit ?? 10,
+      }).then(
+        (response) => ApiResponse.fromJson(
+          response.data,
+          (data) => PaginatedResponse.fromJson(
+            data as Map<String, dynamic>,
+            (json) => TaskSubmission.fromJson(json as Map<String, dynamic>),
+          ),
+        ).data,
+      );
+    } catch (err) {
+      logger.e('Error fetching submissions: $err');
       rethrow;
     }
   }

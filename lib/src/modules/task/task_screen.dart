@@ -2,10 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/modules/task/notifiers/submission_list_notifier.dart';
 import 'package:misterblast_flutter/src/modules/task/notifiers/task_list_notifier.dart';
+import 'package:misterblast_flutter/src/modules/task/widgets/task_submission_tile.dart';
 import 'package:misterblast_flutter/src/modules/task/widgets/task_tile.dart';
+import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
+import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -96,11 +100,12 @@ class TaskScreen extends StatelessWidget {
   }
 }
 
-class _TaskSubmissionList extends StatelessWidget {
+class _TaskSubmissionList extends ConsumerWidget {
   const _TaskSubmissionList();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final submissionListNotifier = ref.watch(submissionListNotifierProvider);
     return Column(
       children: [
         Row(
@@ -119,19 +124,68 @@ class _TaskSubmissionList extends StatelessWidget {
                 ),
               ],
             ),
-            TextButton(
-              onPressed: () => context.push("/task/task-list"),
-              child: Text(
-                context.tr(
-                  "common.show-all",
+            if (!submissionListNotifier.hasError &&
+                (submissionListNotifier.value?.isNotEmpty ?? false))
+              TextButton(
+                onPressed: () => context.push("/task/submission-list"),
+                child: Text(
+                  context.tr(
+                    "common.show-all",
+                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-              ),
-            )
+              )
           ],
         ),
+        if (submissionListNotifier.isLoading)
+          Column(
+            spacing: 4,
+            children: List.generate(
+              2,
+              (index) => ShimmerContainer(
+                size: const Size(double.maxFinite, 80),
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+              ),
+            ),
+          )
+        else if (submissionListNotifier.hasError)
+          DefaultErrorWidget()
+        else if (!submissionListNotifier.isLoading &&
+            (submissionListNotifier.value?.isEmpty ?? true))
+          Column(
+            spacing: 8,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(),
+              Image.asset(
+                "assets/images/empty-task.png",
+                height: 200,
+              ),
+              Text(
+                "task.task-no-works".tr(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: AppFontSizes.sm,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          )
+        else if (submissionListNotifier.value?.isNotEmpty ?? false)
+          Column(
+            children: submissionListNotifier.value!
+                .map(
+                  (submission) =>
+                      TaskSubmissionTile(taskSubmission: submission),
+                )
+                .toList(),
+          )
+        else
+          const SizedBox.shrink()
       ],
     );
   }
@@ -187,20 +241,26 @@ class _TaskList extends ConsumerWidget {
             ),
           )
         else if (taskListNotifier.isError)
-          Center(
-            child: Text(
-              textAlign: TextAlign.center,
-              context.tr("exceptions.unknown-error"),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          )
+          DefaultErrorWidget()
         else if (taskListNotifier.tasks.isEmpty)
-          Center(
-            child: Text(
-              textAlign: TextAlign.center,
-              context.tr("task.no-task"),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          Column(
+            spacing: 4,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(),
+              Image.asset(
+                "assets/images/empty-task.png",
+                height: 200,
+              ),
+              Text(
+                "task.task-no-works".tr(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: AppFontSizes.sm,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
           )
         else if (taskListNotifier.tasks.isNotEmpty)
           Column(

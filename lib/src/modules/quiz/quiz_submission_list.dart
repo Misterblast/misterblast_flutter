@@ -10,6 +10,7 @@ import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/utils/parse_unix_datetime.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
+import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
 import 'package:misterblast_flutter/src/widgets/select_subject_sheet.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
@@ -277,13 +278,7 @@ class _QuizSubmissionListWidgetState
           }
 
           if (submissionNotifier.isError) {
-            return Center(
-              child: Text(
-                textAlign: TextAlign.center,
-                context.tr("exceptions.unknown-error"),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            );
+            return DefaultErrorWidget();
           }
 
           if (submissionNotifier.data.isEmpty) {

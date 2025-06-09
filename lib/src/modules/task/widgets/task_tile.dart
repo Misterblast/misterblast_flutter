@@ -15,39 +15,53 @@ class TaskTile extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 0,
+            ),
+            leading: CircleAvatar(
+              maxRadius: 16,
+              backgroundColor: theme.colorScheme.primary,
+              child: Icon(
+                Icons.task_rounded,
+                color: Colors.white,
+              ),
+            ),
+            title: Row(
               spacing: 8,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  spacing: 8,
-                  children: [
-                    Icon(
-                      Icons.task_sharp,
+                Expanded(
+                  child: Text(
+                    maxLines: 1,
+                    item.title ?? "",
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.headlineMedium,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withAlpha(25),
+                    borderRadius: BorderRadius.circular(64),
+                  ),
+                  child: Text(
+                    parseUnixDatetime(int.parse(item.lastUpdatedAt!)) ?? "",
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
                       color: theme.colorScheme.primary,
                     ),
-                    Expanded(
-                      child: Text(
-                        maxLines: 1,
-                        item.title ?? "",
-                        style: theme.textTheme.headlineMedium,
-                      ),
-                    ),
-                    Text(
-                      parseUnixDatetime(int.parse(item.lastUpdatedAt!)) ?? "",
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  maxLines: 2,
-                  item.description ?? "",
+                  ),
                 ),
               ],
+            ),
+            subtitle: Text(
+              maxLines: 2,
+              item.description ?? "",
             ),
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_loading.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
+import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
 class SearchExampleScreen extends StatefulWidget {
@@ -249,14 +250,7 @@ class _SearchQuestionListState extends ConsumerState<SearchQuestionList> {
           });
 
           if (questions.isError) {
-            return Center(
-              child: Text(
-                questions.errorMessage,
-                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: Colors.red,
-                    ),
-              ),
-            );
+            return DefaultErrorWidget();
           }
           if (questions.isInitialLoading) {
             return ListView.separated(

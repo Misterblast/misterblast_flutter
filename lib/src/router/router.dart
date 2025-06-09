@@ -24,6 +24,7 @@ import 'package:misterblast_flutter/src/modules/splash_screen.dart';
 import 'package:misterblast_flutter/src/modules/task/task_detail_screen.dart';
 import 'package:misterblast_flutter/src/modules/task/task_list_screen.dart';
 import 'package:misterblast_flutter/src/modules/task/task_screen.dart';
+import 'package:misterblast_flutter/src/modules/task/task_submission_list.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -115,13 +116,19 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: "/task",
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) {
-          return TaskScreen();
-        },
+        builder: (context, state) => TaskScreen(),
         routes: [
           GoRoute(
             path: "/task-list",
             builder: (context, state) => TaskListScreen(),
+          ),
+          GoRoute(
+            path: "/submission-list",
+            builder: (context, state) => TaskSubmissionList(),
+          ),
+          GoRoute(
+            path: "/submission/:submissionId",
+            builder: (context, state) => TaskSubmissionList(),
           ),
           GoRoute(
             path: ":taskId",

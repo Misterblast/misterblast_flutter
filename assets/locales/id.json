@@ -38,7 +38,8 @@
     "title":"Judul",
     "desc":"Deskripsi",
     "opt-attachment": "Lampiran (Opsional)",
-    "answer-placeholder": "Masukkan jawaban Anda di sini"
+    "answer-placeholder": "Masukkan jawaban Anda di sini",
+    "submitted-at": "Dikumpulkan Pada"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -146,7 +147,9 @@
     "submit-task": "Kumpulkan Tugas",
     "info":"Informasi Tugas",
     "submit-success":"Tugas berhasil dikumpulkan",
-    "submit-success-desc":"Kerja Bagus! Tugas berhasil dikumpulkan. Silahkan menunggu penilaian dari pengajar."
+    "submit-success-desc":"Kerja Bagus! Tugas berhasil dikumpulkan. Silahkan menunggu penilaian dari pengajar.",
+    "scored-at": "Dinilai pada"
+  
   },
   "quiz": {
     "title": "Kuis",
