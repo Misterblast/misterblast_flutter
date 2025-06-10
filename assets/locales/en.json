@@ -39,8 +39,9 @@
     "desc":"Description",
     "opt-attachment": "Attachment (Optional)",
     "answer-placeholder": "Enter your answer here",
-    "submiited-at": "Submitted at"
-  
+    "submiited-at": "Submitted at",
+    "attachment": "Attachment",
+    "score": "Score"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -149,7 +150,8 @@
     "info": "Task Information",
     "submit-success":"Task Submitted Successfully",
     "submit-success-desc":"Well done! You’ve submitted your task. Please wait for the instructor to review your submission.",
-    "scored-at": "Scored at" 
+    "scored-at": "Scored at",
+    "submission-not-scored" : "Waiting for grading"  
   },
   "quiz": {
     "title": "Quiz",

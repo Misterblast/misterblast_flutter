@@ -13,6 +13,7 @@ class AppTextFormField extends StatefulWidget {
     this.textStyle,
     this.textPadding,
     this.maxLines,
+    this.isEnabled = true,
   });
 
   final FocusNode? focusNode;
@@ -25,6 +26,7 @@ class AppTextFormField extends StatefulWidget {
   final TextStyle? textStyle;
   final EdgeInsetsGeometry? textPadding;
   final int? maxLines;
+  final bool isEnabled;
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -53,6 +55,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                 ),
           ),
         TextFormField(
+          enabled: widget.isEnabled,
           maxLines: widget.maxLines ?? 1,
           focusNode: widget.focusNode,
           keyboardType: widget.obsecure

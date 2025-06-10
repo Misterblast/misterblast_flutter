@@ -52,7 +52,33 @@ class _TaskSubmissionListState extends ConsumerState<TaskSubmissionList> {
       backgroundColor: theme.colorScheme.primary,
       body: SafeArea(
         child: Stack(
+          alignment: Alignment.topCenter,
           children: [
+            Opacity(
+              opacity: 0.4,
+              child: Image.asset(
+                "assets/images/home_decor.png",
+              ),
+            ),
+            Positioned(
+              top: 25,
+              child: Opacity(
+                opacity: 0.4,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(200),
+                  ),
+                  child: Image.asset(
+                    "assets/images/tugas-icon.png",
+                    scale: 2,
+                    width: 150,
+                    height: 150,
+                  ),
+                ),
+              ),
+            ),
             Column(
               spacing: 16,
               children: [

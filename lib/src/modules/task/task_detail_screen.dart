@@ -9,9 +9,11 @@ import 'package:misterblast_flutter/src/modules/task/notifiers/submit_task_notif
 import 'package:misterblast_flutter/src/modules/task/notifiers/task_detail_notifier.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_document_field.dart';
+import 'package:misterblast_flutter/src/widgets/app_link_widget.dart';
 import 'package:misterblast_flutter/src/widgets/app_loading.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TaskDetailScreen extends ConsumerStatefulWidget {
   const TaskDetailScreen({super.key, required this.taskId});
@@ -271,7 +273,7 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Soal",
+                                      context.tr("common.question"),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall
@@ -311,12 +313,9 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                     ),
                                   ],
                                 ),
-                                AppDocumentField(
-                                  label: context.tr("common.opt-attachment"),
-                                  filePickerResult: _filePickerResult,
-                                  onFileSelected: (file) =>
-                                      setState(() => _filePickerResult = file),
-                                ),
+                                if (task.attachedUrl != null &&
+                                    task.attachedUrl!.isNotEmpty)
+                                  AppLinkWidget(url: task.attachedUrl!),
                                 AppTextFormField(
                                   maxLines: 4,
                                   controller: _answerController,
@@ -335,6 +334,12 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                                     }
                                     return null;
                                   },
+                                ),
+                                AppDocumentField(
+                                  label: context.tr("common.opt-attachment"),
+                                  filePickerResult: _filePickerResult,
+                                  onFileSelected: (file) =>
+                                      setState(() => _filePickerResult = file),
                                 ),
                               ],
                             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpt_markdown/custom_widgets/markdown_config.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
-import 'package:misterblast_flutter/src/config/logger.dart';
 import 'package:misterblast_flutter/src/utils/clean_text.dart';
 
 class AppMarkdownViewer extends StatelessWidget {

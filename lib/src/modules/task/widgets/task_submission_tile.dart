@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/modules/task/models/task_submission.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/utils/parse_unix_datetime.dart';
@@ -11,14 +12,14 @@ class TaskSubmissionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scored = taskSubmission.score != null;
-    final textColor = scored
-        ? AppColors.coolTeal
-        : AppColors.warmOrange; // Use colors based on score status
+    final textColor = scored ? AppColors.coolTeal : AppColors.warmOrange;
     return Material(
       type: MaterialType.transparency,
       child: Card(
         child: ListTile(
-          onTap: () {},
+          onTap: () => context.push(
+            "/task/submission/${taskSubmission.id}",
+          ),
           leading: CircleAvatar(
             maxRadius: 16,
             backgroundColor: scored ? AppColors.coolTeal : AppColors.warmOrange,

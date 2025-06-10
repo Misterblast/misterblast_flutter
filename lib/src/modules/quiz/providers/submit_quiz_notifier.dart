@@ -1,4 +1,5 @@
 import 'package:misterblast_flutter/src/modules/quiz/data/quiz_repository.dart';
+import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_submission_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'submit_quiz_notifier.g.dart';
@@ -18,6 +19,7 @@ class SubmitQuizNotifier extends _$SubmitQuizNotifier {
     try {
       final repo = await ref.watch(quizRepositoryProvider.future);
       final submissionId = await repo.submitQuiz(subjectId, answers);
+      ref.invalidate(quizSubmissionNotifierProvider);
       state = AsyncValue.data(submissionId);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);

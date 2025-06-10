@@ -7,10 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
 import 'package:misterblast_flutter/src/models/lesson.dart';
 import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_notifier.dart';
+import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_submission_notifier.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_chart.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
+import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
+import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
 
 import '../../widgets/select_subject_sheet.dart';
@@ -295,68 +298,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                 ),
                               ],
                             ),
-                            Column(
-                              spacing: 12,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  spacing: 12,
-                                  children: [
-                                    Icon(
-                                      Icons.label_important_sharp,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                                    Text(
-                                      context.tr("common.stats"),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium,
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  context.tr("quiz.graph-description"),
-                                ),
-                                AppChart(
-                                  lineColor: AppColors.coolTeal,
-                                  spots: [
-                                    FlSpot(1, 20),
-                                    FlSpot(2, 40),
-                                    FlSpot(3, 60),
-                                    FlSpot(4, 80),
-                                    FlSpot(5, 100),
-                                    FlSpot(6, 90),
-                                    FlSpot(7, 70),
-                                    FlSpot(8, 50),
-                                    FlSpot(9, 30),
-                                    FlSpot(10, 20), // Example data points
-                                  ],
-                                ),
-                                Wrap(
-                                  spacing: 3,
-                                  runSpacing: 6,
-                                  children: [
-                                    StatChip(
-                                      iconData: Icons.drafts,
-                                      content:
-                                          "${context.tr("stats.quiz-done")}  : 10",
-                                    ),
-                                    StatChip(
-                                      iconData:
-                                          Icons.local_fire_department_sharp,
-                                      content:
-                                          "${context.tr("stats.quiz-highest-score")} : 100",
-                                    ),
-                                    StatChip(
-                                      iconData: Icons.align_vertical_bottom,
-                                      content:
-                                          "${context.tr("stats.quiz-average-score")}  : 100",
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                            _QuizStats(),
                           ],
                         ),
                       ],
@@ -368,6 +310,121 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _QuizStats extends ConsumerWidget {
+  const _QuizStats();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quizResultsNotifier = ref.watch(quizSubmissionNotifierProvider());
+    return Column(
+      spacing: 12,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          spacing: 12,
+          children: [
+            Icon(
+              Icons.label_important_sharp,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            Text(
+              context.tr("common.stats"),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+        Text(
+          context.tr("quiz.graph-description"),
+        ),
+        Builder(builder: (context) {
+          if (quizResultsNotifier.isError) {
+            return DefaultErrorWidget();
+          }
+
+          final results = quizResultsNotifier.data;
+          return Column(
+            spacing: 12,
+            children: [
+              AppChart(
+                lineColor: AppColors.coolTeal,
+                spots: List.generate(
+                  10,
+                  (i) {
+                    final reversedResults = results.reversed.toList();
+                    return FlSpot(
+                      i.toDouble() + 1,
+                      i < reversedResults.length
+                          ? reversedResults[i].grade.toDouble()
+                          : 0,
+                    );
+                  },
+                ),
+              ),
+              Builder(builder: (context) {
+                if (quizResultsNotifier.isInitialLoading) {
+                  return Row(
+                    spacing: 12,
+                    children: [
+                      Expanded(
+                        child: ShimmerContainer(
+                          size: const Size(0, 30),
+                          baseColor: Colors.grey.shade300,
+                          highlightColor: Colors.grey.shade100,
+                        ),
+                      ),
+                      Expanded(
+                        child: ShimmerContainer(
+                          size: const Size(0, 30),
+                          baseColor: Colors.grey.shade300,
+                          highlightColor: Colors.grey.shade100,
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (results.isEmpty) {
+                  return SizedBox.shrink();
+                } else if (quizResultsNotifier.isError) {
+                  return DefaultErrorWidget();
+                } else {
+                  final totalSubmissions = quizResultsNotifier.total;
+                  final averageScore =
+                      (results.map((e) => e.grade).reduce((a, b) => a + b) /
+                              results.length)
+                          .toStringAsPrecision(3);
+                  final highestScore = results
+                      .map((e) => e.grade)
+                      .reduce((a, b) => a > b ? a : b);
+                  return Wrap(
+                    spacing: 3,
+                    runSpacing: 6,
+                    children: [
+                      StatChip(
+                        iconData: Icons.drafts,
+                        content:
+                            "${context.tr("stats.quiz-done")}  : $totalSubmissions",
+                      ),
+                      StatChip(
+                        iconData: Icons.local_fire_department_sharp,
+                        content:
+                            "${context.tr("stats.quiz-highest-score")} : $highestScore",
+                      ),
+                      StatChip(
+                        iconData: Icons.align_vertical_bottom,
+                        content:
+                            "${context.tr("stats.quiz-average-score")}  : $averageScore",
+                      ),
+                    ],
+                  );
+                }
+              }),
+            ],
+          );
+        }),
+      ],
     );
   }
 }
