@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,14 @@ import 'package:misterblast_flutter/src/modules/task/notifiers/submission_list_n
 import 'package:misterblast_flutter/src/modules/task/notifiers/task_list_notifier.dart';
 import 'package:misterblast_flutter/src/modules/task/widgets/task_submission_tile.dart';
 import 'package:misterblast_flutter/src/modules/task/widgets/task_tile.dart';
+import 'package:misterblast_flutter/src/providers/user_summary.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
+import 'package:misterblast_flutter/src/widgets/app_chart.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
+import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -85,6 +89,7 @@ class TaskScreen extends StatelessWidget {
                           children: [
                             _TaskList(),
                             _TaskSubmissionList(),
+                            _TaskStatistic()
                           ],
                         ),
                       ],
@@ -100,12 +105,102 @@ class TaskScreen extends StatelessWidget {
   }
 }
 
+class _TaskStatistic extends StatelessWidget {
+  const _TaskStatistic();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          spacing: 12,
+          children: [
+            Icon(
+              Icons.label_important_sharp,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            Text(
+              context.tr("common.stats"),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+        Text(
+          context.tr("quiz.graph-description"),
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final userSummaryNotifier = ref.watch(userSummaryProvider);
+            final submissions =
+                ref.watch(submissionListNotifierProvider(limit: 10)).value ??
+                    [];
+            return userSummaryNotifier.maybeWhen(
+              error: (_, __) => DefaultErrorWidget(),
+              orElse: () {
+                final summary = userSummaryNotifier.value;
+                return Column(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppChart(
+                      lineColor: AppColors.primary,
+                      spots: List.generate(
+                        10,
+                        (i) {
+                          final reversedResults = submissions.reversed.toList();
+                          return FlSpot(
+                            i.toDouble() + 1,
+                            i < reversedResults.length
+                                ? reversedResults[i].score?.toDouble() ?? 0
+                                : 0,
+                          );
+                        },
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Wrap(
+                            spacing: 3,
+                            runSpacing: 6,
+                            children: [
+                              StatChip(
+                                color: AppColors.primary,
+                                iconData: Icons.drafts,
+                                content:
+                                    "${context.tr("stats.task-done")}  : ${summary?.totalTaskAttempts.toStringAsFixed(0) ?? 0}",
+                              ),
+                              StatChip(
+                                color: AppColors.primary,
+                                iconData: Icons.align_vertical_bottom,
+                                content:
+                                    "${context.tr("stats.task-average-score")}  : ${summary?.averageTaskScore.toStringAsFixed(0) ?? 0}",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        )
+      ],
+    );
+  }
+}
+
 class _TaskSubmissionList extends ConsumerWidget {
   const _TaskSubmissionList();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final submissionListNotifier = ref.watch(submissionListNotifierProvider);
+    final submissionListNotifier =
+        ref.watch(submissionListNotifierProvider(limit: 3));
     return Column(
       children: [
         Row(

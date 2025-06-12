@@ -41,7 +41,9 @@
     "answer-placeholder": "Masukkan jawaban Anda di sini",
     "submitted-at": "Dikumpulkan Pada",
     "attachment": "Lampiran",
-    "score": "Nilai"
+    "score": "Nilai",
+    "yes": "Ya",
+    "no": "Tidak"
   },
   "exceptions": {
     "unknown-error": "Terjadi kesalahan, Mohon coba beberapa saat lagi...",
@@ -173,7 +175,9 @@
     "timeout-desc": "Waktu pengerjaan kuis sudah habis. Hasil pengerjaan kuis dikumpulkan secara otomatis.",
     "see-result": "Lihat Hasil Pengerjaan",
     "submit-success": "Quiz berhasil dikumpulkan",
-    "submit-success-desc": "Kerja Bagus! Kuis berhasil dikumpulkan. Tekan tombol di bawah untuk melihat hasil pengerjaanmu."
+    "submit-success-desc": "Kerja Bagus! Kuis berhasil dikumpulkan. Tekan tombol di bawah untuk melihat hasil pengerjaanmu.",
+    "exit-confirm": "Keluar dari Kuis?",
+    "exit-confirm-desc": "Apakah kamu yakin ingin keluar dari kuis ini? Semua jawaban yang telah kamu berikan akan hilang."
   },
   "quiz-result": {
     "score": "Skor",

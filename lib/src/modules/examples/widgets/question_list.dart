@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/modules/examples/provider/question.dart';
 import 'package:misterblast_flutter/src/modules/examples/widgets/question_tile.dart';
+import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
 import 'package:misterblast_flutter/src/widgets/shimmer_container.dart';
 
 class QuestionList extends ConsumerWidget {
@@ -37,14 +38,8 @@ class QuestionList extends ConsumerWidget {
           ),
         ),
       ),
-      error: (err, stack) => Expanded(
-        child: Center(
-          child: Text(
-            err.toString(),
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-        ),
-      ),
+      error: (err, stack) =>
+          Expanded(child: Center(child: DefaultErrorWidget())),
     );
   }
 }

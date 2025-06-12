@@ -7,7 +7,6 @@ import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_link_widget.dart';
 import 'package:misterblast_flutter/src/widgets/app_loading.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
-import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
 import 'package:misterblast_flutter/src/widgets/default_error_widget.dart';
 
 class TaskSubmissionDetail extends ConsumerWidget {
@@ -310,6 +309,7 @@ class TaskSubmissionDetail extends ConsumerWidget {
                                       ),
                                     ),
                                   ClipRRect(
+                                    clipBehavior: Clip.none,
                                     borderRadius: BorderRadius.circular(24),
                                     child: ExpansionTile(
                                       dense: true,
@@ -398,6 +398,8 @@ class TaskSubmissionDetail extends ConsumerWidget {
                                     child: ExpansionTile(
                                       dense: true,
                                       initiallyExpanded: true,
+                                      expandedCrossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       collapsedIconColor:
                                           Theme.of(context).colorScheme.primary,
                                       tilePadding: const EdgeInsets.symmetric(
@@ -434,15 +436,16 @@ class TaskSubmissionDetail extends ConsumerWidget {
                                           ),
                                         ],
                                       ),
+                                      expandedAlignment: Alignment.topLeft,
+                                      childrenPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 12),
                                       children: [
-                                        AppTextFormField(
-                                          maxLines: 4,
-                                          isEnabled: false,
-                                          controller: TextEditingController(
-                                            text: task.answer,
-                                          ),
-                                          hintText: context
-                                              .tr("common.answer-placeholder"),
+                                        Text(
+                                          task.answer ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
                                         ),
                                         if (task.answerAttachmentUrl != null &&
                                             task.answerAttachmentUrl!

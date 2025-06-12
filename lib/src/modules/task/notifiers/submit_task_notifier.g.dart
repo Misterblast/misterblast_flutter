@@ -7,7 +7,7 @@ part of 'submit_task_notifier.dart';
 // **************************************************************************
 
 String _$submitTaskNotifierHash() =>
-    r'24b208b9d02a785bb16ef4f931fb1addeaa5bb79';
+    r'b0de7600ecc315ff230eb143ec4639df8e1cda1f';
 
 /// See also [SubmitTaskNotifier].
 @ProviderFor(SubmitTaskNotifier)

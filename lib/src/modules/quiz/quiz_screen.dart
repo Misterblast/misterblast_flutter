@@ -8,6 +8,7 @@ import 'package:misterblast_flutter/src/config/overlays/loading_overlay.dart';
 import 'package:misterblast_flutter/src/models/lesson.dart';
 import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_notifier.dart';
 import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_submission_notifier.dart';
+import 'package:misterblast_flutter/src/providers/user_summary.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_chart.dart';
@@ -319,6 +320,7 @@ class _QuizStats extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userSummaryNotifier = ref.watch(userSummaryProvider);
     final quizResultsNotifier = ref.watch(quizSubmissionNotifierProvider());
     return Column(
       spacing: 12,
@@ -390,32 +392,25 @@ class _QuizStats extends ConsumerWidget {
                 } else if (quizResultsNotifier.isError) {
                   return DefaultErrorWidget();
                 } else {
-                  final totalSubmissions = quizResultsNotifier.total;
-                  final averageScore =
-                      (results.map((e) => e.grade).reduce((a, b) => a + b) /
-                              results.length)
-                          .toStringAsPrecision(3);
-                  final highestScore = results
-                      .map((e) => e.grade)
-                      .reduce((a, b) => a > b ? a : b);
-                  return Wrap(
-                    spacing: 3,
-                    runSpacing: 6,
+                  return Row(
                     children: [
-                      StatChip(
-                        iconData: Icons.drafts,
-                        content:
-                            "${context.tr("stats.quiz-done")}  : $totalSubmissions",
-                      ),
-                      StatChip(
-                        iconData: Icons.local_fire_department_sharp,
-                        content:
-                            "${context.tr("stats.quiz-highest-score")} : $highestScore",
-                      ),
-                      StatChip(
-                        iconData: Icons.align_vertical_bottom,
-                        content:
-                            "${context.tr("stats.quiz-average-score")}  : $averageScore",
+                      Expanded(
+                        child: Wrap(
+                          spacing: 3,
+                          runSpacing: 6,
+                          children: [
+                            StatChip(
+                              iconData: Icons.drafts,
+                              content:
+                                  "${context.tr("stats.quiz-done")}  : ${userSummaryNotifier.value?.totalQuizAttempts.toStringAsFixed(0) ?? 0}",
+                            ),
+                            StatChip(
+                              iconData: Icons.align_vertical_bottom,
+                              content:
+                                  "${context.tr("stats.quiz-average-score")}  : ${userSummaryNotifier.value?.averageQuizScore.toStringAsFixed(2) ?? 0}",
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   );

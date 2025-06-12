@@ -5,6 +5,7 @@ import 'package:misterblast_flutter/src/config/network/dio.dart'
 
 import 'package:misterblast_flutter/src/models/api_response.dart';
 import 'package:misterblast_flutter/src/models/user.dart';
+import 'package:misterblast_flutter/src/models/user_summary.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_repository.g.dart';
@@ -23,6 +24,20 @@ class UserRepository extends BaseRepository {
       return response.data;
     } catch (e) {
       throw 'Failed to fetch user data: $e';
+    }
+  }
+
+  Future<UserSummary> getUserSummary() async {
+    try {
+      final response = await dio.get('summary').then(
+            (response) => ApiResponse<UserSummary>.fromJson(
+              response.data,
+              (data) => UserSummary.fromJson(data as Map<String, dynamic>),
+            ),
+          );
+      return response.data;
+    } catch (e) {
+      throw 'Failed to fetch user summary: $e';
     }
   }
 }

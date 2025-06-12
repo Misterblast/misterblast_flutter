@@ -327,155 +327,185 @@ class _OnQuizScreenState extends ConsumerState<OnQuizScreen>
     );
   }
 
+  onExit() => showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          title: Text(context.tr("quiz.exit-confirm")),
+          content: Text(context.tr("quiz.exit-confirm-desc")),
+          actionsOverflowButtonSpacing: 8,
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                context.pop();
+                context.pop();
+              },
+              child: Text(context.tr("common.yes")),
+            ),
+            OutlinedButton(
+              onPressed: () => context.pop(),
+              child: Text(context.tr("common.no")),
+            ),
+          ],
+        );
+      });
+
   @override
   Widget build(BuildContext context) {
-    return GptMarkdownTheme(
-      gptThemeData: GptMarkdownTheme.of(context).copyWith(
-        highlightColor: Theme.of(context).colorScheme.secondary,
-      ),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppBackButton(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          title: AutoSizeText(
-            maxLines: 1,
-            // "${context.tr("subjects.${widget.subject}")} ${context.tr(widget.className)}",
-            context.tr("subjects.${widget.subject.code}"),
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  color: Colors.white,
-                ),
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) => QuizNavigationSheet(
-                  currentIndex: _pageController.hasClients
-                      ? _pageController.page!.toInt()
-                      : 0,
-                  selectedAnswer: selectedAnswer,
-                  onSelect: (index) {
-                    context.pop();
-                    _pageController.jumpToPage(index);
-                  },
-                ),
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(right: 16),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.grid_view_rounded,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) => onExit(),
+      child: GptMarkdownTheme(
+        gptThemeData: GptMarkdownTheme.of(context).copyWith(
+          highlightColor: Theme.of(context).colorScheme.secondary,
         ),
-        body: SafeArea(
-          child: Container(
-            alignment: Alignment.topCenter,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(30),
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          appBar: AppBar(
+            elevation: 0,
+            centerTitle: true,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppBackButton(
+                onPressed: onExit,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
             ),
-            child: Column(
-              spacing: 16,
-              children: [
-                Column(
-                  spacing: 4,
-                  children: [
-                    Row(
-                      spacing: 4,
-                      children: [
-                        AutoSizeText(
-                          maxLines: 1,
-                          "${_pageController.hasClients ? _pageController.page!.toInt() + 1 : 1}/${questions.length}",
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        Expanded(
-                          child: AnimatedBuilder(
-                            animation: _pageController,
-                            builder: (context, child) {
-                              double progress = 0.0;
-                              if (_pageController.hasClients &&
-                                  _pageController.page != null) {
-                                progress = _pageController.page! /
-                                    (questions.length - 1);
-                              }
-                              return LinearProgressIndicator(
-                                minHeight: 16,
-                                value: progress.clamp(0.0, 1.0),
-                                borderRadius: BorderRadius.circular(20),
-                                backgroundColor: Colors.grey.withAlpha(20),
-                                color: Theme.of(context).colorScheme.primary,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      spacing: 8,
-                      children: [
-                        Icon(
-                          Icons.timer,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        Expanded(
-                          child: LinearTimer(
-                            key: _timerKey,
-                            duration: 300,
-                            onTimerComplete: onTimerOut,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: questions.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => QuizDisplay(
-                      question: questions[index],
-                      selectedAnswer:
-                          selectedAnswer[questions[index].number.toString()],
-                      onSelect: (String? value) {
-                        onSelect(value!);
-                      },
-                    ),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            title: AutoSizeText(
+              maxLines: 1,
+              context.tr("subjects.${widget.subject.code}"),
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+            actions: [
+              GestureDetector(
+                onTap: () => showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => QuizNavigationSheet(
+                    currentIndex: _pageController.hasClients
+                        ? _pageController.page!.toInt()
+                        : 0,
+                    selectedAnswer: selectedAnswer,
+                    onSelect: (index) {
+                      context.pop();
+                      _pageController.jumpToPage(index);
+                    },
                   ),
                 ),
-                PageTransitionSwitcher(
-                  transitionBuilder:
-                      (child, primaryAnimation, secondaryAnimation) =>
-                          SharedAxisTransition(
-                    animation: primaryAnimation,
-                    secondaryAnimation: secondaryAnimation,
-                    transitionType: SharedAxisTransitionType.horizontal,
-                    child: child,
+                child: Container(
+                  margin: const EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  duration: const Duration(milliseconds: 300),
-                  child: renderFooterButton(),
+                  child: const Icon(
+                    Icons.grid_view_rounded,
+                    color: Colors.white,
+                  ),
                 ),
-              ],
+              )
+            ],
+          ),
+          body: SafeArea(
+            child: Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(30),
+                ),
+              ),
+              child: Column(
+                spacing: 16,
+                children: [
+                  Column(
+                    spacing: 4,
+                    children: [
+                      Row(
+                        spacing: 4,
+                        children: [
+                          AutoSizeText(
+                            maxLines: 1,
+                            "${_pageController.hasClients ? _pageController.page!.toInt() + 1 : 1}/${questions.length}",
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Expanded(
+                            child: AnimatedBuilder(
+                              animation: _pageController,
+                              builder: (context, child) {
+                                double progress = 0.0;
+                                if (_pageController.hasClients &&
+                                    _pageController.page != null) {
+                                  progress = _pageController.page! /
+                                      (questions.length - 1);
+                                }
+                                return LinearProgressIndicator(
+                                  minHeight: 16,
+                                  value: progress.clamp(0.0, 1.0),
+                                  borderRadius: BorderRadius.circular(20),
+                                  backgroundColor: Colors.grey.withAlpha(20),
+                                  color: Theme.of(context).colorScheme.primary,
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        spacing: 8,
+                        children: [
+                          Icon(
+                            Icons.timer,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          Expanded(
+                            child: LinearTimer(
+                              key: _timerKey,
+                              duration: 300,
+                              onTimerComplete: onTimerOut,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: questions.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => QuizDisplay(
+                        question: questions[index],
+                        selectedAnswer:
+                            selectedAnswer[questions[index].number.toString()],
+                        onSelect: (String? value) {
+                          onSelect(value!);
+                        },
+                      ),
+                    ),
+                  ),
+                  PageTransitionSwitcher(
+                    transitionBuilder:
+                        (child, primaryAnimation, secondaryAnimation) =>
+                            SharedAxisTransition(
+                      animation: primaryAnimation,
+                      secondaryAnimation: secondaryAnimation,
+                      transitionType: SharedAxisTransitionType.horizontal,
+                      child: child,
+                    ),
+                    duration: const Duration(milliseconds: 300),
+                    child: renderFooterButton(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

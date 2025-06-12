@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBackButton extends StatelessWidget {
-  const AppBackButton({super.key, this.size, this.backgroundColor});
+  const AppBackButton({
+    super.key,
+    this.size,
+    this.backgroundColor,
+    this.onPressed,
+  });
 
   final Size? size;
+  final Function()? onPressed;
   final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: context.pop,
+      onTap: onPressed ?? context.pop,
       child: Container(
         width: size?.width ?? 40,
         height: size?.height ?? 40,

@@ -41,7 +41,9 @@
     "answer-placeholder": "Enter your answer here",
     "submiited-at": "Submitted at",
     "attachment": "Attachment",
-    "score": "Score"
+    "score": "Score",
+    "yes": "Yes",
+    "no": "No"
   },
   "exceptions": {
     "unknown-error": "An error occurs, please try a few more moments ...",
@@ -173,7 +175,9 @@
     "timeout-desc": "The quiz time has ended. Your answers have been submitted automatically.",
     "see-result": "See results",
     "submit-success": "Quiz Submitted Successfully",
-    "submit-success-desc": "Well done! You’ve submitted your quiz. Press the button below to see the results."
+    "submit-success-desc": "Well done! You’ve submitted your quiz. Press the button below to see the results.",
+    "exit-confirm": "Exit from Quiz?",
+    "exit-confirm-desc": "Are you sure you want to exit the quiz? Your answers will not be saved."
   },
   "quiz-result": {
     "score": "Score",

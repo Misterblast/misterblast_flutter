@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 class DefaultErrorWidget extends StatelessWidget {
   const DefaultErrorWidget({
     super.key,
+    this.backgroundColor,
   });
+
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.errorContainer.withAlpha(20),
+        color: backgroundColor ??
+            Theme.of(context).colorScheme.errorContainer.withAlpha(20),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Stack(

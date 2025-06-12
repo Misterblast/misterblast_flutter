@@ -7,16 +7,16 @@ part 'submission_list_notifier.g.dart';
 @riverpod
 class SubmissionListNotifier extends _$SubmissionListNotifier {
   @override
-  AsyncValue<List<TaskSubmission>> build() {
-    fetchSubmissions();
+  AsyncValue<List<TaskSubmission>> build({int? limit}) {
+    fetchSubmissions(limit);
     return const AsyncValue.loading();
   }
 
-  fetchSubmissions() async {
+  fetchSubmissions(int? limit) async {
     final repo = await ref.watch(taskRepositoryProvider.future);
     state = const AsyncValue.loading();
     try {
-      final submissions = await repo.fetchSubmissions(limit: 3);
+      final submissions = await repo.fetchSubmissions(limit: limit ?? 3);
       state = AsyncValue.data(submissions.data);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
