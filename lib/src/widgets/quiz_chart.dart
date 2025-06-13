@@ -12,7 +12,7 @@ class QuizChart extends StatelessWidget {
     this.showSeeAllButton = false,
   });
 
-  final List<Map<String, dynamic>> quizData;
+  final List<FlSpot> quizData;
   final bool? showSeeAllButton;
 
   @override
@@ -98,18 +98,7 @@ class QuizChart extends StatelessWidget {
           else
             AppChart(
               lineColor: AppColors.coolTeal,
-              spots: [
-                FlSpot(1, 20),
-                FlSpot(2, 40),
-                FlSpot(3, 60),
-                FlSpot(4, 80),
-                FlSpot(5, 100),
-                FlSpot(6, 90),
-                FlSpot(7, 70),
-                FlSpot(8, 50),
-                FlSpot(9, 30),
-                FlSpot(10, 20), // Example data points
-              ],
+              spots: quizData,
             ),
           if (showSeeAllButton == true)
             Align(

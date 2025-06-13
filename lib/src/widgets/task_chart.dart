@@ -10,7 +10,7 @@ class TaskChart extends StatelessWidget {
     required this.taskData,
   });
 
-  final List<Map<String, dynamic>> taskData;
+  final List<FlSpot> taskData;
 
   @override
   Widget build(BuildContext context) {
@@ -95,18 +95,7 @@ class TaskChart extends StatelessWidget {
           else
             AppChart(
               lineColor: AppColors.primary,
-              spots: [
-                FlSpot(1, 20),
-                FlSpot(2, 40),
-                FlSpot(3, 60),
-                FlSpot(4, 80),
-                FlSpot(5, 100),
-                FlSpot(6, 90),
-                FlSpot(7, 70),
-                FlSpot(8, 50),
-                FlSpot(9, 30),
-                FlSpot(10, 20), // Example data points
-              ],
+              spots: taskData,
             )
         ],
       ),

@@ -1,5 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_submission_notifier.dart';
+import 'package:misterblast_flutter/src/modules/task/notifiers/submission_list_notifier.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
 import 'package:misterblast_flutter/src/widgets/change_local_button.dart';
 import 'package:misterblast_flutter/src/widgets/quiz_chart.dart';
@@ -100,8 +104,58 @@ class _ActivityScreenState extends State<ActivityScreen> {
                             context.tr('activity.your-growth'),
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
-                          QuizChart(quizData: []),
-                          TaskChart(taskData: []),
+                          Consumer(
+                            builder: (context, ref, child) {
+                              final submissions = ref
+                                      .watch(submissionListNotifierProvider(
+                                          limit: 10))
+                                      .value ??
+                                  [];
+                              final taskSubmissions = submissions;
+                              final quizResultsNotifier =
+                                  ref.watch(quizSubmissionNotifierProvider());
+                              final results = quizResultsNotifier.data;
+                              return Column(
+                                children: [
+                                  QuizChart(
+                                    quizData: List.generate(
+                                      10,
+                                      (i) {
+                                        final reversedResults =
+                                            results.reversed.toList();
+                                        return FlSpot(
+                                          i.toDouble() + 1,
+                                          i < reversedResults.length
+                                              ? reversedResults[i]
+                                                  .grade
+                                                  .toDouble()
+                                              : 0,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  TaskChart(
+                                    taskData: List.generate(
+                                      10,
+                                      (i) {
+                                        final reversedResults =
+                                            taskSubmissions.reversed.toList();
+                                        return FlSpot(
+                                          i.toDouble() + 1,
+                                          i < reversedResults.length
+                                              ? reversedResults[i]
+                                                      .score
+                                                      ?.toDouble() ??
+                                                  0
+                                              : 0,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),
