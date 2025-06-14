@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:misterblast_flutter/src/config/logger.dart';
+import 'package:misterblast_flutter/src/modules/exploration/notifiers/exploration_list.dart';
+import 'package:misterblast_flutter/src/modules/exploration/widgets/exploration_card.dart';
 import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_submission_notifier.dart';
 import 'package:misterblast_flutter/src/modules/task/notifiers/submission_list_notifier.dart';
 import 'package:misterblast_flutter/src/providers/user.dart';
@@ -285,131 +287,156 @@ class _HomeBodySection extends StatelessWidget {
       child: Column(
         spacing: 12,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "common.greeting".tr(),
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          MenuCard(),
-          Text(
-            "menu.self-learn".tr(),
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          MenuCard(
-            imageAsset: "assets/images/materi-icon.png",
-            title: "menu.card.material",
-            description: "menu.card.material-description",
-          ),
-          MenuCard(
-            onTap: () => context.push("/examples"),
-            imageAsset: "assets/images/conso-icon.png",
-            title: "menu.card.examples",
-            description: "menu.card.examples-description",
-          ),
-          Text(
-            "menu.evaluation-scoring".tr(),
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          QuizMenuCard(),
-          TaskMenuCard(),
-          Text(
-            "menu.learning-progress".tr(),
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          Consumer(
-            builder: (context, ref, child) {
-              final submissions =
-                  ref.watch(submissionListNotifierProvider(limit: 10)).value ??
-                      [];
-              final taskSubmissions = submissions;
-              final quizResultsNotifier =
-                  ref.watch(quizSubmissionNotifierProvider());
-              final results = quizResultsNotifier.data;
-              return Column(
-                children: [
-                  QuizChart(
-                    quizData: List.generate(
-                      10,
-                      (i) {
-                        final reversedResults = results.reversed.toList();
-                        return FlSpot(
-                          i.toDouble() + 1,
-                          i < reversedResults.length
-                              ? reversedResults[i].grade.toDouble()
-                              : 0,
-                        );
-                      },
-                    ),
-                  ),
-                  TaskChart(
-                    taskData: List.generate(
-                      10,
-                      (i) {
-                        final reversedResults =
-                            taskSubmissions.reversed.toList();
-                        return FlSpot(
-                          i.toDouble() + 1,
-                          i < reversedResults.length
-                              ? reversedResults[i].score?.toDouble() ?? 0
-                              : 0,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-          Text(
-            "menu.new-exploration".tr(),
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          ListView.separated(
-            itemCount: 5,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemBuilder: (context, index) => Material(
-              type: MaterialType.transparency,
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(8),
-                leading: CircleAvatar(
-                  maxRadius: 30,
-                  backgroundColor: AppColors.lightBlue,
-                  onBackgroundImageError: (exception, stackTrace) =>
-                      const Icon(Icons.error),
-                  backgroundImage: NetworkImage(
-                    "https://picsum.photos/id/237/200/300",
-                  ),
-                ),
-                title: Text(
-                  "exploration $index",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                subtitle: Text(
-                  "menu.card.material-description $index",
-                  maxLines: 2,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: Colors.grey),
-                ),
-                titleAlignment: ListTileTitleAlignment.top,
-                trailing: Text(
-                  "12-12-2023",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey,
-                      ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                tileColor: Colors.white,
-              ),
-            ),
-          )
-        ],
+        children: [_MenuSections(), _ChartsSection(), _ExplorationSection()],
       ),
+    );
+  }
+}
+
+class _MenuSections extends StatelessWidget {
+  const _MenuSections();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "common.greeting".tr(),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        MenuCard(),
+        Text(
+          "menu.self-learn".tr(),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        MenuCard(
+          imageAsset: "assets/images/materi-icon.png",
+          title: "menu.card.material",
+          description: "menu.card.material-description",
+        ),
+        MenuCard(
+          onTap: () => context.push("/examples"),
+          imageAsset: "assets/images/conso-icon.png",
+          title: "menu.card.examples",
+          description: "menu.card.examples-description",
+        ),
+        Text(
+          "menu.evaluation-scoring".tr(),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        QuizMenuCard(),
+        TaskMenuCard(),
+      ],
+    );
+  }
+}
+
+class _ChartsSection extends StatelessWidget {
+  const _ChartsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "menu.learning-progress".tr(),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final submissions =
+                ref.watch(submissionListNotifierProvider(limit: 10)).value ??
+                    [];
+            final taskSubmissions = submissions;
+            final quizResultsNotifier =
+                ref.watch(quizSubmissionNotifierProvider());
+            final results = quizResultsNotifier.data;
+            return Column(
+              children: [
+                QuizChart(
+                  quizData: List.generate(
+                    10,
+                    (i) {
+                      final reversedResults = results.reversed.toList();
+                      return FlSpot(
+                        i.toDouble() + 1,
+                        i < reversedResults.length
+                            ? reversedResults[i].grade.toDouble()
+                            : 0,
+                      );
+                    },
+                  ),
+                ),
+                TaskChart(
+                  taskData: List.generate(
+                    10,
+                    (i) {
+                      final reversedResults = taskSubmissions.reversed.toList();
+                      return FlSpot(
+                        i.toDouble() + 1,
+                        i < reversedResults.length
+                            ? reversedResults[i].score?.toDouble() ?? 0
+                            : 0,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _ExplorationSection extends StatelessWidget {
+  const _ExplorationSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "menu.new-exploration".tr(),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final explorations = ref.watch(explorationListProvider(limit: 5));
+            return explorations.when(
+              data: (explorations) => ListView.separated(
+                  itemCount: explorations.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8),
+                  itemBuilder: (context, index) {
+                    final exploration = explorations[index];
+                    return ExplorationCard(exploration: exploration);
+                  }),
+              error: (_, __) => DefaultErrorWidget(),
+              loading: () => Column(
+                spacing: 8,
+                children: List.generate(
+                  5,
+                  (index) => ShimmerContainer(
+                    size: const Size(double.maxFinite, 50),
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

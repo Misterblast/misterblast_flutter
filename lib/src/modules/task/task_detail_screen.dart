@@ -13,7 +13,6 @@ import 'package:misterblast_flutter/src/widgets/app_link_widget.dart';
 import 'package:misterblast_flutter/src/widgets/app_loading.dart';
 import 'package:misterblast_flutter/src/widgets/app_markdown_viewer.dart';
 import 'package:misterblast_flutter/src/widgets/app_text_form_field.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TaskDetailScreen extends ConsumerStatefulWidget {
   const TaskDetailScreen({super.key, required this.taskId});

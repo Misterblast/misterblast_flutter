@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/models/set.dart';
 
 class ExampleSetsOptions extends ConsumerStatefulWidget {
-  ExampleSetsOptions({
+  const ExampleSetsOptions({
     super.key,
     this.selectedSetId,
     required this.sets,
     this.onSetSelected,
   });
 
-  int? selectedSetId;
-  List<ExampleSet> sets;
-  void Function(int setId)? onSetSelected;
+  final int? selectedSetId;
+  final List<ExampleSet> sets;
+  final void Function(int setId)? onSetSelected;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -57,10 +57,7 @@ class _ExampleSetsOptionsState extends ConsumerState<ExampleSetsOptions> {
               children: widget.sets
                   .map(
                     (item) => InkWell(
-                      onTap: () {
-                        widget.onSetSelected?.call(item.id);
-                        setState(() => widget.selectedSetId = item.id);
-                      },
+                      onTap: () => widget.onSetSelected?.call(item.id),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
