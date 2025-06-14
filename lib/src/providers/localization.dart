@@ -25,6 +25,3 @@ class LocalizationNotifier extends _$LocalizationNotifier {
         );
   }
 }
-
-
-//this is currently not used since we are using easy localization

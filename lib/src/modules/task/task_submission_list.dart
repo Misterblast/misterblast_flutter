@@ -110,46 +110,67 @@ class _TaskSubmissionListState extends ConsumerState<TaskSubmissionList> {
                         topRight: Radius.circular(20),
                       ),
                     ),
-                    child: PagingListener(
-                      controller: _pagingController,
-                      builder: (context, state, fetchNextPage) =>
-                          PagedListView<int, TaskSubmission>(
-                        shrinkWrap: true,
-                        state: state,
-                        fetchNextPage: fetchNextPage,
-                        builderDelegate:
-                            PagedChildBuilderDelegate<TaskSubmission>(
-                          animateTransitions: true,
-                          newPageProgressIndicatorBuilder: (context) =>
-                              const AppLoading(),
-                          noItemsFoundIndicatorBuilder: (context) => Center(
-                            child: Text(
-                              context.tr("common.no-data-found"),
-                              style: theme.textTheme.bodyMedium,
+                    child: Column(
+                      children: [
+                        Row(
+                          spacing: 12,
+                          children: [
+                            Icon(
+                              Icons.label_important_sharp,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
-                          ),
-                          firstPageErrorIndicatorBuilder: (context) =>
-                              DefaultErrorWidget(),
-                          firstPageProgressIndicatorBuilder: (context) =>
-                              Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                spacing: 8,
-                                children: List.generate(
-                                  5,
-                                  (index) => ShimmerContainer(
-                                    size: const Size(double.maxFinite, 80),
-                                    baseColor: Colors.grey.shade300,
-                                    highlightColor: Colors.grey.shade100,
+                            Text(
+                              context.tr("task.task-submissions"),
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: PagingListener(
+                            controller: _pagingController,
+                            builder: (context, state, fetchNextPage) =>
+                                PagedListView<int, TaskSubmission>(
+                              shrinkWrap: true,
+                              state: state,
+                              fetchNextPage: fetchNextPage,
+                              builderDelegate:
+                                  PagedChildBuilderDelegate<TaskSubmission>(
+                                animateTransitions: true,
+                                newPageProgressIndicatorBuilder: (context) =>
+                                    const AppLoading(),
+                                noItemsFoundIndicatorBuilder: (context) =>
+                                    Center(
+                                  child: Text(
+                                    context.tr("common.no-data-found"),
+                                    style: theme.textTheme.bodyMedium,
                                   ),
                                 ),
+                                firstPageErrorIndicatorBuilder: (context) =>
+                                    DefaultErrorWidget(),
+                                firstPageProgressIndicatorBuilder: (context) =>
+                                    Expanded(
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      spacing: 8,
+                                      children: List.generate(
+                                        5,
+                                        (index) => ShimmerContainer(
+                                          size:
+                                              const Size(double.maxFinite, 80),
+                                          baseColor: Colors.grey.shade300,
+                                          highlightColor: Colors.grey.shade100,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                itemBuilder: (context, item, index) =>
+                                    TaskSubmissionTile(taskSubmission: item),
                               ),
                             ),
                           ),
-                          itemBuilder: (context, item, index) =>
-                              TaskSubmissionTile(taskSubmission: item),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 )

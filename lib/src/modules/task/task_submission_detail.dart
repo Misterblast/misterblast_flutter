@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/modules/task/notifiers/task_submission_detail_notifier.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
+import 'package:misterblast_flutter/src/utils/parse_unix_datetime.dart';
 import 'package:misterblast_flutter/src/widgets/app_back_button.dart';
 import 'package:misterblast_flutter/src/widgets/app_link_widget.dart';
 import 'package:misterblast_flutter/src/widgets/app_loading.dart';
@@ -84,10 +85,20 @@ class TaskSubmissionDetail extends ConsumerWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              context.tr("task.info"),
-                                              style:
-                                                  theme.textTheme.headlineSmall,
+                                            Row(
+                                              spacing: 8,
+                                              children: [
+                                                Icon(
+                                                  Icons.info_outline,
+                                                  color:
+                                                      theme.colorScheme.primary,
+                                                ),
+                                                Text(
+                                                  context.tr("task.info"),
+                                                  style: theme
+                                                      .textTheme.headlineSmall,
+                                                ),
+                                              ],
                                             ),
                                             Column(
                                               crossAxisAlignment:
@@ -116,6 +127,27 @@ class TaskSubmissionDetail extends ConsumerWidget {
                                                 ),
                                                 Text(
                                                   data.description,
+                                                  style: theme
+                                                      .textTheme.bodyMedium,
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  context.tr(
+                                                    "common.submitted-at",
+                                                  ),
+                                                  style: theme
+                                                      .textTheme.headlineSmall,
+                                                ),
+                                                Text(
+                                                  parseUnixDatetime(int.parse(
+                                                          data.submittedAt ??
+                                                              '0')) ??
+                                                      "-",
                                                   style: theme
                                                       .textTheme.bodyMedium,
                                                 ),

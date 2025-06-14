@@ -10,13 +10,13 @@ abstract class TaskSubmissionDetail with _$TaskSubmissionDetail {
     required String title,
     required String description,
     required String content,
-    double? score,
-    DateTime? scoredAt,
-    DateTime? submittedAt,
-    String? feedback,
-    String? answer,
+    @JsonKey(name: "scored_at") String? scoredAt,
+    @JsonKey(name: "submitted_at") String? submittedAt,
     @JsonKey(name: "task_attachment_url") String? taskAttachmentUrl,
     @JsonKey(name: "answer_attachment_url") String? answerAttachmentUrl,
+    double? score,
+    String? feedback,
+    String? answer,
   }) = _TaskSubmissionDetail;
 
   factory TaskSubmissionDetail.fromJson(Map<String, dynamic> json) =>

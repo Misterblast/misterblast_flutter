@@ -19,15 +19,17 @@ mixin _$TaskSubmissionDetail {
   String get title;
   String get description;
   String get content;
-  double? get score;
-  DateTime? get scoredAt;
-  DateTime? get submittedAt;
-  String? get feedback;
-  String? get answer;
+  @JsonKey(name: "scored_at")
+  String? get scoredAt;
+  @JsonKey(name: "submitted_at")
+  String? get submittedAt;
   @JsonKey(name: "task_attachment_url")
   String? get taskAttachmentUrl;
   @JsonKey(name: "answer_attachment_url")
   String? get answerAttachmentUrl;
+  double? get score;
+  String? get feedback;
+  String? get answer;
 
   /// Create a copy of TaskSubmissionDetail
   /// with the given fields replaced by the non-null parameter values.
@@ -50,18 +52,18 @@ mixin _$TaskSubmissionDetail {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.score, score) || other.score == score) &&
             (identical(other.scoredAt, scoredAt) ||
                 other.scoredAt == scoredAt) &&
             (identical(other.submittedAt, submittedAt) ||
                 other.submittedAt == submittedAt) &&
-            (identical(other.feedback, feedback) ||
-                other.feedback == feedback) &&
-            (identical(other.answer, answer) || other.answer == answer) &&
             (identical(other.taskAttachmentUrl, taskAttachmentUrl) ||
                 other.taskAttachmentUrl == taskAttachmentUrl) &&
             (identical(other.answerAttachmentUrl, answerAttachmentUrl) ||
-                other.answerAttachmentUrl == answerAttachmentUrl));
+                other.answerAttachmentUrl == answerAttachmentUrl) &&
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.feedback, feedback) ||
+                other.feedback == feedback) &&
+            (identical(other.answer, answer) || other.answer == answer));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -72,17 +74,17 @@ mixin _$TaskSubmissionDetail {
       title,
       description,
       content,
-      score,
       scoredAt,
       submittedAt,
-      feedback,
-      answer,
       taskAttachmentUrl,
-      answerAttachmentUrl);
+      answerAttachmentUrl,
+      score,
+      feedback,
+      answer);
 
   @override
   String toString() {
-    return 'TaskSubmissionDetail(id: $id, title: $title, description: $description, content: $content, score: $score, scoredAt: $scoredAt, submittedAt: $submittedAt, feedback: $feedback, answer: $answer, taskAttachmentUrl: $taskAttachmentUrl, answerAttachmentUrl: $answerAttachmentUrl)';
+    return 'TaskSubmissionDetail(id: $id, title: $title, description: $description, content: $content, scoredAt: $scoredAt, submittedAt: $submittedAt, taskAttachmentUrl: $taskAttachmentUrl, answerAttachmentUrl: $answerAttachmentUrl, score: $score, feedback: $feedback, answer: $answer)';
   }
 }
 
@@ -97,13 +99,13 @@ abstract mixin class $TaskSubmissionDetailCopyWith<$Res> {
       String title,
       String description,
       String content,
-      double? score,
-      DateTime? scoredAt,
-      DateTime? submittedAt,
-      String? feedback,
-      String? answer,
+      @JsonKey(name: "scored_at") String? scoredAt,
+      @JsonKey(name: "submitted_at") String? submittedAt,
       @JsonKey(name: "task_attachment_url") String? taskAttachmentUrl,
-      @JsonKey(name: "answer_attachment_url") String? answerAttachmentUrl});
+      @JsonKey(name: "answer_attachment_url") String? answerAttachmentUrl,
+      double? score,
+      String? feedback,
+      String? answer});
 }
 
 /// @nodoc
@@ -123,13 +125,13 @@ class _$TaskSubmissionDetailCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? content = null,
-    Object? score = freezed,
     Object? scoredAt = freezed,
     Object? submittedAt = freezed,
-    Object? feedback = freezed,
-    Object? answer = freezed,
     Object? taskAttachmentUrl = freezed,
     Object? answerAttachmentUrl = freezed,
+    Object? score = freezed,
+    Object? feedback = freezed,
+    Object? answer = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -148,25 +150,13 @@ class _$TaskSubmissionDetailCopyWithImpl<$Res>
           ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      score: freezed == score
-          ? _self.score
-          : score // ignore: cast_nullable_to_non_nullable
-              as double?,
       scoredAt: freezed == scoredAt
           ? _self.scoredAt
           : scoredAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       submittedAt: freezed == submittedAt
           ? _self.submittedAt
           : submittedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      feedback: freezed == feedback
-          ? _self.feedback
-          : feedback // ignore: cast_nullable_to_non_nullable
-              as String?,
-      answer: freezed == answer
-          ? _self.answer
-          : answer // ignore: cast_nullable_to_non_nullable
               as String?,
       taskAttachmentUrl: freezed == taskAttachmentUrl
           ? _self.taskAttachmentUrl
@@ -175,6 +165,18 @@ class _$TaskSubmissionDetailCopyWithImpl<$Res>
       answerAttachmentUrl: freezed == answerAttachmentUrl
           ? _self.answerAttachmentUrl
           : answerAttachmentUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      score: freezed == score
+          ? _self.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      feedback: freezed == feedback
+          ? _self.feedback
+          : feedback // ignore: cast_nullable_to_non_nullable
+              as String?,
+      answer: freezed == answer
+          ? _self.answer
+          : answer // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -188,13 +190,13 @@ class _TaskSubmissionDetail implements TaskSubmissionDetail {
       required this.title,
       required this.description,
       required this.content,
-      this.score,
-      this.scoredAt,
-      this.submittedAt,
-      this.feedback,
-      this.answer,
+      @JsonKey(name: "scored_at") this.scoredAt,
+      @JsonKey(name: "submitted_at") this.submittedAt,
       @JsonKey(name: "task_attachment_url") this.taskAttachmentUrl,
-      @JsonKey(name: "answer_attachment_url") this.answerAttachmentUrl});
+      @JsonKey(name: "answer_attachment_url") this.answerAttachmentUrl,
+      this.score,
+      this.feedback,
+      this.answer});
   factory _TaskSubmissionDetail.fromJson(Map<String, dynamic> json) =>
       _$TaskSubmissionDetailFromJson(json);
 
@@ -207,21 +209,23 @@ class _TaskSubmissionDetail implements TaskSubmissionDetail {
   @override
   final String content;
   @override
-  final double? score;
+  @JsonKey(name: "scored_at")
+  final String? scoredAt;
   @override
-  final DateTime? scoredAt;
-  @override
-  final DateTime? submittedAt;
-  @override
-  final String? feedback;
-  @override
-  final String? answer;
+  @JsonKey(name: "submitted_at")
+  final String? submittedAt;
   @override
   @JsonKey(name: "task_attachment_url")
   final String? taskAttachmentUrl;
   @override
   @JsonKey(name: "answer_attachment_url")
   final String? answerAttachmentUrl;
+  @override
+  final double? score;
+  @override
+  final String? feedback;
+  @override
+  final String? answer;
 
   /// Create a copy of TaskSubmissionDetail
   /// with the given fields replaced by the non-null parameter values.
@@ -249,18 +253,18 @@ class _TaskSubmissionDetail implements TaskSubmissionDetail {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.score, score) || other.score == score) &&
             (identical(other.scoredAt, scoredAt) ||
                 other.scoredAt == scoredAt) &&
             (identical(other.submittedAt, submittedAt) ||
                 other.submittedAt == submittedAt) &&
-            (identical(other.feedback, feedback) ||
-                other.feedback == feedback) &&
-            (identical(other.answer, answer) || other.answer == answer) &&
             (identical(other.taskAttachmentUrl, taskAttachmentUrl) ||
                 other.taskAttachmentUrl == taskAttachmentUrl) &&
             (identical(other.answerAttachmentUrl, answerAttachmentUrl) ||
-                other.answerAttachmentUrl == answerAttachmentUrl));
+                other.answerAttachmentUrl == answerAttachmentUrl) &&
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.feedback, feedback) ||
+                other.feedback == feedback) &&
+            (identical(other.answer, answer) || other.answer == answer));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -271,17 +275,17 @@ class _TaskSubmissionDetail implements TaskSubmissionDetail {
       title,
       description,
       content,
-      score,
       scoredAt,
       submittedAt,
-      feedback,
-      answer,
       taskAttachmentUrl,
-      answerAttachmentUrl);
+      answerAttachmentUrl,
+      score,
+      feedback,
+      answer);
 
   @override
   String toString() {
-    return 'TaskSubmissionDetail(id: $id, title: $title, description: $description, content: $content, score: $score, scoredAt: $scoredAt, submittedAt: $submittedAt, feedback: $feedback, answer: $answer, taskAttachmentUrl: $taskAttachmentUrl, answerAttachmentUrl: $answerAttachmentUrl)';
+    return 'TaskSubmissionDetail(id: $id, title: $title, description: $description, content: $content, scoredAt: $scoredAt, submittedAt: $submittedAt, taskAttachmentUrl: $taskAttachmentUrl, answerAttachmentUrl: $answerAttachmentUrl, score: $score, feedback: $feedback, answer: $answer)';
   }
 }
 
@@ -298,13 +302,13 @@ abstract mixin class _$TaskSubmissionDetailCopyWith<$Res>
       String title,
       String description,
       String content,
-      double? score,
-      DateTime? scoredAt,
-      DateTime? submittedAt,
-      String? feedback,
-      String? answer,
+      @JsonKey(name: "scored_at") String? scoredAt,
+      @JsonKey(name: "submitted_at") String? submittedAt,
       @JsonKey(name: "task_attachment_url") String? taskAttachmentUrl,
-      @JsonKey(name: "answer_attachment_url") String? answerAttachmentUrl});
+      @JsonKey(name: "answer_attachment_url") String? answerAttachmentUrl,
+      double? score,
+      String? feedback,
+      String? answer});
 }
 
 /// @nodoc
@@ -324,13 +328,13 @@ class __$TaskSubmissionDetailCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? content = null,
-    Object? score = freezed,
     Object? scoredAt = freezed,
     Object? submittedAt = freezed,
-    Object? feedback = freezed,
-    Object? answer = freezed,
     Object? taskAttachmentUrl = freezed,
     Object? answerAttachmentUrl = freezed,
+    Object? score = freezed,
+    Object? feedback = freezed,
+    Object? answer = freezed,
   }) {
     return _then(_TaskSubmissionDetail(
       id: null == id
@@ -349,25 +353,13 @@ class __$TaskSubmissionDetailCopyWithImpl<$Res>
           ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      score: freezed == score
-          ? _self.score
-          : score // ignore: cast_nullable_to_non_nullable
-              as double?,
       scoredAt: freezed == scoredAt
           ? _self.scoredAt
           : scoredAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       submittedAt: freezed == submittedAt
           ? _self.submittedAt
           : submittedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      feedback: freezed == feedback
-          ? _self.feedback
-          : feedback // ignore: cast_nullable_to_non_nullable
-              as String?,
-      answer: freezed == answer
-          ? _self.answer
-          : answer // ignore: cast_nullable_to_non_nullable
               as String?,
       taskAttachmentUrl: freezed == taskAttachmentUrl
           ? _self.taskAttachmentUrl
@@ -376,6 +368,18 @@ class __$TaskSubmissionDetailCopyWithImpl<$Res>
       answerAttachmentUrl: freezed == answerAttachmentUrl
           ? _self.answerAttachmentUrl
           : answerAttachmentUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      score: freezed == score
+          ? _self.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      feedback: freezed == feedback
+          ? _self.feedback
+          : feedback // ignore: cast_nullable_to_non_nullable
+              as String?,
+      answer: freezed == answer
+          ? _self.answer
+          : answer // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

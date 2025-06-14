@@ -13,17 +13,13 @@ _TaskSubmissionDetail _$TaskSubmissionDetailFromJson(
       title: json['title'] as String,
       description: json['description'] as String,
       content: json['content'] as String,
-      score: (json['score'] as num?)?.toDouble(),
-      scoredAt: json['scoredAt'] == null
-          ? null
-          : DateTime.parse(json['scoredAt'] as String),
-      submittedAt: json['submittedAt'] == null
-          ? null
-          : DateTime.parse(json['submittedAt'] as String),
-      feedback: json['feedback'] as String?,
-      answer: json['answer'] as String?,
+      scoredAt: json['scored_at'] as String?,
+      submittedAt: json['submitted_at'] as String?,
       taskAttachmentUrl: json['task_attachment_url'] as String?,
       answerAttachmentUrl: json['answer_attachment_url'] as String?,
+      score: (json['score'] as num?)?.toDouble(),
+      feedback: json['feedback'] as String?,
+      answer: json['answer'] as String?,
     );
 
 Map<String, dynamic> _$TaskSubmissionDetailToJson(
@@ -33,11 +29,11 @@ Map<String, dynamic> _$TaskSubmissionDetailToJson(
       'title': instance.title,
       'description': instance.description,
       'content': instance.content,
-      'score': instance.score,
-      'scoredAt': instance.scoredAt?.toIso8601String(),
-      'submittedAt': instance.submittedAt?.toIso8601String(),
-      'feedback': instance.feedback,
-      'answer': instance.answer,
+      'scored_at': instance.scoredAt,
+      'submitted_at': instance.submittedAt,
       'task_attachment_url': instance.taskAttachmentUrl,
       'answer_attachment_url': instance.answerAttachmentUrl,
+      'score': instance.score,
+      'feedback': instance.feedback,
+      'answer': instance.answer,
     };

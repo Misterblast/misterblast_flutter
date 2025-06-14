@@ -68,8 +68,7 @@ class _SelectLocaleDialogState extends State<SelectLocaleDialog> {
                 ),
                 selectedColor: Theme.of(context).colorScheme.primary,
                 contentPadding: const EdgeInsets.all(0),
-                onTap: () {
-                  print(widget.formKey?.currentState ?? "null");
+                onTap: () async {
                   setState(() {
                     _selectedLocale = widget.locales[index]["name"];
                   });
