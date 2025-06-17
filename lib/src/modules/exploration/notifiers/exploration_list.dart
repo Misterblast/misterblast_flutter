@@ -15,5 +15,5 @@ Future<List<Exploration>> explorationList(
   final repo = await ref.watch(explorationRepositoryProvider.future);
   return await repo
       .fetchExplorations(page: page, limit: limit)
-      .then((value) => value);
+      .then((value) => value.data);
 }

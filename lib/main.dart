@@ -28,13 +28,13 @@ void main() async {
     ProviderScope(
       observers: [Logger()],
       child: EasyLocalization(
+        useOnlyLangCode: true,
+        path: 'assets/locales',
+        fallbackLocale: const Locale('en'),
         supportedLocales: const [
           Locale('en'),
           Locale('id'),
         ],
-        useOnlyLangCode: true,
-        fallbackLocale: const Locale('en'),
-        path: 'assets/locales',
         child: const App(),
       ),
     ),

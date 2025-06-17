@@ -6,7 +6,7 @@ part of 'exploration_list.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$explorationListHash() => r'3948af5f367b5cf4c0ea66fd6aa0664327f748f1';
+String _$explorationListHash() => r'296d11f5a5412a4f85841520a12e65aaaca4b974';
 
 /// Copied from Dart SDK
 class _SystemHash {

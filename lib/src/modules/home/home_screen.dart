@@ -8,6 +8,7 @@ import 'package:misterblast_flutter/src/modules/exploration/notifiers/exploratio
 import 'package:misterblast_flutter/src/modules/exploration/widgets/exploration_card.dart';
 import 'package:misterblast_flutter/src/modules/quiz/providers/quiz_submission_notifier.dart';
 import 'package:misterblast_flutter/src/modules/task/notifiers/submission_list_notifier.dart';
+import 'package:misterblast_flutter/src/providers/auth.dart';
 import 'package:misterblast_flutter/src/providers/user.dart';
 import 'package:misterblast_flutter/src/providers/user_summary.dart';
 import 'package:misterblast_flutter/src/themes/theme.dart';
@@ -21,11 +22,11 @@ import 'package:misterblast_flutter/src/widgets/stat_chip.dart';
 import 'package:misterblast_flutter/src/widgets/task_chart.dart';
 import 'package:misterblast_flutter/src/widgets/task_menu_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: SafeArea(
@@ -60,11 +61,11 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _HomeHeaderSection extends StatelessWidget {
+class _HomeHeaderSection extends ConsumerWidget {
   const _HomeHeaderSection();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     String greetingMessage = "common.good-morning";
 
     final hour = DateTime.now().hour;
@@ -77,6 +78,13 @@ class _HomeHeaderSection extends StatelessWidget {
     } else {
       greetingMessage = "common.good-night";
     }
+
+    ref.listen(userProvider, (_, state) {
+      state.whenOrNull(error: (_, __) {
+        ref.read(authNotifierProvider.notifier).logout();
+        context.go('/onboarding');
+      });
+    });
 
     return Column(
       spacing: 8,
@@ -358,32 +366,37 @@ class _ChartsSection extends StatelessWidget {
             return Column(
               children: [
                 QuizChart(
-                  quizData: List.generate(
-                    10,
-                    (i) {
-                      final reversedResults = results.reversed.toList();
-                      return FlSpot(
-                        i.toDouble() + 1,
-                        i < reversedResults.length
-                            ? reversedResults[i].grade.toDouble()
-                            : 0,
-                      );
-                    },
-                  ),
+                  quizData: results.isEmpty
+                      ? []
+                      : List.generate(
+                          10,
+                          (i) {
+                            final reversedResults = results.reversed.toList();
+                            return FlSpot(
+                              i.toDouble() + 1,
+                              i < reversedResults.length
+                                  ? reversedResults[i].grade.toDouble()
+                                  : 0,
+                            );
+                          },
+                        ),
                 ),
                 TaskChart(
-                  taskData: List.generate(
-                    10,
-                    (i) {
-                      final reversedResults = taskSubmissions.reversed.toList();
-                      return FlSpot(
-                        i.toDouble() + 1,
-                        i < reversedResults.length
-                            ? reversedResults[i].score?.toDouble() ?? 0
-                            : 0,
-                      );
-                    },
-                  ),
+                  taskData: submissions.isEmpty
+                      ? []
+                      : List.generate(
+                          10,
+                          (i) {
+                            final reversedResults =
+                                taskSubmissions.reversed.toList();
+                            return FlSpot(
+                              i.toDouble() + 1,
+                              i < reversedResults.length
+                                  ? reversedResults[i].score?.toDouble() ?? 0
+                                  : 0,
+                            );
+                          },
+                        ),
                 ),
               ],
             );

@@ -36,9 +36,9 @@ GoRouter router(Ref ref) {
   final rootNavigatorKey = GlobalKey<NavigatorState>();
 
   return GoRouter(
+    initialLocation: "/splash",
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
-    initialLocation: "/splash",
     routes: [
       GoRoute(
         path: "/splash",

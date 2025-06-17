@@ -21,12 +21,14 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    logger.e('Error: $err\n'
-        'Request: ${err.requestOptions.method} \n'
-        'URL: ${err.requestOptions.uri} \n'
-        'Data: ${err.requestOptions.data} \n'
-        'Response: ${err.response?.statusCode} ${err.response?.statusMessage}\n'
-        'Error Message: ${err.response?.data}');
+    logger.e(
+      'Error: $err\n'
+      'Request: ${err.requestOptions.method} \n'
+      'URL: ${err.requestOptions.uri} \n'
+      'Data: ${err.requestOptions.data} \n'
+      'Response: ${err.response?.statusCode} ${err.response?.statusMessage}\n'
+      'Error Message: ${err.response?.data}',
+    );
     super.onError(err, handler);
   }
 }

@@ -11,10 +11,15 @@ part 'user.g.dart';
 Future<User?>? user(Ref ref) async {
   ref.keepAlive();
   final authState = ref.watch(authNotifierProvider);
-  if (authState.valueOrNull == AuthState.loggedIn) {
-    return await ref.watch(userRepositoryProvider.future).then(
-          (userRepository) => userRepository.getMe(),
-        );
+  try {
+    if (authState.valueOrNull == AuthState.loggedIn) {
+      return await ref.watch(userRepositoryProvider.future).then(
+            (userRepository) => userRepository.getMe(),
+          );
+    }
+  } catch (e) {
+    ref.read(authNotifierProvider.notifier).setAuthState(AuthState.loggedOut);
+    return null;
   }
 
   return null;
