@@ -76,9 +76,9 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
-                                onTap: () {
-                                  // Navigate to profile details
-                                },
+                                onTap: () => context.push(
+                                  '/profile/update-profile',
+                                ),
                               ),
                             ),
                           ),

@@ -160,7 +160,6 @@ class SubmissionDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final quizExplanation = ref.watch(quizResultNotifierProvider(submissionId));
     final isLoading = quizExplanation.isLoading;
-    final hasError = quizExplanation.hasError;
     final data = quizExplanation.value;
     return Column(
       spacing: 16,

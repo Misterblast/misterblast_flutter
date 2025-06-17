@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/config/base_repository.dart';
 import 'package:misterblast_flutter/src/config/logger.dart';

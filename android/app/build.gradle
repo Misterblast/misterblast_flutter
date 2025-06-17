@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.unesa.goassessment"
+    namespace = "com.bluenv.goassessment"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.unesa.goassessment"
+        applicationId = "com.bluenv.goassessment"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

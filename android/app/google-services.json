@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:400802317803:android:383d9dcccbdeacc0ce45ae",
+        "mobilesdk_app_id": "1:400802317803:android:79cc496322bf7c9ace45ae",
         "android_client_info": {
-          "package_name": "com.unesa.goassessment"
+          "package_name": "com.bluenv.goassessment"
         }
       },
       "oauth_client": [],

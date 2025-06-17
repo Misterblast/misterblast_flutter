@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misterblast_flutter/src/config/base_repository.dart';
 import 'package:misterblast_flutter/src/config/network/dio.dart'
@@ -6,6 +7,7 @@ import 'package:misterblast_flutter/src/config/network/dio.dart'
 import 'package:misterblast_flutter/src/models/api_response.dart';
 import 'package:misterblast_flutter/src/models/user.dart';
 import 'package:misterblast_flutter/src/models/user_summary.dart';
+import 'package:misterblast_flutter/src/utils/is_string_url.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_repository.g.dart';
@@ -38,6 +40,29 @@ class UserRepository extends BaseRepository {
       return response.data;
     } catch (e) {
       throw 'Failed to fetch user summary: $e';
+    }
+  }
+
+  Future<void> updateUser({
+    required String userId,
+    String? email,
+    String? name,
+    String? filePath,
+  }) async {
+    try {
+      Map<String, dynamic> formData = {};
+      if (email != null) formData['email'] = email;
+      if (name != null) formData['name'] = name;
+      if (filePath != null && !filePath.isUrl && filePath.isNotEmpty) {
+        formData['image'] = await MultipartFile.fromFile(filePath);
+      }
+
+      await dio.post(
+        'users/$userId',
+        data: FormData.fromMap(formData),
+      );
+    } catch (e) {
+      throw 'Failed to update user: $e';
     }
   }
 }
