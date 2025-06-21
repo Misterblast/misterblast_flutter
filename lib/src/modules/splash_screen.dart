@@ -35,6 +35,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      body: Center(
+        child: Row(
+          spacing: 20,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/app-logo.png", scale: 3.5),
+            Image.asset("assets/images/unesa-logo.png", scale: 3.5),
+          ],
+        ),
+      ),
     );
   }
 }
