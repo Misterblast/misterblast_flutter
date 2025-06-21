@@ -2,28 +2,47 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:misterblast_flutter/src/modules/auth/notifiers/send_verification.dart';
+import 'package:misterblast_flutter/src/themes/theme.dart';
 
-class ResendVerificationEmail extends StatefulWidget {
-  const ResendVerificationEmail({super.key});
+class ResendVerificationEmail extends ConsumerStatefulWidget {
+  const ResendVerificationEmail({super.key, this.onPrevious});
+
+  final VoidCallback? onPrevious;
 
   @override
-  State<ResendVerificationEmail> createState() =>
+  ConsumerState<ResendVerificationEmail> createState() =>
       _ResendVerificationEmailState();
 }
 
-class _ResendVerificationEmailState extends State<ResendVerificationEmail> {
+class _ResendVerificationEmailState
+    extends ConsumerState<ResendVerificationEmail> {
   late Timer _timer;
-  int _remainingSeconds = 300;
+  int _remainingSeconds = 5;
 
   @override
   void initState() {
     super.initState();
     _startTimer();
+    ref.listenManual(
+      sendVerificationProvider,
+      (_, state) => state.whenOrNull(
+        data: (_) => context.pushReplacement(
+          "/update-password?code=kontol-gajah",
+        ),
+      ),
+    );
   }
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingSeconds > 0) {
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
         setState(() {
           _remainingSeconds--;
         });
@@ -80,16 +99,29 @@ class _ResendVerificationEmailState extends State<ResendVerificationEmail> {
                   onPressed: _remainingSeconds > 0
                       ? null
                       : () {
-                          _restartTimer();
+                          ref
+                              .read(sendVerificationProvider.notifier)
+                              .resendEmail();
                         },
                   child: Text(
                     "forgot-password.resend-verification-email".tr(),
                   ),
                 ),
                 Text(
-                  "forgot-password.not-received-email".tr(namedArgs: {
-                    "time": _formatTime(_remainingSeconds),
-                  }),
+                  "forgot-password.not-received-email".tr(
+                    namedArgs: {
+                      "time": _formatTime(_remainingSeconds),
+                    },
+                  ),
+                ),
+                InkWell(
+                  onTap: widget.onPrevious?.call,
+                  child: Text(
+                    context.tr("forgot-password.change-email"),
+                    style: TextStyle(
+                      color: AppColors.primary,
+                    ),
+                  ),
                 )
               ],
             ),

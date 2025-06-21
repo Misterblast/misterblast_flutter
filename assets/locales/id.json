@@ -110,7 +110,8 @@
     "confirm-new-password-placeholder": "Konfirmasi Kata Sandi",
     "reset-password-button": "Ubah Kata Sandi",
     "new-password-tips": "Pastikan untuk menggunakan kata sandi yang mudah diingat",
-    "continue-to-apps": "Anda dapat melanjutkan ke aplikasi atau kembali ke halaman awal, sesuai kebutuhan Anda."
+    "continue-to-apps": "Anda dapat melanjutkan ke aplikasi atau kembali ke halaman awal, sesuai kebutuhan Anda.",
+    "change-email":"Ubah Email"
   },
   "stats": {
     "quiz-done": "Kuis Selesai",

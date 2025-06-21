@@ -31,7 +31,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           loading: () => _loadingOverlay.show(context),
           data: (data) {
             _loadingOverlay.hide();
-            context.pushReplacement("/home");
+            context.go("/home");
           },
           error: (error, stackTrace) {
             _loadingOverlay.hide();
@@ -216,10 +216,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               },
                               controller: _passwordController,
                             ),
-                            // TextButton(
-                            //   child: Text("auth.forgot-password".tr()),
-                            //   onPressed: () => context.push("/reset-password"),
-                            // ),
+                            TextButton(
+                              child: Text("auth.forgot-password".tr()),
+                              onPressed: () => context.push("/reset-password"),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 8),

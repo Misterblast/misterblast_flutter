@@ -78,6 +78,28 @@ class AuthRepository extends BaseRepository {
       throw '$e';
     }
   }
+
+  Future<void> sendVerificationEmail(String email) async {
+    try {
+      await dio.post(
+        'forgot-password',
+        data: {'email': email},
+      );
+    } catch (e) {
+      throw '$e';
+    }
+  }
+
+  Future<void> resetPassword(String code, String password) async {
+    try {
+      await dio.put('reset-password', data: {
+        "token": code,
+        "password": password,
+      });
+    } catch (e) {
+      throw 'Failed to reset password: $e';
+    }
+  }
 }
 
 @Riverpod(keepAlive: true)

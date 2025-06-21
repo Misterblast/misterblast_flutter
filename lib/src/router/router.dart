@@ -72,14 +72,10 @@ GoRouter router(Ref ref) {
         builder: (context, state) => const ResetPassword(),
       ),
       GoRoute(
-        path: "/reset-password-verification",
+        path: "/update-password",
         builder: (context, state) {
-          final email = state.uri.queryParameters["email"] ?? '';
           final code = state.uri.queryParameters["code"] ?? '';
-          return UpdatePassword(
-            email: email,
-            code: code,
-          );
+          return UpdatePassword(code: code);
         },
       ),
       GoRoute(

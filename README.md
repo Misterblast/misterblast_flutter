@@ -26,3 +26,8 @@ How to Run :
    FIREBASE_MESSAGING_SENDER_ID
    FIREBASE_PROJECT_ID
    FIREBASE_STORAGE_BUCKET
+
+
+debt :
+1. profile not updated properly (might be storage issue)
+2. 

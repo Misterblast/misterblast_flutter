@@ -110,7 +110,8 @@
     "confirm-new-password-placeholder": "Confirmation Password",
     "reset-password-button": "Change the password",
     "new-password-tips": "Be sure to use a password that is easy to remember",
-    "continue-to-apps": "You can proceed to the application or return to the initial page, according to your needs."
+    "continue-to-apps": "You can proceed to the application or return to the initial page, according to your needs.",
+    "change-email": "Change Email"
   },
   "stats": {
     "quiz-done": "Completed Quiz",
