@@ -21,6 +21,8 @@ class _UpdatePasswordScreenState extends ConsumerState<UpdatePasswordScreen> {
   final LoadingOverlay _loadingOverlay = LoadingOverlay();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _currentPasswordController =
+      TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -81,19 +83,6 @@ class _UpdatePasswordScreenState extends ConsumerState<UpdatePasswordScreen> {
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
         backgroundColor: theme.colorScheme.primary,
-        bottomSheet: Padding(
-          padding: const EdgeInsets.all(8),
-          child: ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState?.validate() ?? false) {
-                ref
-                    .read(updateUserNotifierProvider.notifier)
-                    .updatePassword(_passwordController.text);
-              }
-            },
-            child: Text(context.tr("forgot-password.reset-password-button")),
-          ),
-        ),
         body: SafeArea(
           child: Stack(
             children: [
@@ -138,6 +127,25 @@ class _UpdatePasswordScreenState extends ConsumerState<UpdatePasswordScreen> {
                               children: [
                                 AppTextFormField(
                                   obsecure: true,
+                                  label: context.tr("profile.current-password"),
+                                  controller: _currentPasswordController,
+                                  hintText: context.tr(
+                                      "profile.current-password-placeholder"),
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return context.tr(
+                                        "auth.exceptions.field-required",
+                                        namedArgs: {
+                                          "fieldName": context
+                                              .tr("profile.new-password"),
+                                        },
+                                      );
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                AppTextFormField(
+                                  obsecure: true,
                                   label: context.tr("profile.new-password"),
                                   controller: _passwordController,
                                   hintText: context
@@ -161,7 +169,7 @@ class _UpdatePasswordScreenState extends ConsumerState<UpdatePasswordScreen> {
                                       .tr("profile.confirm-new-password"),
                                   controller: _confirmPasswordController,
                                   hintText: context.tr(
-                                      "profile.current-password-placeholder"),
+                                      "profile.confirm-new-password-placeholder"),
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return context.tr(
@@ -179,6 +187,21 @@ class _UpdatePasswordScreenState extends ConsumerState<UpdatePasswordScreen> {
                                     }
                                     return null;
                                   },
+                                ),
+                                SizedBox.shrink(),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      ref
+                                          .read(updateUserNotifierProvider
+                                              .notifier)
+                                          .updatePassword(
+                                              _passwordController.text);
+                                    }
+                                  },
+                                  child: Text(context.tr(
+                                      "forgot-password.reset-password-button")),
                                 ),
                               ],
                             ),
