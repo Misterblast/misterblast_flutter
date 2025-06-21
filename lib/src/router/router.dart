@@ -16,6 +16,7 @@ import 'package:misterblast_flutter/src/modules/home/home_screen.dart';
 import 'package:misterblast_flutter/src/modules/main_scaffold.dart';
 import 'package:misterblast_flutter/src/modules/onboarding/onboarding_screen.dart';
 import 'package:misterblast_flutter/src/modules/profile/profile_screen.dart';
+import 'package:misterblast_flutter/src/modules/profile/update_password_screen.dart';
 import 'package:misterblast_flutter/src/modules/profile/update_profile_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/on_quiz_screen.dart';
 import 'package:misterblast_flutter/src/modules/quiz/quiz_result_screen.dart';
@@ -211,6 +212,11 @@ GoRouter router(Ref ref) {
                 path: '/update-profile',
                 parentNavigatorKey: rootNavigatorKey,
                 builder: (context, _) => const UpdateProfileScreen(),
+              ),
+              GoRoute(
+                path: '/update-password',
+                parentNavigatorKey: rootNavigatorKey,
+                builder: (context, _) => const UpdatePasswordScreen(),
               ),
             ],
           ),

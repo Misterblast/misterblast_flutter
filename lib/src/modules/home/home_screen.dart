@@ -30,30 +30,36 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
-            fit: StackFit.loose,
-            children: [
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Image.asset(
-                      'assets/images/home_decor.png',
-                      width: MediaQuery.sizeOf(context).width * 0.7,
+        child: RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(userProvider);
+            ref.invalidate(userSummaryProvider);
+          },
+          child: SingleChildScrollView(
+            child: Stack(
+              fit: StackFit.loose,
+              children: [
+                Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Image.asset(
+                        'assets/images/home_decor.png',
+                        width: MediaQuery.sizeOf(context).width * 0.7,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                spacing: 8,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _HomeHeaderSection(),
-                  _HomeBodySection(),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                Column(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _HomeHeaderSection(),
+                    _HomeBodySection(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

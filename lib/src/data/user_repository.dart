@@ -57,12 +57,26 @@ class UserRepository extends BaseRepository {
         formData['image'] = await MultipartFile.fromFile(filePath);
       }
 
-      await dio.post(
+      await dio.put(
         'users/$userId',
         data: FormData.fromMap(formData),
       );
     } catch (e) {
       throw 'Failed to update user: $e';
+    }
+  }
+
+  Future<void> updatePassword({
+    required int userId,
+    required String newPassword,
+  }) async {
+    try {
+      await dio.put(
+        'users/$userId/password',
+        data: {'password': newPassword},
+      );
+    } catch (e) {
+      throw "Failed to update password: $e";
     }
   }
 }

@@ -100,6 +100,47 @@ class ProfileScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(100),
                                   ),
                                   child: Icon(
+                                    Icons.password,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                                title: Text(
+                                  context.tr("profile.change-password"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                ),
+                                subtitle: Text(
+                                  context.tr(
+                                    "profile.profile-description",
+                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                onTap: () => context.push(
+                                  '/profile/update-password',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                  horizontal: 8,
+                                ),
+                                leading: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary
+                                        .withAlpha(75),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Icon(
                                     Icons.language,
                                     color:
                                         Theme.of(context).colorScheme.primary,

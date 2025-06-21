@@ -1,6 +1,8 @@
 import 'package:misterblast_flutter/src/config/local-storage/shared_preferences.dart';
 import 'package:misterblast_flutter/src/constants/auth_state.dart';
 import 'package:misterblast_flutter/src/constants/shared_preferences.key.dart';
+import 'package:misterblast_flutter/src/providers/user.dart';
+import 'package:misterblast_flutter/src/providers/user_summary.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth.g.dart';
@@ -31,6 +33,8 @@ class AuthNotifier extends _$AuthNotifier {
   void logout() async {
     final sharedPrefs = await ref.watch(sharedPreferencesProvider.future);
     await sharedPrefs.remove(SharedPreferencesKey.accesToken.name);
+    ref.invalidate(userProvider);
+    ref.invalidate(userSummaryProvider);
     setAuthState(AuthState.loggedOut);
   }
 }

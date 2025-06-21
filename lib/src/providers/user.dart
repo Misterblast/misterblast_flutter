@@ -13,9 +13,9 @@ Future<User?>? user(Ref ref) async {
   final authState = ref.watch(authNotifierProvider);
   try {
     if (authState.valueOrNull == AuthState.loggedIn) {
-      return await ref.watch(userRepositoryProvider.future).then(
-            (userRepository) => userRepository.getMe(),
-          );
+      return await ref
+          .watch(userRepositoryProvider.future)
+          .then((userRepository) => userRepository.getMe());
     }
   } catch (e) {
     ref.read(authNotifierProvider.notifier).setAuthState(AuthState.loggedOut);

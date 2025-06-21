@@ -7,12 +7,12 @@ part of 'update_user_notifier.dart';
 // **************************************************************************
 
 String _$updateUserNotifierHash() =>
-    r'4048beafdf4b0ac430e5c6ce90709b94439c6028';
+    r'37df9123d5be6f2261485ad9ec4a78e92c6f5b3d';
 
 /// See also [UpdateUserNotifier].
 @ProviderFor(UpdateUserNotifier)
 final updateUserNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<UpdateUserNotifier, void>.internal(
+    AutoDisposeNotifierProvider<UpdateUserNotifier, AsyncValue<bool>>.internal(
   UpdateUserNotifier.new,
   name: r'updateUserNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final updateUserNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UpdateUserNotifier = AutoDisposeAsyncNotifier<void>;
+typedef _$UpdateUserNotifier = AutoDisposeNotifier<AsyncValue<bool>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
